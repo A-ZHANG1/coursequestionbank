@@ -5,6 +5,9 @@
 [![Test Coverage](https://codeclimate.com/github/jshoe/coursequestionbank/badges/coverage.svg)](https://codeclimate.com/github/jshoe/coursequestionbank/coverage)
 <span style="background-color: blue; text-decoration:none; font: Verdana 7px bold; color:white; padding: 2px; margin: 2px;" ><a style="background-color: blue; text-decoration:none; font: Verdana 7px bold; color:white; padding: 2px; margin: 2px;" href="https://www.pivotaltracker.com/n/projects/1544183">PivotalTracker</a></span>
 
+## Current Status
+Currently, our team (from Cal CS169) is working on its development.
+
 ## User Guide
 
 See the [Wiki](https://github.com/saasbook/coursequestionbank/wiki).
