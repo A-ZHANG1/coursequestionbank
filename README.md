@@ -7,6 +7,10 @@
 
 ## Current Status
 Currently, our team (from Cal CS169) is working on its development.
+# It's now Iteration 1.
+
+Iteration 0 Set Up Verification Videos:
+[Steven Wu](https://www.youtube.com/watch?v=hX8uJXwD0E8)
 
 ## User Guide
 
