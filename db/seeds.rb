@@ -12,7 +12,7 @@ Whitelist.create!(username: @user00.username, provider: "developer", privilege: 
 Whitelist.create!(username: @user01.username, provider: "developer", privilege: "admin")
 @user02 = Instructor.create!(username: "levin", uid: "levin", name: "levin", provider: "developer")
 Whitelist.create!(username: @user02.username, provider: "developer", privilege: "admin")
-@user03 = Instructor.create!(username: "hrzlvn", uid: "", name: "", provider: "developer")
-Whitelist.create!(username: @user03.username, provider: "developer", privilege: "admin")
+
+@user03 = Whitelist.create!(username: "hrzlvn", privilege: "admin")
 
 
