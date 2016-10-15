@@ -6,4 +6,3 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     SessionController.skip_before_filter :verify_authenticity_token, only: :create # to avoid problems when testing with SSL turned on with OmniAuth Developer strategy
   end
 end
-h
