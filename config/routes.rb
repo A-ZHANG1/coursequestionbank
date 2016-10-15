@@ -16,6 +16,7 @@ Coursequestionbank::Application.routes.draw do
   post 'problems/:id/tags/remove' => 'problems#remove_tags', :as => 'remove_tags'
   post 'update_multiple_tags' => 'problems#update_multiple_tags'
   get 'problems/:id/supersede' => 'problems#supersede', :as => 'supersede'
+  get 'problems/:id/add_to_collection' => 'problems#add_to_collection', :as => 'add_to_collection'
   get 'problems/:id/history' => 'problems#view_history', :as => 'problem_history'
 
   get 'profile' => 'instructors#show', :as => 'profile'

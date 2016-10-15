@@ -6,10 +6,16 @@
       = hidden_field_tag :collection, collection.id, :id => nil
       = submit_tag collection.name.truncate(35), :id => "toggle_collection_#{collection.id}_#{problem.id}", :class => "collection-button btn #{selected ? 'btn-info' : 'btn-default'}", :title => collection.name
 
+  // %div.form-group
+  //   %div.col-sm-2
+  //   %div.col-xs-12.col-sm-10
+  //     = collection_select(:problem, :collection_id,Collection.all,:id, :collection_name)
+
 - others = problem.collections.select{ |c| can?(:read, c) and cannot?(:manage, c) }
 - if !others.empty?
   %div.collections-from-others
     Collections from Others:
     - others.each do |collection|
       = link_to collection.name.truncate(35), collection_path(:id => collection.id), :class => 'btn btn-link', :title => collection.name
-//This is a demo
+
+

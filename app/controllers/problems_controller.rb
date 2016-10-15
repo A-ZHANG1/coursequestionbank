@@ -257,6 +257,12 @@ class ProblemsController < ApplicationController
     @ruql_source = flash[:ruql_source]
   end
 
+  def add_to_collection
+    @problem = Problem.find(params[:id])
+    @ruql_source = flash[:ruql_source]
+  end
+
+
   def view_history
     @problem = Problem.find(params[:id])
     @history = @problem.history

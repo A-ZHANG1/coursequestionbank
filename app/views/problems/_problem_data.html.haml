@@ -54,6 +54,7 @@
         Clip Source Code
 
       = link_to "Supersede", supersede_path(:id => problem.id), :id => "supersede_button_#{problem.id}", :class => 'supersede_button btn btn-default'
+      = link_to "Add To Collection", add_to_collection_path(:id => problem.id), :id => "add_to_collection_button_#{problem.id}", :class => 'add_to_collection_button btn btn-default'
 
       - if !problem.previous_version.nil?
         = link_to "See Version History", problem_history_path(:id => problem.id), :id => "history_button_#{problem.id}", :class => 'history_button btn btn-default'
