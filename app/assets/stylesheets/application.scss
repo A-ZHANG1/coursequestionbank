@@ -1,0 +1,56 @@
+
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+
+@import 'header';
+@import 'filter';
+@import 'problems';
+@import 'collections';
+@import 'instructors';
+
+
+#main {
+  padding: 20px 30px 30px;
+}
+
+.form-control {
+  border-radius: 0;
+}
+
+.clr-button {
+  background-color: inherit;
+  font-family: inherit;
+  color: inherit;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+.source_field {
+  font-family: monospace;
+  width: 100%;
+}
+
+
+.section_title {
+  display: inline-block;
+}
+
+.section_options {
+  float: right;
+  margin-top: 20px;
+}
+
+.section_options * {
+  display: inline-block;
+}
+
+.section_options .btn {
+  margin-left: 10px;
+}
+
+.section_body {
+  clear: right;
+  padding-top: 20px;
+}

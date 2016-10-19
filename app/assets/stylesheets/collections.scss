@@ -1,0 +1,21 @@
+
+.collection_form .form-group * {
+  display: inline-block;
+}
+
+.collection_form input[name="name"] {
+  max-width: 250px;
+}
+
+.collection_form textarea[name="description"] {
+  width: 100%;
+}
+
+.collection_form select[name="privacy"] {
+  width: 100px;
+}
+
+
+#export-content textarea {
+  height: 400px;
+}

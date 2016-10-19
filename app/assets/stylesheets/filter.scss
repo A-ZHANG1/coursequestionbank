@@ -1,0 +1,40 @@
+
+.message {
+  color: red;
+}
+
+
+#filter-sidebar {
+  position: absolute;
+  width: 200px;
+}
+
+#filter-form {
+  padding: 0;
+}
+
+.filter_option label {
+  font-weight: normal;
+}
+
+.filter_option input {
+  display: inline-block;
+}
+
+
+#filter-content {
+  position: relative;
+  margin-left: 200px;
+  padding: 0;
+  padding-left: 15px;
+}
+
+
+#page_options {
+  margin-top: 20px;
+}
+
+.pagination {
+  margin: 0px;
+  float: right;
+}

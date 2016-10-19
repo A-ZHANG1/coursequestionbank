@@ -1,0 +1,162 @@
+
+ol.questions { list-style-type: none; font-size: 90%; padding-left: 0; }
+li.question { page-break-inside: avoid; }
+li.multiplechoice  ol.answers { list-style-type: lower-alpha; }
+li.selectmultiple  ol.answers { list-style-type: lower-alpha;  }
+li.truefalse ol.answers { list-style-type: lower-alpha; }
+.correct { color: green; font-weight: bold; border: 1px solid black; padding: 0.2ex; }
+.incorrect { color: red }
+.explanation { font-style: italic }
+.instructions { clear: both; border: 1px solid black; align: center; padding: 2ex; margin: 2ex; }
+
+
+.problem_view {
+  padding-left: 40px;
+}
+
+.new-problem-button {
+  display: inline-block;
+}
+
+.check_form {
+  float: right;
+}
+
+.check_form .form-control {
+  width: 120px;
+  display: inline-block;
+  margin-right: 3px;
+}
+
+.problem_table {
+  clear: right;
+}
+
+th .check_all {
+  margin: 0 0 4px;
+}
+
+
+.tag {
+  display: inline-block;
+}
+
+.tag a {
+  display: inline-block;
+  padding-right: 30px;
+}
+
+.remove_tag {
+  position: relative;
+  left: 100%;
+  margin-left: -20px;
+  margin-top: -23px;
+  width: 12px;
+}
+
+.tag .glyphicon {
+  font-size: 80%;
+}
+
+.tag_list {
+  width: 200px;
+}
+
+// .tag * {
+//   display: inline;
+//   padding: 0px;
+//   margin: 0px;
+//   text-decoration: none;
+// }
+
+.add_tags_form {
+  margin-top: 5px;
+}
+
+.add_tags_form input {
+  width: 100%;
+  margin-top: 20px;
+}
+
+
+.additional {
+  font-size: 80%;
+  margin-top: 15px;
+}
+
+.additional > div {
+  margin: 5px 0;
+}
+
+
+div.prob-right {
+  float: right;
+  margin-top: 0;
+  margin-left: 5px;
+}
+
+.prob_privacy, .prob_obsolete, .collection-buttons form, .collections-from-others form, .bloom-buttons form {
+  display: inline-block;
+  margin: 2px 0;
+}
+
+// .prob-collection {
+//   font-size: inherit;
+//   border: none;
+//   padding: 0 10px;
+// }
+
+
+.previous-form {
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+.previous-form input[type="text"] {
+  display: inline-block;
+  width: 320px;
+}
+
+
+div.hidden-additional {
+  margin-left: 65px;
+}
+
+.history_list > hr {
+  margin: 10px 0;
+}
+
+.new-form select[name="privacy"] {
+  width: 100px;
+}
+
+.new-form select[name="category"] {
+  width: 140px;
+}
+
+
+.new-problem-collections {
+  padding-top: 7px;
+}
+
+.new-problem-collection {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.new-problem-collection label {
+  font-weight: normal;
+}
+
+.new-problem-collection input[type="checkbox"] {
+  display: inline-block;
+  min-height: inherit;
+}
+
+
+.problem_box {
+  background-color: #eeeeee;
+  padding: 10px;
+  margin: 15px;
+  border-radius: 4px;
+}

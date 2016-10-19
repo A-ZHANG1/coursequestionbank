@@ -1,0 +1,40 @@
+
+%link{:href => '//fonts.googleapis.com/css?family=Droid+Serif|Open+Sans:400,800,700', :rel => 'stylesheet', :type => 'text/css'}
+
+
+%html
+  %head
+    %title Course Question Bank
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+    %meta{:name => 'viewport', :content => 'initial-scale=1'}
+
+  %body
+    %div#header
+      #banner
+        = link_to image_tag('foxinboxheader.png'), problems_path
+        - if @current_user
+          #welcome_message Welcome, #{user_display_name(@current_user)}!
+          %ul
+            %li= link_to 'Home', problems_path, :class => 'btn btn-info'
+            - if can? :manage, Collection
+              %li= link_to 'My Collections', profile_path, :class => 'btn btn-info'
+            %li= link_to 'Public Collections', collections_path, :class => 'btn btn-info'
+            - if can? :manage, Whitelist
+              %li= link_to 'Admin', admin_path, :class => 'btn btn-info'
+            %li
+              = form_tag logout_path, :method => :post do
+                = submit_tag 'Log Out', :class => 'btn btn-info'
+            %li= link_to 'Help', 'https://github.com/saasbook/coursequestionbank/wiki', :class => 'btn btn-info', :target => '_blank'
+
+      %div#flash_message
+        - if flash[:notice]
+          %p.message= flash[:notice]
+        - elsif flash[:warning]
+          %p.message= flash[:warning]
+        - elsif flash[:error]
+          %p.message= flash[:error]
+
+    %div#main
+      = yield
