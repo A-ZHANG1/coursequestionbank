@@ -43,17 +43,32 @@
             = hidden_field_tag :category, category, :id => nil
           = submit_tag category, :class => "bloom-button btn #{selected ? 'btn-info' : 'btn-default'}"
 
-    %button#show-collections
-      Update Collections:
+    -# %div.show-collections
+    -#   Your collections:
+    -#   - Collection.accessible_by(current_ability, :manage).each do |collection|
+    -#     - if collection.problems.include? problem
+    -#       %p.collection-name
+    -#         = collection.name
+    -#
+    -# %button.update-collections
+    -#   Update Collections:
 
-    %div.collection-buttons{style: "display: none"}
+    %div.collection-buttons
       Your Collections:
       - Collection.accessible_by(current_ability, :manage).each do |collection|
         = form_tag problem_path(:id => problem.id), :method => :put do
           - selected = collection.problems.include? problem
           = hidden_field_tag :collection, collection.id, :id => nil
-          = submit_tag collection.name.truncate(35), :id => "toggle_collection_#{collection.id}_#{problem.id}", :class => "collection-button btn #{selected ? 'btn-info' : 'btn-default'}", :title => collection.name
-
+          = submit_tag collection.name.truncate(35), :id => "toggle_collection_#{collection.id}_#{problem.id}", :class => "collection-button btn #{selected ? 'btn-info' : 'btn-default'}", :title => collection.name, :style => "display :#{selected ? 'block' : 'none'}"
+      %button{:class => "btn btn-default collections-more-toggle"}
+        More..
+      -# - Collection.accessible_by(current_ability, :manage).each do |collection|
+        = form_tag problem_path(:id => problem.id), :method => :put do
+          - selected = collection.problems.include? problem
+          = hidden_field_tag :collection, collection.id, :id => nil
+          = submit_tag collection.name.truncate(35), :id => "toggle_collection_#{collection.id}_#{problem.id}", :class => "collection-button btn #{selected ? 'btn-info' : 'btn-default'}", :title => collection.name, :style => "display: none"
+      %button{:class => "btn btn-default collections-less-toggle", :style => "display: none"}
+        Less..
 
     %div
       Supersede:

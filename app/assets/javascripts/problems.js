@@ -34,10 +34,33 @@ var AdditionalHidden = {
         problem.find('.history_list').toggle();
         return false;
       });
-      problem.find('button#show-collections').click(function(){
-        problem.find('div.collection-buttons').toggle();
+
+      problem.find('button.collections-more-toggle').click(function(){
+        problem.find('.collection-button').each(function(){
+          $(this).show();
+        })
+        $(this).hide();
+        problem.find('.collections-less-toggle').show()
+
         return false;
       })
+
+      problem.find('button.collections-less-toggle').click(function(){
+        problem.find('.collection-button.btn-default').each(function(){
+          $(this).hide();
+        })
+        $(this).hide();
+        problem.find('.collections-more-toggle').show()
+        return false;
+      })
+
+
+      // var hide_collections_button = problem.find('button.collections-less-toggle')
+      // hide_collections_button.click(function(){
+      //   problem.find('.collection-button btn').toggle();
+      //   return false;
+      // })
+
     });
   }
 };
