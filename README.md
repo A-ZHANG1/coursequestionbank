@@ -1,8 +1,8 @@
 # Course Question Bank - Fall 2016 CS 169 Continuation Project
 
-[![Code Climate](https://codeclimate.com/github/jshoe/coursequestionbank/badges/gpa.svg)](https://codeclimate.com/github/jshoe/coursequestionbank)
-[![Travis CI](https://travis-ci.org/jshoe/coursequestionbank.svg?branch=master)](https://travis-ci.org/jshoe/coursequestionbank)
-[![Test Coverage](https://codeclimate.com/github/jshoe/coursequestionbank/badges/coverage.svg)](https://codeclimate.com/github/jshoe/coursequestionbank/coverage)
+[![Code Climate](https://codeclimate.com/github/jshoe/coursequestionbank/badges/gpa.svg)](https://codeclimate.com/github/hrzlvn/coursequestionbank)
+[![Travis CI](https://travis-ci.org/jshoe/coursequestionbank.svg?branch=master)](https://travis-ci.org/hrzlvn/coursequestionbank)
+[![Test Coverage](https://codeclimate.com/github/jshoe/coursequestionbank/badges/coverage.svg)](https://codeclimate.com/github/hrzlvn/coursequestionbank/coverage)
 <span style="background-color: blue; text-decoration:none; font: Verdana 7px bold; color:white; padding: 2px; margin: 2px;" ><a style="background-color: blue; text-decoration:none; font: Verdana 7px bold; color:white; padding: 2px; margin: 2px;" href="https://www.pivotaltracker.com/n/projects/1544183">PivotalTracker</a></span>
 
 # It's now Iteration 1.
@@ -19,7 +19,7 @@ When running locally, you can click the "Dev Login" button and login as either `
 
 ## Deployment
 
-Currently set up to deploy to Heroku.  There is a Websolr worker that periodically re-indexes the questions so that keyword search will work; you can run it manually with `heroku run rake sunspot:solr:reindex`
+Currently set up to deploy to Heroku. Websolr worker supposed to periodically re-indexes the questions so that keyword search will work; you can run it manually with `heroku run rake sunspot:solr:reindex`, however, Websolr addon costs $20/month therefore the Heroku Deployment is currently not working. Cloud 9 hosting instance can be provided upon GSI's request.
 
 ## To Do
 
