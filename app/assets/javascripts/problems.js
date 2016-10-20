@@ -1,4 +1,3 @@
-
 var Supersession = {
   setup: function() {
     $('.supersede_form form').submit(function(e) {
@@ -35,6 +34,10 @@ var AdditionalHidden = {
         problem.find('.history_list').toggle();
         return false;
       });
+      problem.find('button#show-collections').click(function(){
+        problem.find('div.collection-buttons').toggle();
+        return false;
+      })
     });
   }
 };

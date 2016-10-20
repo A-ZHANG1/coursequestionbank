@@ -35,11 +35,10 @@ ActiveRecord::Schema.define(:version => 20160430062346) do
     t.string   "uid"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
-    t.integer  "current_collection" 
+    t.integer  "current_collection"
     t.string   "provider_image"
     t.string   "provider_email"
     t.string   "username"
-
   end
 
   create_table "problems", :force => true do |t|

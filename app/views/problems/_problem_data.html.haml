@@ -24,12 +24,12 @@
     %div Created #{problem.created_date} by #{problem.instructor.name}
 
     %div UID: #{problem.uid}
-    
+
     - if can? :set_previous, problem
       %div
         Previous version:
         = form_tag problem_path(:id => problem.id), :method => :put, :class => 'previous-form' do
-          = text_field_tag :previous, nil, :id => nil, :class => 'form-control', :placeholder => 'Enter problem UID', 
+          = text_field_tag :previous, nil, :id => nil, :class => 'form-control', :placeholder => 'Enter problem UID',
               :value => (problem.previous_version.uid if problem.previous_version)
 
     %div.bloom-buttons
@@ -43,7 +43,17 @@
             = hidden_field_tag :category, category, :id => nil
           = submit_tag category, :class => "bloom-button btn #{selected ? 'btn-info' : 'btn-default'}"
 
-    = render :partial => 'problems/collection_buttons', :locals => {:problem => problem}
+    %button#show-collections
+      Update Collections:
+
+    %div.collection-buttons{style: "display: none"}
+      Your Collections:
+      - Collection.accessible_by(current_ability, :manage).each do |collection|
+        = form_tag problem_path(:id => problem.id), :method => :put do
+          - selected = collection.problems.include? problem
+          = hidden_field_tag :collection, collection.id, :id => nil
+          = submit_tag collection.name.truncate(35), :id => "toggle_collection_#{collection.id}_#{problem.id}", :class => "collection-button btn #{selected ? 'btn-info' : 'btn-default'}", :title => collection.name
+
 
     %div
       Supersede:
