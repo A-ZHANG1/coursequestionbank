@@ -1,5 +1,6 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :github, Figaro.env.github_key!, Figaro.env.github_secret!
+  #provider :github, Figaro.env.github_key!, Figaro.env.github_secret!
+  provider :developer, :fields => [:uid], :uid_field => [:uid]
   if Rails.env.development? or Rails.env.test
     provider :developer, :fields => [:uid], :uid_field => [:uid]
     # see seeds.rb for available :developer logins
