@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 %div.collection-buttons{:style => "display: none"}
+=======
+%div.collection-buttons
+  Your Collections:
+>>>>>>> 2fdeda9c5b01d0c24f72f4186a3547d5f6c4be11
   - Collection.accessible_by(current_ability, :manage).each do |collection|
     = form_tag problem_path(:id => problem.id), :method => :put do
       - selected = collection.problems.include? problem
