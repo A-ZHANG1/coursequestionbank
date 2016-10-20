@@ -7,15 +7,10 @@ Instructor.delete_all
 
 # These two are only available when the omniauth 'developer' strategy is enabled (ie, not in production)
 @user00 = Instructor.create!(username: "saas", uid: "saas", name: "SaaS Instructor", provider: "developer")
-Whitelist.create!(username: @user00.username, provider: "developer", privilege: "instructor")
+Whitelist.create!(username: @user00.username, provider: "developer", privilege: "instructor", level: 1)
 @user01 = Instructor.create!(username: "saas-admin", uid: "saas-admin", name: "Admin", provider: "developer")
-Whitelist.create!(username: @user01.username, provider: "developer", privilege: "admin")
+Whitelist.create!(username: @user01.username, provider: "developer", privilege: "admin", level: 0)
 @user02 = Instructor.create!(username: "levin", uid: "levin", name: "levin", provider: "developer")
-Whitelist.create!(username: @user02.username, provider: "developer", privilege: "admin")
+Whitelist.create!(username: @user02.username, provider: "developer", privilege: "admin", level: 0)
 
 @user03 = Whitelist.create!(username: "hrzlvn", privilege: "admin")
-
-@user02 = Instructor.create!(username: "saas-admin", uid: "saas-admin", name: "Admin", provider: "github")
-Whitelist.create!(username: @user01.username, provider: "developer", privilege: "admin")
-
-
