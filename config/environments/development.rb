@@ -35,8 +35,3 @@ Coursequestionbank::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
   
-<<<<<<< HEAD
-  
-=======
->>>>>>> 2fdeda9c5b01d0c24f72f4186a3547d5f6c4be11
-end
