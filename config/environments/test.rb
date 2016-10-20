@@ -36,9 +36,6 @@ Coursequestionbank::Application.configure do
   config.active_support.deprecation = :stderr
   
   #Turn on ImniAuth test mode
-<<<<<<< HEAD
-  
-=======
+
   OmniAuth.config.test_mode = true
->>>>>>> 2fdeda9c5b01d0c24f72f4186a3547d5f6c4be11
 end
