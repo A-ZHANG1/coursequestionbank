@@ -241,7 +241,7 @@ $RECYCLE.BIN/
 *.lnk
 TAGS
 sunspot-solr.pid
-config/application.yml
+# config/application.yml
 
 # Ignore application configuration
-/config/application.yml
+#/config/application.yml
