@@ -23,5 +23,5 @@
         - problems.each do |problem|
           %tr
             - columns.each do |col|
-              %td= render :partial => 'problems/problem_data', :locals => {:problem => problem, :column => col, :group_id => group_id}
+              %td= render :partial => 'problems/student_problem_data', :locals => {:problem => problem, :column => col, :group_id => group_id}
               

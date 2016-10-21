@@ -45,6 +45,18 @@
 
     = render :partial => 'problems/collection_buttons', :locals => {:problem => problem}
 
+    // %div
+    //   Add To Collection:
+    //   %textarea{:id => "source_#{problem.id}", :value => "current_ruql", :style => "display: none"}= #{problem.ruql_source}
+    //   %button{"data-clipboard-target" => "source_#{problem.id}", "data-clipboard-text" => "",
+    //           :title => "", :id => "copy_source_button_#{problem.id}", :class => "d_clip_button btn btn-default",
+    //           :value => "copy_source_button_#{problem.id}", :style => ('display: none' if not Rails.env.test?)}
+    //     Clip Source Code
+    //   = link_to "Add To Collection", add_to_collection_path(:id => problem.id), :id => "add_to_collection_button_#{problem.id}", :class => 'add_to_collection_button btn btn-default'
+
+
+    
+
     %div
       Supersede:
       %textarea{:id => "source_#{problem.id}", :value => "current_ruql", :style => "display: none"}= #{problem.ruql_source}
@@ -53,11 +65,16 @@
               :value => "copy_source_button_#{problem.id}", :style => ('display: none' if not Rails.env.test?)}
         Clip Source Code
 
-      = link_to "Supersede", supersede_path(:id => problem.id), :id => "supersede_button_#{problem.id}", :class => 'supersede_button btn btn-default'
-      = link_to "Add To Collection", add_to_collection_path(:id => problem.id), :id => "add_to_collection_button_#{problem.id}", :class => 'add_to_collection_button btn btn-default'
+      =link_to "Supersede", supersede_path(:id => problem.id), :id => "supersede_button_#{problem.id}", :class => 'supersede_button btn btn-default'
+      
 
       - if !problem.previous_version.nil?
         = link_to "See Version History", problem_history_path(:id => problem.id), :id => "history_button_#{problem.id}", :class => 'history_button btn btn-default'
+
+
+    %div.add_to_collection_form.hidden-additional{:style => 'display: none'}
+      = render :partial => 'problems/add_to_collection', :locals => {:previous => problem}
+
 
     %div.supersede_form.hidden-additional{:style => 'display: none'}
       = render :partial => 'problems/new_form', :locals => {:previous => problem}
