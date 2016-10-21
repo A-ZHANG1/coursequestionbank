@@ -7,6 +7,7 @@ Background:
   Given I am signed in with uid "1234" and provider "github"
 
 Scenario: Admin enables whitelist restrictions
+# pending implementation
   Given the whitelist is disabled
   And I am on the admin page
   And I press "Enable whitelist"
@@ -16,6 +17,7 @@ Scenario: Admin enables whitelist restrictions
   Then I should be on the login page
 
 Scenario: Admin disables whitelist restrictions
+# pending implementation
   Given the whitelist is enabled
   And I am on the admin page
   And I press "Disable whitelist"
