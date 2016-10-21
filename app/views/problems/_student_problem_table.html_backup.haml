@@ -6,13 +6,6 @@
   %h3= empty_msg
 
 - else
-  - if group_id == 0
-    = link_to 'New question', new_problem_path, :class => 'btn btn-primary', :style => "display: none" 
-
-  - if columns.include? :checkbox
-    = form_tag update_multiple_tags_path, :id => "update_multiple_tags_#{group_id}", :class => 'check_form', :style => "display: none" do
-      = text_field_tag :tag_names, nil, :id => nil, :class => 'form-control', :placeholder => 'tag 1, tag 2'
-      = submit_tag 'Tag checked problems', :class => 'btn btn-primary'
 
   %div.table-responsive.problem_table
     %table.table.table-striped
@@ -30,4 +23,4 @@
         - problems.each do |problem|
           %tr
             - columns.each do |col|
-              %td= render :partial => 'problems/problem_data', :locals => {:problem => problem, :column => col, :group_id => group_id}
+              %td= render :partial => 'problems/student_problem_data', :locals => {:problem => problem, :column => col, :group_id => group_id}
