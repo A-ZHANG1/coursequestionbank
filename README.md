@@ -7,7 +7,8 @@
 
 # Current Status
 Currently, our six-students team (from Cal CS169) is working on the development.
-## It's now Iteration 1.
+## It's now Iteration 1-2.
+Please see ./iterations/README.md for more details.
 
 ## User Guide
 
