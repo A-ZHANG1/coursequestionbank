@@ -27,8 +27,8 @@ Scenario: Student should not see problem details
 
 Feature: collection buttons can be collapsed
 	As an instructor
-	I want to have a nicer user interface
-	So that I want to add a button that can expand or collapse collections
+	I want to have a nicer user interface 
+	So that I want to add a button that can expand or collapse collections  
 
 Background:
 	Given I am signed in with uid "1234" and provider "github"

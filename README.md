@@ -19,7 +19,7 @@ When running locally, you can click the "Dev Login" button and login as either `
 
 ## Deployment
 
-Currently set up to deploy to Heroku. Websolr worker supposed to periodically re-indexes the questions so that keyword search will work; you can run it manually with `heroku run rake sunspot:solr:reindex`, please send an Email to RZH at Berkeley dot edu to submit a whitelist request.
+Currently set up to deploy to Heroku. Websolr worker supposed to periodically re-indexes the questions so that keyword search will work; you can run it manually with `heroku run rake sunspot:solr:reindex`, please send an Email to RZH at Berkeley dot edu to submit a whitelist request. [Course Question Bank on Heroku](https://coursequestionbank.herokuapp.com/)
 
 ## To Do
 
