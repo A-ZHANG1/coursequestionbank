@@ -21,7 +21,7 @@ class Instructor < ActiveRecord::Base
   
   def privilege
     whitelist = Whitelist.find_by_username_and_provider(username, provider)
-    whitelist ? whitelist.privilege : nil
+    whitelist ? whitelist.privilege : "student"
   end
 
   def admin?
@@ -30,5 +30,9 @@ class Instructor < ActiveRecord::Base
 
   def instructor?
     return privilege == "instructor"
+  end
+  
+  def student?
+    return privilege == "student"
   end
 end
