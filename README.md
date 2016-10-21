@@ -19,7 +19,7 @@ When running locally, you can click the "Dev Login" button and login as either `
 
 ## Deployment
 
-Currently set up to deploy to Heroku. Websolr worker supposed to periodically re-indexes the questions so that keyword search will work; you can run it manually with `heroku run rake sunspot:solr:reindex`, however, Websolr addon costs $20/month therefore the Heroku Deployment is currently not working. Cloud 9 hosting instance can be provided upon GSI's request.
+Currently set up to deploy to Heroku. Websolr worker supposed to periodically re-indexes the questions so that keyword search will work; you can run it manually with `heroku run rake sunspot:solr:reindex`, please send an Email to RZH at Berkeley dot edu to submit a whitelist request.
 
 ## To Do
 
