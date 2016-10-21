@@ -34,7 +34,11 @@ class Ability
     end
     
     if user.student?
-      can :read, Problem, :is_public => true
+      can :manage, Problem, :instructor_id => user.id
+      can [:read], Problem, :is_public => true
+      
+      can :manage, Collection, :instructor_id => user.id
+      can [:read], Collection, :is_public => true
     end
     
     if !Whitelist.is_enabled or user.admin? or user.instructor?

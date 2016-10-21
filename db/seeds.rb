@@ -15,7 +15,6 @@ Whitelist.create!(username: @user02.username, provider: "developer", privilege: 
 
 @user03 = Whitelist.create!(username: "hrzlvn", privilege: "admin")
 
-@user02 = Instructor.create!(username: "saas-admin", uid: "saas-admin", name: "Admin", provider: "github")
-Whitelist.create!(username: @user01.username, provider: "developer", privilege: "admin")
+@user05 = Instructor.create!(username: "student", uid: "student", name: "student", provider: "developer")
 
 
