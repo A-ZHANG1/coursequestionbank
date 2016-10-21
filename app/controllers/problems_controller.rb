@@ -64,6 +64,7 @@ class ProblemsController < ApplicationController
 
   def index
     @collections = @current_user.collections
+    # @is_student = cannot? :manage Collections
     @problems = Problem.filter(@current_user, session[:filters].clone, Problem.find_by_id(flash[:bump_problem]))
   end
 

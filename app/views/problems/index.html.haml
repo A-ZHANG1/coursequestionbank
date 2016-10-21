@@ -4,7 +4,7 @@
 
 
 %div#filter-content.container-fluid
-  - if can? :manage, @problem
+  - if can? :manage, @problems
     = render :partial => 'problem_table', :locals => {:problems => @problems, :columns => [:checkbox, :problem, :tags],
                                                     :empty_msg => 'No questions matched your search criteria'}
   - else
