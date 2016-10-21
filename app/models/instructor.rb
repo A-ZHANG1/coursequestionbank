@@ -21,7 +21,11 @@ class Instructor < ActiveRecord::Base
   
   def privilege
     whitelist = Whitelist.find_by_username_and_provider(username, provider)
-    whitelist ? whitelist.privilege : "student"
+    if whitelist
+      return whitelist.privilege 
+    else 
+      return "student"
+    end 
   end
 
   def admin?

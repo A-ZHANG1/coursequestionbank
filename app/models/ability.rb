@@ -34,6 +34,7 @@ class Ability
     end
     
     if user.student?
+      
       can :manage, Problem, :instructor_id => user.id
       can [:read], Problem, :is_public => true
       
