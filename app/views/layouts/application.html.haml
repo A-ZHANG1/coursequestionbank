@@ -15,7 +15,7 @@
       #banner
         = link_to image_tag('foxinboxheader.png'), problems_path
         - if @current_user
-          #welcome_message Welcome, #{user_display_name(@current_user)}!, #{@current_user.string_rep}
+          #welcome_message Welcome, #{user_display_name(@current_user)}, #{@current_user.string_rep}!
           %ul
             %li= link_to 'Home', problems_path, :class => 'btn btn-info'
             - if can? :manage, Collection
