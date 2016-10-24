@@ -29,6 +29,16 @@ class Instructor < ActiveRecord::Base
     end
   end
 
+  def string_rep
+    if admin?
+      return "admin"
+    elsif student?
+      return "student"
+    else
+      return "instructor"
+    end
+  end
+
   def privilege
     # debugger
     # if username.nil?

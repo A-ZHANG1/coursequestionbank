@@ -23,7 +23,8 @@
 
     %div Created #{problem.created_date} by #{problem.instructor.name}
 
-    %div UID: #{problem.uid}
+    - if can? :manage, problem and problem.instructor_id == @current_user.id
+      %div UID: #{problem.uid}
 
     - if can? :set_previous, problem
       %div

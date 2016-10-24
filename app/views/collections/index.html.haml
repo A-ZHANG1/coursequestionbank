@@ -2,8 +2,9 @@
 %h3.section_title= @heading
 
 %div.section_options
-  = link_to 'New collection', new_collection_path, :class => 'btn btn-primary'
-  = link_to 'Upload questions', upload_path, :class => 'btn btn-primary'
+  - if can? :manage, @collections
+    = link_to 'New collection', new_collection_path, :class => 'btn btn-primary'
+    = link_to 'Upload questions', upload_path, :class => 'btn btn-primary'
 
 
 - if @collections.empty?
