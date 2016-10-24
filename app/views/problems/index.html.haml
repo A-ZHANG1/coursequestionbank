@@ -4,12 +4,9 @@
 
 
 %div#filter-content.container-fluid
-  - if can? :manage, @problemss
-    = render :partial => 'problem_table', :locals => {:problems => @problems, :columns => [:checkbox, :problem, :tags],
+  = render :partial => 'problem_table', :locals => {:problems => @problems, :columns => [:checkbox, :problem, :tags],
                                                     :empty_msg => 'No questions matched your search criteria'}
-  - else
-    = render :partial => 'student_problem_table', :locals => {:problems => @problems, :columns => [:checkbox, :problem, :tags],
-                                                    :empty_msg => 'No questions matched your search criteria'}
+
 
   - if !@problems.nil? and !@problems.select{|p| can? :read, p}.empty?
     %div.row#page_options
