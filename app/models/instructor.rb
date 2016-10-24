@@ -32,7 +32,7 @@ class Instructor < ActiveRecord::Base
   def privilege
     # debugger
     # if username.nil?
-    #   username = "saas-admin"
+    #   username = "saas"
     # end
     whitelist = Whitelist.find_by_username_and_provider(username, provider)
 

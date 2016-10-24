@@ -32,7 +32,7 @@ class Ability
     # if user.admin?
     #   can :manage, Whitelist
     # end
-    # debugger
+    # # debugger
     if user.student?
       # debugger
       can [:read], Problem, :is_public => true
@@ -41,7 +41,6 @@ class Ability
     end
     
     if !user.student? and (!Whitelist.is_enabled or user.admin? or user.instructor?)
-      # debugger
       can :manage, Problem, :instructor_id => user.id
       can [:read, :update, :supersede, :view_history, :add_tags, :remove_tags, :bloom_categorize], Problem, :is_public => true
       
