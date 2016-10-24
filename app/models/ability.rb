@@ -48,5 +48,10 @@ class Ability
       can :manage, Collection, :instructor_id => user.id
       can [:read, :export, :preview], Collection, :is_public => true
     end
+
+    if user.admin?
+      can :manage, Whitelist, :instructor_id => user.id
+      can [:read, :export, :preview], Whitelist, :is_public => true
+    end
   end
 end
