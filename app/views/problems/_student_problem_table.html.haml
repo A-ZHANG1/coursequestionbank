@@ -1,8 +1,8 @@
-- if !problems.nil?
-  - problems = problems.select{|p| can? :read, p}
-  - group_id = local_assigns[:group_id].nil? ? 0 : group_id
 
-- if (problems.nil? or problems.empty?) and !local_assigns[:empty_msg].nil?
+- problems = problems.select{|p| can? :read, p}
+- group_id = local_assigns[:group_id].nil? ? 0 : group_id
+
+- if problems.empty? and !local_assigns[:empty_msg].nil?
   %h3= empty_msg
 
 - else
