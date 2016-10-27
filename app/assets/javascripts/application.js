@@ -47,7 +47,27 @@ jQuery(document).ready(function() {
 
 var LoginPanel = {
 	setup: function() {
-		var IdentityPanel = $('#choose-identity').hide();
-		$('#login/a href="/auth/developer"').click();
+
+		var IdentityPanel = $('#choose-identity');
+		var BackButton = $('#back');
+		var LoginButton = $('#login');
+
+		IdentityPanel.hide();
+		BackButton.hide();
+
+		LoginButton.click(function() {
+			BackButton.show();
+			LoginButton.hide();
+			IdentityPanel.show();
+			return false;
+		});
+		
+		BackButton.click(function() {
+			BackButton.hide();
+			LoginButton.show();
+			IdentityPanel.hide();
+			return false;
+		});
 	}
 }
+$(LoginPanel.setup);
