@@ -63,7 +63,11 @@ class ProblemsController < ApplicationController
   end
 
   def index
-    @collections = @current_user.collections
+    if @current_user.respond_to?(:collections)
+      @collections = @current_user.collections
+    else
+      @collections = Collection.find_by_is_public(:true)
+    end
     # @is_student = cannot? :manage Collections
     # debugger
     @problems = Problem.filter(@current_user, session[:filters].clone, Problem.find_by_id(flash[:bump_problem]))
@@ -81,7 +85,7 @@ class ProblemsController < ApplicationController
         flash[:error] = "Could not find #{params[:parent_uid]}, using default previous question"
       end
     end
-    
+
     privacy = params[:privacy] ? params[:privacy].strip.downcase : nil
     category = Problem.all_bloom_categories.include?(params[:category]) ? params[:category] : nil
     collections = []
