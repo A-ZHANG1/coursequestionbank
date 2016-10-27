@@ -2,7 +2,7 @@
 %h3.section_title= @heading
 
 %div.section_options
-  - if @current_user.level != 3
+  - if @current_user.instructor? || @current_user.admin?
     = link_to 'New collection', new_collection_path, :class => 'btn btn-primary'
     = link_to 'Upload questions', upload_path, :class => 'btn btn-primary'
 
@@ -21,7 +21,7 @@
           %th Description
           %th Last used
           %th Privacy
-      
+
       %tbody
         - @collections.each do |collection|
           %tr
