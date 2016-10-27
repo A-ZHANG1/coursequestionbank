@@ -14,6 +14,11 @@ task :clean do
 end
 
 desc "Set up sunspot before running App on C9."
-task :sunspot do
-  sh "bundle exec sunspot-solr stop && bundle exec sunspot-solr start -p 8983"
+task :run do
+  sh "bundle exec sunspot-solr start -p 8983"
+end
+
+desc "Shut sunspot off before running any migrations"
+task :stop do
+  sh "bundle exec sunspot-solr stop"
 end

@@ -22,5 +22,7 @@ class SessionController < ApplicationController
   end
 
   def login
+    debugger
+    @dev_users = User.dev_users
   end
 end

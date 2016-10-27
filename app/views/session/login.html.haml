@@ -5,3 +5,6 @@
   = link_to 'Log in with your GitHub account', '/auth/github', class: "btn btn-default"
   = link_to 'Dev Login', '/auth/developer', class: "btn btn-default" unless Rails.env.production?
 
+%div.text-center
+  - @dev_users.each do |user|
+    = user.username
