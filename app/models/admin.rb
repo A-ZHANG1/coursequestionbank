@@ -1,0 +1,2 @@
+Class Admin < Instr
+end

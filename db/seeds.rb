@@ -21,5 +21,3 @@ Whitelist.create!(username: @user02.username, provider: "developer", privilege: 
 # =======
 @user05 = Instructor.create!(username: "student", uid: "student", name: "student", provider: "developer")
 # >>>>>>> 97dbe64914fad6110a01d8b9eb5bd76f4c092473
-
-
