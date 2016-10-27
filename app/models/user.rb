@@ -6,14 +6,14 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    privilege == "admin"
+    privilege == "Admin"
   end
 
   def instructor?
-    privilege == "instructor"
+    privilege == "Instructor"
   end
 
   def student?
-    privilege == "student"
+    privilege == "Student"
   end
 end

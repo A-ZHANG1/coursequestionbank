@@ -61,7 +61,7 @@ var LoginPanel = {
 			IdentityPanel.show();
 			return false;
 		});
-		
+
 		BackButton.click(function() {
 			BackButton.hide();
 			LoginButton.show();
