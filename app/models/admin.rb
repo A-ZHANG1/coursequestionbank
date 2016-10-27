@@ -1,3 +1,3 @@
-class Admin < User
-    @privilege = "Admin"
+class Admin < Instructor
+
 end

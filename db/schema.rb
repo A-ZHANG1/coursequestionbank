@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20160430062346) do
     t.string   "provider_email"
     t.string   "username"
     t.string   "privilege"
+    t.string  :type
   end
 
   create_table "problems", :force => true do |t|
