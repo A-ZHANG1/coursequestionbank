@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160430062346) do
+ActiveRecord::Schema.define(:version => 20160429232326) do
 
   create_table "collections", :force => true do |t|
     t.integer  "instructor_id"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20160430062346) do
     t.integer "problem_id"
   end
 
-  create_table "instructors", :force => true do |t|
+  create_table "instructions", :force => true do |t|
     t.string   "name"
     t.string   "provider"
     t.string   "uid"
