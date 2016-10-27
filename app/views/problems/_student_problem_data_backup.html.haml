@@ -1,8 +1,0 @@
-
-- if column == :checkbox
-  = check_box_tag "checked_problems[#{problem.id}]", 1, false, id: "checked_problems_#{problem.id}",
-    class: "checkbox check_box_#{group_id}", form: "update_multiple_tags_#{group_id}"
-
-
-- if column == :problem
-  %div.problem_view= problem.html5.html_safe

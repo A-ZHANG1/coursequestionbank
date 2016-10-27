@@ -32,6 +32,7 @@ class Ability
     can [:read], Problem, :is_public => true
     can [:read], Collection, :is_public => true
 
+    debugger
     if user.instructor?
       can :manage, Problem, :instructor_id => user.id
       can [:read, :update, :supersede, :view_history, :add_tags, :remove_tags, :bloom_categorize], Problem, :is_public => true
