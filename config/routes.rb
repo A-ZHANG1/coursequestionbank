@@ -3,7 +3,7 @@ Coursequestionbank::Application.routes.draw do
   root :to => 'problems#home'
 
   match  'auth/:provider/callback' => 'session#create'
-  get 'auth/bypass' => 'session#bypass', :as => 'bypass'
+  get 'auth/bypass/:user_id' => 'session#bypass', :as => 'bypass'
   post 'logout' => 'session#destroy'
   get  'auth/failure' => 'session#failure'
   get 'login' => 'session#login', :as => 'login'
