@@ -18,18 +18,18 @@ class InstructorsController < ApplicationController
     # @unauthorized_users = Instructor.all.select{|i| i.privilege.nil?}
     @whitelist = Whitelist.order(:username)
   end
-  
+
   def update_whitelist
     authorize! :manage, Whitelist
     username = params[:username] ? params[:username].strip : nil
     provider = params[:provider]
     privilege = params[:privilege]
-    
+
     if username == @current_user.username and provider == @current_user.provider and privilege != @current_user.privilege
       flash[:error] = "Can't change your own privilege level"
       redirect_to :back and return
     end
-    
+
     if username == ''
       flash[:error] = 'Please enter a username.'
       redirect_to :back and return
@@ -40,7 +40,7 @@ class InstructorsController < ApplicationController
       flash[:error] = 'Please select a privilege level.'
       redirect_to :back and return
     end
-    
+
     whitelist = Whitelist.find_by_username_and_provider(username, provider)
     if whitelist
       whitelist.update_attribute(:privilege, privilege)
@@ -51,21 +51,21 @@ class InstructorsController < ApplicationController
     flash[:notice] = 'Whitelist updated.'
     redirect_to :back
   end
-  
+
   def delete_whitelist_entry
     authorize! :manage, Whitelist
     whitelist = Whitelist.find(params[:id])
-    
+
     if whitelist.username == @current_user.username and whitelist.provider == @current_user.provider
       flash[:error] = "Can't change your own privilege level"
       redirect_to :back and return
     end
-    
+
     whitelist.destroy
     flash[:notice] = 'Whitelist entry removed'
     redirect_to :back
   end
-  
+
   def toggle_whitelist
     authorize! :manage, Whitelist
     Whitelist.is_enabled = !Whitelist.is_enabled

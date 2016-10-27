@@ -29,16 +29,16 @@ ActiveRecord::Schema.define(:version => 20160430062346) do
     t.integer "problem_id"
   end
 
-  create_table "instructors", :force => true do |t|
+  create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "provider"
     t.string   "uid"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
-    t.integer  "current_collection"
     t.string   "provider_image"
     t.string   "provider_email"
     t.string   "username"
+    t.string   "privilege"
   end
 
   create_table "problems", :force => true do |t|
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(:version => 20160430062346) do
     t.string   "privilege"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
-    t.string   "provider",   :default => "github"
+    t.string   "provider"
   end
 
 end

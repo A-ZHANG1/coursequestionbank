@@ -64,7 +64,9 @@ Coursequestionbank::Application.configure do
   OmniAuth.config.test_mode = false
 
   # etc.
+
 end
+
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
