@@ -1,4 +1,4 @@
-class Instructor < User
+class Instr < Student
   has_many :collections
   has_many :problems
   attr_accessible :collections
