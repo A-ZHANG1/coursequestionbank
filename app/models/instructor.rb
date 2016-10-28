@@ -1,7 +1,9 @@
-class User < ActiveRecord::Base
+class Instructor < ActiveRecord::Base
 
-  # attr_accessible :name, :username, :uid, :provider, :provider_image, :provider_email, :privilege
+  attr_accessible :name, :username, :uid, :provider, :provider_image, :provider_email, :privilege, :collections, :problem
 
+  has_many :collections
+  has_many :problems
   def self.dev_users
     where(:provider => "developer")
   end
@@ -17,14 +19,14 @@ class User < ActiveRecord::Base
   # def student?
   #   privilege == "Student"
   # end
-
-  attr_accessible :name,
-                  :username,
-                  :uid,
-                  :provider,
-                  :provider_image,
-                  :provider_email,
-                  :privilege
+  #
+  # attr_accessible :name,
+  #                 :username,
+  #                 :uid,
+  #                 :provider,
+  #                 :provider_image,
+  #                 :provider_email,
+  #                 :privilege
 
   # def level
   #   if admin?
@@ -46,19 +48,19 @@ class User < ActiveRecord::Base
   #   end
   # end
 
-  # def privilege
-  #   # debugger
-  #   # if username.nil?
-  #   #   username = "saas"
-  #   # end
-  #   whitelist = Whitelist.find_by_username_and_provider(username, provider)
-  #
-  #   if whitelist
-  #     return whitelist.privilege
-  #   else
-  #     return "student"
-  #   end
-  # end
+  def privilege
+    # debugger
+    # if username.nil?
+    #   username = "saas"
+    # end
+    whitelist = Whitelist.find_by_username_and_provider(username, provider)
+
+    if whitelist
+      return whitelist.privilege
+    else
+      return "student"
+    end
+  end
 
   # def admin?
   #   return privilege == "admin"

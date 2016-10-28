@@ -147,15 +147,15 @@ class Problem < ActiveRecord::Base
         paginate :page => filters['page'], :per_page => filters['per_page']
       end
     end
-    
-    if !problems.nil?  
+
+    if !problems.nil?
       results = problems.results
       if !bump_problem.nil?
         results.reject! {|p| p.id == bump_problem.id}
         results.insert(0, bump_problem)
       end
     end
-  
+
     return results
   end
 

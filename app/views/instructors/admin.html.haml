@@ -27,7 +27,7 @@
         //     = form_tag update_whitelist_path, :id => "whitelist-form-new" do
         //       = submit_tag 'Add to whitelist', :class => 'btn btn-primary', :id => 'new-submit'
         //   %td
-        - @User.each do |entry|
+        - @instructor.each do |entry|
           %tr
             %td= entry.username
             %td= entry.provider

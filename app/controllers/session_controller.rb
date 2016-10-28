@@ -8,8 +8,8 @@ class SessionController < ApplicationController
 
   def create
     auth = request.env["omniauth.auth"]
-    user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) ||
-             Student.create_via_omniauth(auth)
+    user = Instructor.find_by_provider_and_uid(auth["provider"], auth["uid"]) ||
+             Instructor.create_via_omniauth(auth)
     session[:user_id] = user.id
     redirect_to problems_path
   end
@@ -27,6 +27,6 @@ class SessionController < ApplicationController
   end
 
   def login
-    @dev_users = User.dev_users
+    @dev_users = Instructor.dev_users
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161027082553) do
+ActiveRecord::Schema.define(:version => 20161028040421) do
 
   create_table "collections", :force => true do |t|
     t.integer  "instructor_id"
@@ -29,17 +29,17 @@ ActiveRecord::Schema.define(:version => 20161027082553) do
     t.integer "problem_id"
   end
 
-  create_table "users", :force => true do |t|
+  create_table "instructors", :force => true do |t|
     t.string   "name"
     t.string   "provider"
     t.string   "uid"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+    t.integer  "current_collection"
     t.string   "provider_image"
     t.string   "provider_email"
     t.string   "username"
     t.string   "privilege"
-    t.string  :type
   end
 
   create_table "problems", :force => true do |t|
@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(:version => 20161027082553) do
     t.string   "privilege"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
-    t.string   "provider"
+    t.string   "provider",   :default => "github"
   end
 
 end
