@@ -32,8 +32,8 @@ class Ability
     can [:read], Problem, :is_public => true
     can [:read], Collection, :is_public => true
 
-    
-    if user.instructor?
+
+    if user.class == Instr
       can :manage, Problem, :instructor_id => user.id
       can [:read, :update, :supersede, :view_history, :add_tags, :remove_tags, :bloom_categorize], Problem, :is_public => true
 
@@ -41,7 +41,7 @@ class Ability
       can [:read, :export, :preview], Collection, :is_public => true
     end
 
-    if user.admin?
+    if user.class == Admin
       can :manage, Whitelist
     end
   end

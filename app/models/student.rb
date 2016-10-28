@@ -1,4 +1,5 @@
 class Student < User
+<<<<<<< HEAD
   def self.create_via_omniauth(auth)
     create! do |user|
       user.provider = auth["provider"]
@@ -14,4 +15,8 @@ class Student < User
       user.privilege = "Student"
     end
   end
+=======
+  attr_accessor :current_collection
+  has_many :collections
+>>>>>>> origin/migration-2
 end
