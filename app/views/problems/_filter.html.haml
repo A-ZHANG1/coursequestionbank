@@ -38,7 +38,7 @@
         = label_tag "bloom_category_#{category}", category
 
   %hr
-  - if @collections
+  - unless @collections.nil?
     %div.form-group
       = label_tag :collections, 'Collections:'
       - @collections.each do |collection|
