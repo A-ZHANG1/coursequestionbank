@@ -1,2 +1,2 @@
-class Admin < Instructor
+class Admin < Instr
 end
