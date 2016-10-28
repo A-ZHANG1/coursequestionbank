@@ -8,17 +8,17 @@ class Instructor < ActiveRecord::Base
     where(:provider => "developer")
   end
 
-  # def admin?
-  #   privilege == "Admin"
-  # end
-  #
-  # def instructor?
-  #   privilege == "Instructor"
-  # end
-  #
-  # def student?
-  #   privilege == "Student"
-  # end
+  def admin?
+    privilege == "Admin"
+  end
+
+  def instructor?
+    privilege == "Instructor"
+  end
+
+  def student?
+    privilege == "Student"
+  end
   #
   # attr_accessible :name,
   #                 :username,
@@ -56,9 +56,9 @@ class Instructor < ActiveRecord::Base
     whitelist = Whitelist.find_by_username_and_provider(username, provider)
 
     if whitelist
-      return whitelist.privilege
+      return whitelist.privilege.capitalize
     else
-      return "student"
+      return "Student"
     end
   end
 
