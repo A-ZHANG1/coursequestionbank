@@ -1,4 +1,4 @@
-class Add < ActiveRecord::Migration
+class AddPrivilegeColumn < ActiveRecord::Migration
   def up
     add_column :instructors, :privilege, :string
     Instructor.find_each do |instructor|
