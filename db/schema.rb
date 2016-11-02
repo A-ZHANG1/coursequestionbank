@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161028040421) do
+ActiveRecord::Schema.define(:version => 20160430062346) do
 
   create_table "collections", :force => true do |t|
     t.integer  "instructor_id"
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(:version => 20161028040421) do
     t.string   "provider_image"
     t.string   "provider_email"
     t.string   "username"
-    t.string   "privilege"
   end
 
   create_table "problems", :force => true do |t|
@@ -90,17 +89,6 @@ ActiveRecord::Schema.define(:version => 20161028040421) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "users", :force => true do |t|
-    t.string   "name"
-    t.string   "username"
-    t.string   "uid"
-    t.string   "provider",       :default => "github"
-    t.string   "provider_image"
-    t.string   "provider_email"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
   end
 
   create_table "whitelists", :force => true do |t|
