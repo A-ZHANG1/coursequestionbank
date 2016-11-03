@@ -8,6 +8,7 @@ Feature: Administrator panel for authorizing users
     And I am on the dashboard
 
   Scenario: visit the admin panel and add a user
+  # pending implementation
     When I am on the admin panel
     When I fill in "new-username" with "RAILSDOESNTSCALE"
     And I select "github" from "new-provider"

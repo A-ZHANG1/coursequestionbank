@@ -7,7 +7,7 @@ var Supersession = {
           type: 'POST',
           data: $(this).serialize(),
           success: function(data, textStatus, jqXHR) {
-            if (data.error == null)
+            if (data.error === null)
               window.location.href = '/problems';
             else
               $(this).find('.message').text(data.error);
@@ -108,7 +108,7 @@ var ChangePrivacy = {
   setup: function() {
     $('.prob_privacy').submit(function() {
       var button = $(this).find('input[type="submit"]');
-      var newValue = button.attr('value') == 'Public' ? 'Private' : 'Public';
+      var newValue = button.attr('value') === 'Public' ? 'Private' : 'Public';
       button.attr('value', newValue);
       $(this).find('input[name="privacy"]').attr('value', button.attr('value'));
       $.ajax({
@@ -133,7 +133,7 @@ var SetObsolete = {
       });
       var button = $(this).find('input[type="submit"]');
       var field = $(this).find('input[name="obsolete"]');
-      var obsolete = field.attr('value') == '1';
+      var obsolete = field.attr('value') === '1';
       field.attr('value', obsolete ? '0' : '1');
       button.attr('value', obsolete ? 'Obsolete' : 'Mark obsolete');
       return false;
@@ -166,7 +166,7 @@ var ChangeBloom = {
 
         // Set 'none' action for current button if appropriate
         var category_field = $(this).find('input[name="category"]');
-        if (category != 'none')
+        if (category !== 'none')
           category_field.attr('value', 'none');
 
         // Stylize buttons based on action
@@ -174,7 +174,7 @@ var ChangeBloom = {
           var button = $(this).find('input[type="submit"]');
           var category = $(this).find('input[name="category"]').attr('value');
           button.removeClass('btn-default btn-info');
-          if (category == 'none')
+          if (category === 'none')
             button.addClass('btn-info');
           else
             button.addClass('btn-default');

@@ -7,7 +7,8 @@
 
 # Current Status
 Currently, our six-students team (from Cal CS169) is working on the development.
-## It's now Iteration 1.
+## It's now Iteration 1-2.
+Please see ./iterations/README.md for more details.
 
 ## User Guide
 
@@ -22,6 +23,12 @@ When running locally, you can click the "Dev Login" button and login as either `
 ## Deployment
 
 Currently set up to deploy to Heroku. Websolr worker supposed to periodically re-indexes the questions so that keyword search will work; you can run it manually with `heroku run rake sunspot:solr:reindex`, please send an Email to RZH at Berkeley dot edu to submit a whitelist request. [Course Question Bank on Heroku](https://coursequestionbank.herokuapp.com/)
+
+## Admin Privilege
+
+Create the initial admin user based on their GitHub username: `heroku run rake setup:add_admin[github-username-here]`
+Create the initial instructor user based on their GitHub username: `heroku run rake setup:add_instructor[github-username-here]`
+Other users are students by default
 
 ## To Do
 

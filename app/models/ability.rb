@@ -11,12 +11,12 @@ class Ability
     #     can :read, :all
     #   end
     #
-    # The first argument to `can` is the action you are giving the user 
+    # The first argument to `can` is the action you are giving the user
     # permission to do.
     # If you pass :manage it will apply to every action. Other common actions
     # here are :read, :create, :update and :destroy.
     #
-    # The second argument is the resource the user can perform the action on. 
+    # The second argument is the resource the user can perform the action on.
     # If you pass :all it will apply to every resource. Otherwise pass a Ruby
     # class of the resource.
     #
@@ -28,25 +28,21 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
-    user ||= Instructor.new
-    # if user.admin?
-    #   can :manage, Whitelist
-    # end
-    # debugger
-    if user.student?
-      # debugger
-      can [:read], Problem, :is_public => true
 
-      can [:read], Collection, :is_public => true
-    end
-    
-    if !user.student? and (!Whitelist.is_enabled or user.admin? or user.instructor?)
-      # debugger
+    can [:read], Problem, :is_public => true
+    can [:read], Collection, :is_public => true
+
+
+    if user.privilege == "Instructor" or user.privilege == "Admin"
       can :manage, Problem, :instructor_id => user.id
       can [:read, :update, :supersede, :view_history, :add_tags, :remove_tags, :bloom_categorize], Problem, :is_public => true
-      
+
       can :manage, Collection, :instructor_id => user.id
       can [:read, :export, :preview], Collection, :is_public => true
+    end
+
+    if user.privilege == "Admin"
+      can :manage, Whitelist
     end
   end
 end

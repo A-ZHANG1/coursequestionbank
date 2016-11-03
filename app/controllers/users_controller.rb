@@ -1,10 +1,10 @@
-class InstructorsController < ApplicationController
+class UsersController < ApplicationController
 
   def show
     authorize! :manage, Collection
     @heading = 'Your collections'
-    @instructor = Instructor.find_by_id(@current_user)
-    @collections = @instructor.collections.to_a
+    @user = User.find_by_id(@current_user)
+    @collections = @user.collections.to_a
     render :template => 'collections/index'
   end
 
@@ -16,7 +16,7 @@ class InstructorsController < ApplicationController
   def admin
     authorize! :manage, Whitelist
     # @unauthorized_users = Instructor.all.select{|i| i.privilege.nil?}
-    @instructor = Instructor.order(:username)
+    @whitelist = Whitelist.order(:username)
   end
 
   def update_whitelist

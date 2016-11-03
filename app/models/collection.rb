@@ -17,9 +17,9 @@ class Collection < ActiveRecord::Base
   end
 
   def export(format)
-    if problems.empty? 
+    if problems.empty?
       return nil
-    else 
+    else
       if format == 'ruql'
         print_name = (description.nil? || description.strip.empty?) ? name : name + ': ' + description
         source = "quiz #{print_name.inspect} do\n"

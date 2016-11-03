@@ -20,12 +20,12 @@ class CollectionsController < ApplicationController
     @collection = Collection.find(params[:id])
     @problems = @collection.problems
   end
-  
+
   # creates a new collection with user specified values and sets as current collection
   def create
     collection = @current_user.collections.create
     collection.set_attributes(params)
-    
+
     if not collection.valid?
       collection_errors(collection)
       redirect_to :back and return
@@ -43,7 +43,7 @@ class CollectionsController < ApplicationController
   def update
     collection = Collection.find(params[:id])
     collection.set_attributes(params)
-    
+
     if not collection.valid?
       collection_errors(collection)
       redirect_to :back and return
@@ -61,7 +61,7 @@ class CollectionsController < ApplicationController
     flash[:notice] = 'Collection deleted'
     redirect_to profile_path
   end
-  
+
   # def add_problems
   #   collection = Collection.find(params[:id])
   #   problem_ids = self.class.parse_list params[:problem_ids]
@@ -70,7 +70,7 @@ class CollectionsController < ApplicationController
   #   flash[:notice] = "Problems added"
   #   redirect_to :back
   # end
-  
+
   # def remove_problems
   #   collection = Collection.find(params[:id])
   #   problem_ids = self.class.parse_list params[:problem_ids]
@@ -82,7 +82,7 @@ class CollectionsController < ApplicationController
 
   def export
     @collection = Collection.find(params[:id])
-    
+
     @ruql_code = @collection.export('ruql') rescue "(error rendering RuQL)"
     @html_code = @collection.export('Html5') rescue "(error rendering HTML)"
     @edx_code = @collection.export('EdXml') rescue "(error rendering Edml)"
@@ -93,7 +93,7 @@ class CollectionsController < ApplicationController
       redirect_to collection_path(:id => @collection.id)
     end
   end
-  
+
   def preview
     html_code = Collection.find(params[:id]).export('Html5')
     render :text => html_code

@@ -6,9 +6,9 @@ class ApplicationController < ActionController::Base
 
   protected # prevents method from being invoked by a route
   def set_current_user
-    @current_user ||= Instructor.find_by_id(session[:user_id])
+    @current_user = Instructor.find_by_id(session[:user_id])
     redirect_to login_path and return unless @current_user
-    authorize! :read, Problem
+    #authorize! :read, Problem
   end
 
   def current_ability

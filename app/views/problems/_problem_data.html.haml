@@ -23,7 +23,8 @@
 
     %div Created #{problem.created_date} by #{problem.instructor.name}
 
-    %div UID: #{problem.uid}
+    - if can? :manage, problem and problem.instructor_id == @current_user.id
+      %div UID: #{problem.uid}
 
     - if can? :set_previous, problem
       %div
@@ -32,16 +33,20 @@
           = text_field_tag :previous, nil, :id => nil, :class => 'form-control', :placeholder => 'Enter problem UID',
               :value => (problem.previous_version.uid if problem.previous_version)
 
-    %div.bloom-buttons
-      Bloom Category:
-      - Problem.all_bloom_categories.each do |category|
-        = form_tag problem_path(:id => problem.id), :method => :put do
-          - selected = problem.bloom_category == category
-          - if selected
-            = hidden_field_tag :category, 'none', :id => nil
-          - else
-            = hidden_field_tag :category, category, :id => nil
-          = submit_tag category, :class => "bloom-button btn #{selected ? 'btn-info' : 'btn-default'}"
+    - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
+      %div.bloom-buttons
+        Bloom Category:
+        - Problem.all_bloom_categories.each do |category|
+          = form_tag problem_path(:id => problem.id), :method => :put do
+            - selected = problem.bloom_category == category
+            - if selected
+              = hidden_field_tag :category, 'none', :id => nil
+            - else
+              = hidden_field_tag :category, category, :id => nil
+            = submit_tag category, :class => "bloom-button btn #{selected ? 'btn-info' : 'btn-default'}"
+    - else
+      %p
+        = problem.bloom_category
 
     -# %div.show-collections
     -#   Your collections:
@@ -52,38 +57,37 @@
     -#
     -# %button.update-collections
     -#   Update Collections:
+    - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
+      %div.collection-buttons
+        Your Collections:
+        - Collection.accessible_by(current_ability, :manage).each do |collection|
+          = form_tag problem_path(:id => problem.id), :method => :put do
+            - selected = collection.problems.include? problem
+            = hidden_field_tag :collection, collection.id, :id => nil
+            = submit_tag collection.name.truncate(35), :id => "toggle_collection_#{collection.id}_#{problem.id}", :class => "collection-button btn #{selected ? 'btn-info' : 'btn-default'}", :title => collection.name, :style => "display :#{selected ? 'block' : 'none'}"
+        %button{:class => "btn btn-default collections-more-toggle"}
+          More..
+        -# - Collection.accessible_by(current_ability, :manage).each do |collection|
+          = form_tag problem_path(:id => problem.id), :method => :put do
+            - selected = collection.problems.include? problem
+            = hidden_field_tag :collection, collection.id, :id => nil
+            = submit_tag collection.name.truncate(35), :id => "toggle_collection_#{collection.id}_#{problem.id}", :class => "collection-button btn #{selected ? 'btn-info' : 'btn-default'}", :title => collection.name, :style => "display: none"
+        %button{:class => "btn btn-default collections-less-toggle", :style => "display: none"}
+          Less..
 
-    %div.collection-buttons
-      Your Collections:
-      - Collection.accessible_by(current_ability, :manage).each do |collection|
-        = form_tag problem_path(:id => problem.id), :method => :put do
-          - selected = collection.problems.include? problem
-          = hidden_field_tag :collection, collection.id, :id => nil
-          = submit_tag collection.name.truncate(35), :id => "toggle_collection_#{collection.id}_#{problem.id}", :class => "collection-button btn #{selected ? 'btn-info' : 'btn-default'}", :title => collection.name, :style => "display :#{selected ? 'block' : 'none'}"
-      // %button{:class => "btn btn-default collections-more-toggle", :id => toggle_more_collection_#{collection.id}_#{problem.id}}
-      %button{:class => "btn btn-default collections-more-toggle"}
-        More..
-      -# - Collection.accessible_by(current_ability, :manage).each do |collection|
-        = form_tag problem_path(:id => problem.id), :method => :put do
-          - selected = collection.problems.include? problem
-          = hidden_field_tag :collection, collection.id, :id => nil
-          = submit_tag collection.name.truncate(35), :id => "toggle_collection_#{collection.id}_#{problem.id}", :class => "collection-button btn #{selected ? 'btn-info' : 'btn-default'}", :title => collection.name, :style => "display: none"
-      // %button{:class => "btn btn-default collections-less-toggle", :style => "display: none", :id => toggle_less_collection_#{collection.id}_#{problem.id}}
-      %button{:class => "btn btn-default collections-less-toggle", :style => "display: none"}
-        Less..
+    - if can? :manage, problem and problem.instructor_id == @current_user.id
+      %div
+        Supersede:
+        %textarea{:id => "source_#{problem.id}", :value => "current_ruql", :style => "display: none"}= #{problem.ruql_source}
+        %button{"data-clipboard-target" => "source_#{problem.id}", "data-clipboard-text" => "",
+                :title => "", :id => "copy_source_button_#{problem.id}", :class => "d_clip_button btn btn-default",
+                :value => "copy_source_button_#{problem.id}", :style => ('display: none' if not Rails.env.test?)}
+          Clip Source Code
 
-    %div
-      Supersede:
-      %textarea{:id => "source_#{problem.id}", :value => "current_ruql", :style => "display: none"}= #{problem.ruql_source}
-      %button{"data-clipboard-target" => "source_#{problem.id}", "data-clipboard-text" => "",
-              :title => "", :id => "copy_source_button_#{problem.id}", :class => "d_clip_button btn btn-default",
-              :value => "copy_source_button_#{problem.id}", :style => ('display: none' if not Rails.env.test?)}
-        Clip Source Code
+        = link_to "Supersede", supersede_path(:id => problem.id), :id => "supersede_button_#{problem.id}", :class => 'supersede_button btn btn-default'
 
-      = link_to "Supersede", supersede_path(:id => problem.id), :id => "supersede_button_#{problem.id}", :class => 'supersede_button btn btn-default'
-
-      - if !problem.previous_version.nil?
-        = link_to "See Version History", problem_history_path(:id => problem.id), :id => "history_button_#{problem.id}", :class => 'history_button btn btn-default'
+        - if !problem.previous_version.nil?
+          = link_to "See Version History", problem_history_path(:id => problem.id), :id => "history_button_#{problem.id}", :class => 'history_button btn btn-default'
 
     %div.supersede_form.hidden-additional{:style => 'display: none'}
       = render :partial => 'problems/new_form', :locals => {:previous => problem}

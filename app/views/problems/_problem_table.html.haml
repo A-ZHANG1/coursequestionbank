@@ -4,9 +4,9 @@
 
 - if problems.empty? and !local_assigns[:empty_msg].nil?
   %h3= empty_msg
-  
+
 - else
-  - if group_id == 0
+  - if group_id == 0 and can? :manage, @collection
     = link_to 'New question', new_problem_path, :class => 'btn btn-primary'
 
   - if columns.include? :checkbox

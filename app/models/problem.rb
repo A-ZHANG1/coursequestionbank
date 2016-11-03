@@ -93,62 +93,69 @@ class Problem < ActiveRecord::Base
   end
 
   def self.filter(user, filters, bump_problem)
-    problems = Problem.search do
-      any_of do
-        with(:instructor_id, user.id)
-        with(:is_public, true)
-      end
-
-      filters[:tags].each do |tag|
-        with(:tag_names, tag)
-      end
-
-      if !filters[:problem_type].empty?
+    # debugger
+    if Problem.count != 1
+      problems = Problem.search do
+        # debugger
         any_of do
-          filters[:problem_type].each do |sort_param|
-            with(:problem_type, sort_param)
+          with(:instructor_id, user.id)
+          with(:is_public, true)
+        end
+
+        filters[:tags].each do |tag|
+          with(:tag_names, tag)
+        end
+
+        if !filters[:problem_type].empty?
+          any_of do
+            filters[:problem_type].each do |sort_param|
+              with(:problem_type, sort_param)
+            end
           end
         end
-      end
 
-      if !filters[:bloom_category].empty?
-        any_of do
-          filters[:bloom_category].each do |category|
-            with(:bloom_category, category)
+        if !filters[:bloom_category].empty?
+          any_of do
+            filters[:bloom_category].each do |category|
+              with(:bloom_category, category)
+            end
           end
         end
-      end
 
-      if !filters[:collections].empty?
-        any_of do
-          filters[:collections].each do |col|
-            with(:collection_ids, col)
+        if !filters[:collections].empty?
+          any_of do
+            filters[:collections].each do |col|
+              with(:collection_ids, col)
+            end
           end
         end
+
+        if !filters[:show_obsolete]
+          without(:obsolete, true)
+        end
+
+        fulltext filters[:search]
+
+        if filters[:sort_by] == 'Relevancy'
+          order_by(:score, :desc)
+        elsif filters[:sort_by] == 'Date Created'
+          order_by(:created_date, :desc)
+        elsif filters[:sort_by] == 'Last Used'
+          order_by(:last_used, :desc)
+        end
+
+        paginate :page => filters['page'], :per_page => filters['per_page']
       end
-
-      if !filters[:show_obsolete]
-        without(:obsolete, true)
-      end
-
-      fulltext filters[:search]
-
-      if filters[:sort_by] == 'Relevancy'
-        order_by(:score, :desc)
-      elsif filters[:sort_by] == 'Date Created'
-        order_by(:created_date, :desc)
-      elsif filters[:sort_by] == 'Last Used'
-        order_by(:last_used, :desc)
-      end
-
-      paginate :page => filters['page'], :per_page => filters['per_page']
     end
 
-    results = problems.results
-    if !bump_problem.nil?
-      results.reject! {|p| p.id == bump_problem.id}
-      results.insert(0, bump_problem)
+    if !problems.nil?
+      results = problems.results
+      if !bump_problem.nil?
+        results.reject! {|p| p.id == bump_problem.id}
+        results.insert(0, bump_problem)
+      end
     end
+
     return results
   end
 
