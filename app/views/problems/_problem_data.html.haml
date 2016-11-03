@@ -60,6 +60,7 @@
           - selected = collection.problems.include? problem
           = hidden_field_tag :collection, collection.id, :id => nil
           = submit_tag collection.name.truncate(35), :id => "toggle_collection_#{collection.id}_#{problem.id}", :class => "collection-button btn #{selected ? 'btn-info' : 'btn-default'}", :title => collection.name, :style => "display :#{selected ? 'block' : 'none'}"
+      // %button{:class => "btn btn-default collections-more-toggle", :id => toggle_more_collection_#{collection.id}_#{problem.id}}
       %button{:class => "btn btn-default collections-more-toggle"}
         More..
       -# - Collection.accessible_by(current_ability, :manage).each do |collection|
@@ -67,6 +68,7 @@
           - selected = collection.problems.include? problem
           = hidden_field_tag :collection, collection.id, :id => nil
           = submit_tag collection.name.truncate(35), :id => "toggle_collection_#{collection.id}_#{problem.id}", :class => "collection-button btn #{selected ? 'btn-info' : 'btn-default'}", :title => collection.name, :style => "display: none"
+      // %button{:class => "btn btn-default collections-less-toggle", :style => "display: none", :id => toggle_less_collection_#{collection.id}_#{problem.id}}
       %button{:class => "btn btn-default collections-less-toggle", :style => "display: none"}
         Less..
 
