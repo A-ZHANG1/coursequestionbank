@@ -38,6 +38,13 @@ class CollectionsController < ApplicationController
   def show
     @collection = Collection.find(params[:id])
     @problems = @collection.problems
+    @answers = @problems.map do |problem|
+      json_answers = JSON.parse(problem.json)["answers"]
+      answer = json_answers.select{|answer| answer["correct"]}
+      answer = answer.map do |a|
+        a["answer_text"]
+      end
+    end
   end
 
   def update

@@ -71,6 +71,7 @@ class ProblemsController < ApplicationController
     # @is_student = cannot? :manage Collections
     # debugger
     @problems = Problem.filter(@current_user, session[:filters].clone, Problem.find_by_id(flash[:bump_problem]))
+    debugger
   end
 
   def new
