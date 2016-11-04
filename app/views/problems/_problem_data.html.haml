@@ -50,44 +50,26 @@
       %p
         = problem.bloom_category
 
-    -# %div.show-collections
-    -#   Your collections:
-    -#   - Collection.accessible_by(current_ability, :manage).each do |collection|
-    -#     - if collection.problems.include? problem
-    -#       %p.collection-name
-    -#         = collection.name
-    -#
-    -# %button.update-collections
-    -#   Update Collections:
+
     - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
       = render :partial => 'problems/collection_buttons', :locals => {:problem => problem}
 
-    -# - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
-    -#   %div.collection-buttons
-    -#     Your Collections:
-    -#     - Collection.accessible_by(current_ability, :manage).each do |collection|
-    -#       = form_tag problem_path(:id => problem.id), :method => :put do
-    -#         - selected = collection.problems.include? problem
-    -#         = hidden_field_tag :collection, collection.id, :id => nil
-    -#         = check_box_tag "sihfsnkf" "sdajkbfslp" "akjflnvsjn"
-    -#         = submit_tag collection.name.truncate(35), :id => "toggle_collection_#{collection.id}_#{problem.id}", :class => "collection-button btn #{selected ? 'btn-info' : 'btn-default'}", :title => collection.name, :style => "display :#{selected ? 'block' : 'none'}"
 
-    -# %form{:method => 'post', :action => "/"}
-    %div.edit-collections
+
+    %div.hide_checkbox
+      = submit_tag "show", :id => "hide_checkbox_block", :class => "hide_checkbox btn btn-default", :title => "show"
+
+    %div.show_checkbox
+      = submit_tag "hide", :id => "show_checkbox_block", :class => "show_checkbox btn btn-default", :title => "hide", :style => 'display: none'
+
+    %div.edit-collections{:style => 'display: none'}
       - @collections.each do |collection|
         - selected = collection.problems.include? problem
         %input{:type=>"checkbox", :class=>"collection-checkbox", :checked=>selected, :action=>"/problems/#{problem.id}", :collection => collection.id, :problem => problem.id}
         =collection.name
-    -# %div.edit-collections
-    -#   = form_tag problem_path(:id => problem.id), :method => :put do
-    -#     Collections
-    -#     - Collection.accessible_by(current_ability, :manage).each do |collection|
-    -#       = hidden_field_tag :collection, collection.id, :id => nil
-    -#       - selected = collection.problems.include? problem
-    -#       = check_box_tag "Something", 1, selected, :id => "toggle_collection_checkbox_#{collection.id}_#{problem.id}"
-    -#       = collection.name
-    -#     = submit_tag 'Submit', :id => 'collections_checkbox_submit'
-      -# %input{:type => :submit, :value => "Save"}
+
+
+
 
     - if can? :manage, problem and problem.instructor_id == @current_user.id
       %div

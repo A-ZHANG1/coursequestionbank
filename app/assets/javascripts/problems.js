@@ -35,6 +35,23 @@ var AdditionalHidden = {
         return false;
       });
 
+      problem.find('.hide_checkbox').click(function() {
+        problem.find('.edit-Collections').show()
+        problem.find('.show_checkbox').show()
+        $(this).hide();
+        return false;
+      });
+
+      problem.find('.show_checkbox').click(function() {
+        problem.find('.edit-Collections').hide()
+        problem.find('.hide_checkbox').show()
+        $(this).hide();
+        return false;
+      });
+
+
+
+
       problem.find('button.collections-more-toggle').click(function(){
         problem.find('.collection-button').each(function(){
           $(this).show();
@@ -241,34 +258,11 @@ var ChangeCollectionsByCheckbox = {
         }
         button.toggle()
 
-        // var button = $(this).find('input[type="submit"]');
-        //
-        // if (button.hasClass('btn-info')) {
-        //   button.removeClass('btn-info');
-        //   button.addClass('btn-default');
-        // }
-        // else if (button.hasClass('btn-default')) {
-        //   button.removeClass('btn-default');
-        //   button.addClass('btn-info');
-        // }
-
         return true;
       });
 
     });
   }
-  , editCollectionButton: function(data, requestStatus, xhrObject){
-    debugger
-    var button = $('.collection-buttons').find('input[type="submit"]');
 
-    if (button.hasClass('btn-info')) {
-      button.removeClass('btn-info');
-      button.addClass('btn-default');
-    }
-    else if (button.hasClass('btn-default')) {
-      button.removeClass('btn-default');
-      button.addClass('btn-info');
-    }
-  }
 };
 $(ChangeCollectionsByCheckbox.setup);
