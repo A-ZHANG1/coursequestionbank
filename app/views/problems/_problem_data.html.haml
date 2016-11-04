@@ -60,22 +60,7 @@
     -# %button.update-collections
     -#   Update Collections:
     - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
-      %div.collection-buttons
-        Your Collections:
-        - Collection.accessible_by(current_ability, :manage).each do |collection|
-          = form_tag problem_path(:id => problem.id), :method => :put do
-            - selected = collection.problems.include? problem
-            = hidden_field_tag :collection, collection.id, :id => nil
-            = submit_tag collection.name.truncate(35), :id => "toggle_collection_#{collection.id}_#{problem.id}", :class => "collection-button btn #{selected ? 'btn-info' : 'btn-default'}", :title => collection.name, :style => "display :#{selected ? 'block' : 'none'}"
-        %button{:class => "btn btn-default collections-more-toggle"}
-          More..
-        -# - Collection.accessible_by(current_ability, :manage).each do |collection|
-          = form_tag problem_path(:id => problem.id), :method => :put do
-            - selected = collection.problems.include? problem
-            = hidden_field_tag :collection, collection.id, :id => nil
-            = submit_tag collection.name.truncate(35), :id => "toggle_collection_#{collection.id}_#{problem.id}", :class => "collection-button btn #{selected ? 'btn-info' : 'btn-default'}", :title => collection.name, :style => "display: none"
-        %button{:class => "btn btn-default collections-less-toggle", :style => "display: none"}
-          Less..
+      = render :partial => 'problems/collection_buttons', :locals => {:problem => problem}
 
     -# - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
     -#   %div.collection-buttons
@@ -91,7 +76,7 @@
     %div.edit-collections
       - @collections.each do |collection|
         - selected = collection.problems.include? problem
-        %input{:type=>"checkbox", :class=>"collection-checkbox", :checked=>selected, :action=>"/problems/#{problem.id}", :collection => collection.id}
+        %input{:type=>"checkbox", :class=>"collection-checkbox", :checked=>selected, :action=>"/problems/#{problem.id}", :collection => collection.id, :problem => problem.id}
         =collection.name
     -# %div.edit-collections
     -#   = form_tag problem_path(:id => problem.id), :method => :put do

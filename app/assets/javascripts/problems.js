@@ -225,8 +225,21 @@ var ChangeCollectionsByCheckbox = {
         $.ajax({
           url: $(this).attr('action'),
           type: 'PUT',
+          // success: ChangeCollectionsByCheckbox.editCollectionButton,
           data: {"collection": $(this).attr("collection")}
+
         });
+        button_id = "#toggle_collection_" + $(this).attr("collection") + "_" + $(this).attr("problem")
+        var button = $(button_id)
+        if (button.hasClass('btn-info')) {
+          button.removeClass('btn-info');
+          button.addClass('btn-default');
+        }
+        else if (button.hasClass('btn-default')) {
+          button.removeClass('btn-default');
+          button.addClass('btn-info');
+        }
+        button.toggle()
 
         // var button = $(this).find('input[type="submit"]');
         //
@@ -241,7 +254,21 @@ var ChangeCollectionsByCheckbox = {
 
         return true;
       });
+
     });
+  }
+  , editCollectionButton: function(data, requestStatus, xhrObject){
+    debugger
+    var button = $('.collection-buttons').find('input[type="submit"]');
+
+    if (button.hasClass('btn-info')) {
+      button.removeClass('btn-info');
+      button.addClass('btn-default');
+    }
+    else if (button.hasClass('btn-default')) {
+      button.removeClass('btn-default');
+      button.addClass('btn-info');
+    }
   }
 };
 $(ChangeCollectionsByCheckbox.setup);
