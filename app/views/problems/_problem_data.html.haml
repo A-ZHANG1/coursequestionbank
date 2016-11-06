@@ -59,15 +59,15 @@
     %div.hide_checkbox
       = submit_tag "show", :id => "hide_checkbox_block", :class => "hide_checkbox btn btn-default", :title => "show"
 
-    %div.show_checkbox
-      = submit_tag "hide", :id => "show_checkbox_block", :class => "show_checkbox btn btn-default", :title => "hide", :style => 'display: none'
-
     %div.edit-collections{:style => 'display: none'}
       - Collection.accessible_by(current_ability, :manage).each do |collection|
         - selected = collection.problems.include? problem
-        %input{:type=>"checkbox", :class=>"collection-checkbox", :checked=>selected, :action=>"/problems/#{problem.id}", :collection => collection.id, :problem => problem.id}
-        =collection.name
+        %li.collection-checkbox-li
+          %input{:type=>"checkbox", :class=>"collection-checkbox", :checked=>selected, :action=>"/problems/#{problem.id}", :collection => collection.id, :problem => problem.id}
+          =collection.name
 
+    %div.show_checkbox
+      = submit_tag "hide", :id => "show_checkbox_block", :class => "show_checkbox btn btn-default", :title => "hide", :style => 'display: none'
 
 
 
@@ -85,11 +85,11 @@
         - if !problem.previous_version.nil?
           = link_to "See Version History", problem_history_path(:id => problem.id), :id => "history_button_#{problem.id}", :class => 'history_button btn btn-default'
 
-    %div.supersede_form.hidden-additional{:style => 'display: none'}
-      = render :partial => 'problems/new_form', :locals => {:previous => problem}
+      %div.supersede_form.hidden-additional{:style => 'display: none'}
+        = render :partial => 'problems/new_form', :locals => {:previous => problem}
 
-    %div.history_list.hidden-additional{:style => 'display: none'}
-      = render :partial => 'problems/history_list', :locals => {:problem => problem}
+      %div.history_list.hidden-additional{:style => 'display: none'}
+        = render :partial => 'problems/history_list', :locals => {:problem => problem}
 
 
 - if column == :tags
