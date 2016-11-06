@@ -63,7 +63,7 @@
       = submit_tag "hide", :id => "show_checkbox_block", :class => "show_checkbox btn btn-default", :title => "hide", :style => 'display: none'
 
     %div.edit-collections{:style => 'display: none'}
-      - @collections.each do |collection|
+      - Collection.accessible_by(current_ability, :manage).each do |collection|
         - selected = collection.problems.include? problem
         %input{:type=>"checkbox", :class=>"collection-checkbox", :checked=>selected, :action=>"/problems/#{problem.id}", :collection => collection.id, :problem => problem.id}
         =collection.name
