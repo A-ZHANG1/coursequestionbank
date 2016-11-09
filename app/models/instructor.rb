@@ -35,59 +35,28 @@ class Instructor < ActiveRecord::Base
   def student?
     privilege == "Student"
   end
-  #
-  # attr_accessible :name,
-  #                 :username,
-  #                 :uid,
-  #                 :provider,
-  #                 :provider_image,
-  #                 :provider_email,
-  #                 :privilege
 
-  # def level
-  #   if admin?
-  #     return 0
-  #   elsif student?
-  #     return 3
-  #   else
-  #     return 1
-  #   end
-  # end
-
-  # def string_rep
-  #   if admin?
-  #     return "admin"
-  #   elsif student?
-  #     return "student"
-  #   else
-  #     return "instructor"
-  #   end
-  # end
-
-  def privilege
-    # debugger
-    # if username.nil?
-    #   username = "saas"
-    # end
-    whitelist = Whitelist.find_by_username_and_provider(username, provider)
-
-    if whitelist
-      return whitelist.privilege.capitalize
-    else
-      return "Student"
+  # The new data structure stores privilege information in Instructor
+  # To prevent data loss, the old whitelist table is preseved.
+  # If the privilege attribute is nil in instructor table, find that user in whitelist
+  # And set his privilege in instructor table as in whitelist
+  # If somehow a user's privilege is nil in instructors and whitelist table
+  # set him as Student
+  # (this should not happen in practice, though)
+  def get_privilege
+    if privilege.nil?
+      whitelist = Whitelist.find_by_username_and_provider(username, provider)
+      if whitelist
+        privilege = whitelist.privilege.capitalize
+      else
+        privilege = "Student"
+      end
     end
+    return privilege
   end
 
-  # def admin?
-  #   return privilege == "admin"
-  # end
-  #
-  # def instructor?
-  #   return privilege == "instructor"
-  # end
-  #
-  # def student?
-  #   return privilege == "student"
-  # end
-# >>>>>>> origin/migration-2
+  def self.privilege_levels
+    %w{Admin Instructor Student}
+  end
+
 end
