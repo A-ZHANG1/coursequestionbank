@@ -23,9 +23,9 @@
 
     %div Created #{problem.created_date} by #{problem.instructor.name}
 
-    - if can? :manage, problem and problem.instructor_id == @current_user.id
-      %div UID: #{problem.uid}
-      -# = render :partial => 'problems/collection_checkboxes', :locals => {:previous => problem}
+    -# - if can? :manage, problem
+    -#   %div UID: #{problem.uid}
+    -#   = render :partial => 'problems/collection_checkboxes', :locals => {:previous => problem}
 
     - if can? :set_previous, problem
       %div
@@ -35,7 +35,7 @@
               :value => (problem.previous_version.uid if problem.previous_version)
 
 
-    - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
+    - if can?  :bloom_categorize, problem
       %div.bloom-buttons
         Bloom Category:
         - Problem.all_bloom_categories.each do |category|
@@ -51,11 +51,11 @@
         = problem.bloom_category
 
 
-    - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
+    - if can? :add_to_collection, problem
       = render :partial => 'problems/collection_buttons', :locals => {:problem => problem}
 
 
-    - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
+    - if can? :add_to_collection, problem
       %div.hide_checkbox
         = submit_tag "show", :id => "hide_checkbox_block", :class => "hide_checkbox btn btn-default", :title => "show"
 
@@ -68,7 +68,7 @@
         %div.show_checkbox
           = submit_tag "hide", :id => "show_checkbox_block", :class => "show_checkbox btn btn-default", :title => "hide", :style => 'display: none'
 
-    - if can? :manage, problem and problem.instructor_id == @current_user.id
+    - if can? :manage, problem
       %div
         Supersede:
         %textarea{:id => "source_#{problem.id}", :value => "current_ruql", :style => "display: none"}= #{problem.ruql_source}
