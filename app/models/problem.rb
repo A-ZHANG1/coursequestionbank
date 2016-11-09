@@ -75,15 +75,30 @@ class Problem < ActiveRecord::Base
     return RuqlRenderer.render_from_json(self.json, new_uid, prev_uid)
   end
 
+  def text
+    return text if !!text else json["answer_text"]
+
+  def answer_entrys
+    return json["answers"].collect{|entry| entry["answer_text"]}
+
+  def answer_correct?
+    return json["answers"].collect{|entry| entry["correct"]}
+
+  def answer_explanation
+    return json["answers"].collect{|entry| entry["explanation"]}
+
+  def global_explanation
+    return json["global_explanation"]
+
   def self.from_JSON(instructor, json_source)
     return "" if json_source == nil || json_source.length <= 2
     json_hash = JSON.parse(json_source)
     problem = Problem.new(text: "",
                           json: json_source,
-                          is_public: true,
+                          is_public: false,
                           problem_type: json_hash["question_type"],
                           created_date: Time.now,
-                          uid: json_hash["uid"].equal?(-1) ? SecureRandom.uuid : json_hash["uid"])
+                          uid: json_hash["uid"].equal?(nil) ? SecureRandom.uuid : json_hash["uid"])
     problem.instructor = instructor
     json_hash["question_tags"].each do |tag_name|
       tag = Tag.find_by_name(tag_name) || Tag.create(name: tag_name)
