@@ -1,7 +1,7 @@
 require 'ruql_renderer'
 
 class Problem < ActiveRecord::Base
-  attr_accessible :created_date, :is_public, :last_used, :rendered_text, :text, :json, :problem_type, :obsolete, :bloom_category, :uid
+  attr_accessible :created_date, :is_public, :last_used, :rendered_text, :json, :text, :problem_type, :obsolete, :bloom_category, :uid
   has_and_belongs_to_many :tags
   belongs_to :instructor
   has_and_belongs_to_many :collections
@@ -56,13 +56,14 @@ class Problem < ActiveRecord::Base
 
     if json and !json.empty?
       begin
+        debugger
         question = Question.from_JSON(self.json)
         quiz = Quiz.new("", nil, :questions => [question])
         quiz.render_with("Html5", {'template' => 'preview.html.erb'})
         self.update_attributes(:rendered_text => quiz.output)
         quiz.output
-      rescue
-        return 'There was a problem rendering this question'
+      rescue Exception => e
+        return 'There was a problem rendering this question' + e.message
       end
     else
       'This question could not be displayed (no JSON found)'
@@ -75,20 +76,25 @@ class Problem < ActiveRecord::Base
     return RuqlRenderer.render_from_json(self.json, new_uid, prev_uid)
   end
 
-  def text
-    return text if !!text else json["answer_text"]
+  def question_text
+    return JSON.parse(json)["question_text"]
+  end
 
   def answer_entrys
-    return json["answers"].collect{|entry| entry["answer_text"]}
+    return JSON.parse(json)["answers"].collect{|entry| entry["answer_text"]}
+  end
 
   def answer_correct?
-    return json["answers"].collect{|entry| entry["correct"]}
+    return JSON.parse(json)["answers"].collect{|entry| entry["correct"]}
+  end
 
   def answer_explanation
-    return json["answers"].collect{|entry| entry["explanation"]}
+    return JSON.parse(json)["answers"].collect{|entry| entry["explanation"]}
+  end
 
   def global_explanation
-    return json["global_explanation"]
+    return JSON.parse(json)["global_explanation"]
+  end
 
   def self.from_JSON(instructor, json_source)
     return "" if json_source == nil || json_source.length <= 2
