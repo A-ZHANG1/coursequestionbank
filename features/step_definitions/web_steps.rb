@@ -431,3 +431,7 @@ end
 Then(/^I should see "(.*?)" under "(.*?)"$/) do |arg1, arg2|
   pending # express the regexp above with the code you wish you had
 end
+
+Then(/^I should not see "(.*?)" checkbox$/) do |text|
+  checkboxName = find(:css, "#collections_#{collection.id}").should_not be_visible
+end

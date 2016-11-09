@@ -24,70 +24,39 @@ class Instructor < ActiveRecord::Base
     end
   end
 
-  def admin?
-    privilege == "Admin"
-  end
-
-  def instructor?
-    privilege == "Instructor"
-  end
-
-  def student?
-    privilege == "Student"
-  end
-  #
-  # attr_accessible :name,
-  #                 :username,
-  #                 :uid,
-  #                 :provider,
-  #                 :provider_image,
-  #                 :provider_email,
-  #                 :privilege
-
-  # def level
-  #   if admin?
-  #     return 0
-  #   elsif student?
-  #     return 3
-  #   else
-  #     return 1
-  #   end
-  # end
-
-  # def string_rep
-  #   if admin?
-  #     return "admin"
-  #   elsif student?
-  #     return "student"
-  #   else
-  #     return "instructor"
-  #   end
-  # end
-
-  def privilege
-    # debugger
-    # if username.nil?
-    #   username = "saas"
-    # end
-    whitelist = Whitelist.find_by_username_and_provider(username, provider)
-
-    if whitelist
-      return whitelist.privilege.capitalize
-    else
-      return "Student"
-    end
-  end
-
   # def admin?
-  #   return privilege == "admin"
+  #   privilege == "Admin"
   # end
   #
   # def instructor?
-  #   return privilege == "instructor"
+  #   privilege == "Instructor"
   # end
   #
   # def student?
-  #   return privilege == "student"
+  #   privilege == "Student"
   # end
-# >>>>>>> origin/migration-2
+
+  # The new data structure stores privilege information in Instructor
+  # To prevent data loss, the old whitelist table is preseved.
+  # If the privilege attribute is nil in instructor table, find that user in whitelist
+  # And set his privilege in instructor table as in whitelist
+  # If somehow a user's privilege is nil in instructors and whitelist table
+  # set him as Student
+  # (this should not happen in practice, though)
+  def get_privilege
+    if self.privilege.nil?
+      whitelist = Whitelist.find_by_username_and_provider(username, provider)
+      if whitelist
+        self.privilege = whitelist.privilege.capitalize
+      else
+        self.privilege = "Student"
+      end
+    end
+    return self.privilege
+  end
+
+  def self.privilege_levels
+    %w{Admin Instructor Student}
+  end
+
 end
