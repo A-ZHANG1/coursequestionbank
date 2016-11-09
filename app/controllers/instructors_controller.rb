@@ -48,7 +48,7 @@ class InstructorsController < ApplicationController
     # else
     #   Whitelist.create(:username => username, :provider => provider, :privilege => privilege)
     # end
-    flash[:notice] = 'Whitelist updated.'
+    flash[:notice] = "#{instructor.username} is now #{instructor.get_privilege}."
     redirect_to :back
   end
 

@@ -18,8 +18,8 @@ Feature: Student's view of problem table, aka /problems, /homepage
     And I should see "Which of the following best identifies the four basic operations supported by RDBMS?"
     And I should not see "Previous version:"
     And I should see "Your Collections:"
-    #And I should not see "Bloom Category:"
-    #And I should not see "Supersede:"
+    And I should see "Bloom Category:"
+    And I should not see "Supersede:"
 
   Scenario: I can see the edit panel of the problems belong to me
     When I am on the CourseQuestionBank home page

@@ -31,12 +31,12 @@
           %tr
             %td= entry.username
             %td= entry.provider
-            %td= select_tag :privilege, options(Instructor.privilege_levels, entry.privilege), :id => nil, :class => 'form-control', :form => "instructor-form-#{entry.id}"
+            %td= select_tag :privilege, options(Instructor.privilege_levels, entry.privilege), :id => "privilege_#{entry.uid}", :class => 'form-control', :form => "instructor-form-#{entry.id}"
             %td
               = form_tag update_instructor_path, :id => "instructor-form-#{entry.id}" do
                 = hidden_field_tag :username, entry.username, :id => nil
                 = hidden_field_tag :provider, entry.provider, :id => nil
-                = submit_tag 'Update', :class => 'btn btn-primary'
+                = submit_tag 'Update', :class => 'btn btn-primary', :id => "update_#{entry.uid}"
             -# %td
             -#   = form_tag whitelist_entry_path(:id => entry.id), :method => :delete do
             -#     = button_tag :type => 'submit', :class => 'clr-button' do
