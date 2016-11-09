@@ -6,7 +6,11 @@
 
 - if column == :problem
   %div.problem_view= problem.html5.html_safe
-
+  
+  = render :partial => "problems/student_answer", :locals => {:test_problem => problem},:columns => [:checkbox, :problem]
+  
+  
+  
   %div.additional
     %div.prob-right
       - if can? :set_privacy, problem
