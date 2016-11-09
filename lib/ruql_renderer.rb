@@ -21,19 +21,19 @@ class RuqlRenderer
     return result
   end
 
-  def self.ruql_true_false(json_hash)
-    line = "truefalse "
-    line += json_hash["question_text"].inspect
-    json_hash["answers"].each do |answer|
-      if answer["correct"]
-        line += answer["answer_text"].inspect
-      end
-      if answer["explanation"]
-        line += ', :explanation => ' + answer["explanation"].inspect
-      end
-    end
-    return line
-  end
+  # def self.ruql_true_false(json_hash)
+  #   line = "truefalse "
+  #   line += json_hash["question_text"].inspect
+  #   json_hash["answers"].each do |answer|
+  #     if answer["correct"]
+  #       line += answer["answer_text"].inspect
+  #     end
+  #     if answer["explanation"]
+  #       line += ', :explanation => ' + answer["explanation"].inspect
+  #     end
+  #   end
+  #   return line
+  # end
 
 
   def self.ruql_question_header(json_hash)
