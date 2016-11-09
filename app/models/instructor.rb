@@ -24,17 +24,17 @@ class Instructor < ActiveRecord::Base
     end
   end
 
-  def admin?
-    privilege == "Admin"
-  end
-
-  def instructor?
-    privilege == "Instructor"
-  end
-
-  def student?
-    privilege == "Student"
-  end
+  # def admin?
+  #   privilege == "Admin"
+  # end
+  #
+  # def instructor?
+  #   privilege == "Instructor"
+  # end
+  #
+  # def student?
+  #   privilege == "Student"
+  # end
 
   # The new data structure stores privilege information in Instructor
   # To prevent data loss, the old whitelist table is preseved.
@@ -44,15 +44,15 @@ class Instructor < ActiveRecord::Base
   # set him as Student
   # (this should not happen in practice, though)
   def get_privilege
-    if privilege.nil?
+    if self.privilege.nil?
       whitelist = Whitelist.find_by_username_and_provider(username, provider)
       if whitelist
-        privilege = whitelist.privilege.capitalize
+        self.privilege = whitelist.privilege.capitalize
       else
-        privilege = "Student"
+        self.privilege = "Student"
       end
     end
-    return privilege
+    return self.privilege
   end
 
   def self.privilege_levels
