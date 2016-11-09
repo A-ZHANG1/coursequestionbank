@@ -51,8 +51,12 @@
         = problem.bloom_category
 
 
+    / - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
+    /   = render :partial => 'problems/collection_buttons', :locals => {:problem => problem}
+
     - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
-      = render :partial => 'problems/collection_buttons', :locals => {:problem => problem}
+      = render :partial => 'problems/collection_text', :locals => {:problem => problem}
+
 
 
     - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")

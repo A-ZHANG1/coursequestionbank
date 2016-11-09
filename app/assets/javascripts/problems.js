@@ -246,17 +246,44 @@ var ChangeCollectionsByCheckbox = {
           data: {"collection": $(this).attr("collection")}
 
         });
+        // update belongs to which collecion
+
         button_id = "#toggle_collection_" + $(this).attr("collection") + "_" + $(this).attr("problem")
-        var button = $(button_id)
-        if (button.hasClass('btn-info')) {
-          button.removeClass('btn-info');
-          button.addClass('btn-default');
+        button_text = "#collection_text_" + $(this).attr("collection") + "_" + $(this).attr("problem")
+        // debugger;
+
+        var button = $(this).find('input[type="submit"]');
+
+        debugger;
+        if ($(this).attr("checked") == "checked") {
+          debugger;
+          $(this).attr('checked',false);
+          // button.removeClass('btn-info');
+          // button.addClass('btn-default');
+          $(button_text).hide();
         }
-        else if (button.hasClass('btn-default')) {
-          button.removeClass('btn-default');
-          button.addClass('btn-info');
+        else {
+          debugger;
+          // button.removeClass('btn-default');
+          // button.addClass('btn-info');
+          $(this).attr('checked',true);
+          $(button_text).show();
         }
-        button.toggle()
+        // button.toggle()
+
+
+        // var button = $(button_id)
+        // if (button.hasClass('btn-info')) {
+        //   button.removeClass('btn-info');
+        //   button.addClass('btn-default');
+        //   button_text.hide();
+        // }
+        // else if (button.hasClass('btn-default')) {
+        //   button.removeClass('btn-default');
+        //   button.addClass('btn-info');
+        //   button_text.show();
+        // }
+        // button.toggle()
 
         return true;
       });
