@@ -7,6 +7,10 @@ Feature: Student's view of problem table, aka /problems, /homepage
     And I have uploaded 'bloom_test.txt'
     Then I am signed in with uid "12345" and provider "developer"
 
+  Scenario: I should be identified as student:
+    When I am on the CourseQuestionBank home page
+    Then I should see "Student!"
+
   Scenario: I can not see the edit panel catagory
     When I am on the CourseQuestionBank home page
     Then I should see "Question Text"

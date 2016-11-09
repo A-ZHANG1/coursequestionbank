@@ -12,7 +12,7 @@ Whitelist.create(username: @instructor.username, provider: "github", privilege: 
 @user03 = Instructor.create!(username: "stevenwuyinze", uid: "12345", name: "Steven (Yinze) Wu", provider: "developer")
 Whitelist.create!(username: @user03.username, provider: "developer", privilege: "Student")
 
-@user02 = Instructor.create!(username: "Another-UGSI", uid: "IMAGINARYUGSI", name: "Dorthy Luu",
+@user02 = Instructor.create!(username: "Another-UGSI", uid: "123456", name: "Dorthy Luu",
                                provider: "developer")
 Whitelist.create!(username: @user02.username, provider: "developer", privilege: "Instructor")
 
