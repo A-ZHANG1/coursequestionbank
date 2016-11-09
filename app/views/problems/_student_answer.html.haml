@@ -1,0 +1,9 @@
+//   test_problem.question_text => "Who is Donald Trump"
+//   test_problem.answer_entrys => ["65th President", "Nobody" .... ]
+  
+- test_problem.answer_entrys.each do |entry|
+  %li
+    %input{:type => "checkbox"}
+    = entry
+    
+    
