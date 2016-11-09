@@ -431,3 +431,7 @@ end
 Then(/^I should see "(.*?)" under "(.*?)"$/) do |arg1, arg2|
   pending # express the regexp above with the code you wish you had
 end
+
+Given(/^there exist a user with username "(.*?)" and uid "(.*?)"$/) do |username, uid|
+  Instructor.find_by_username_and_uid(username, uid).should_not be nil
+end
