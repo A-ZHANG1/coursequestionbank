@@ -19,7 +19,8 @@ Whitelist.create!(username: @user01.username, provider: "developer", privilege: 
 Whitelist.create!(username: @user02.username, provider: "developer", privilege: "Instructor")
 
 @user03 = Instructor.create!(username: "stevenwuyinze", uid: "stevenwu", name: "Steven (Yinze) Wu",
-                           privilege: "Student", provider: "developer")
+                           provider: "developer")
+Whitelist.create!(username: @user03.username, provider: "developer", privilege: "Student")
 # =======
 # Whitelist.create!(username: "hrzlvn", privilege: "admin")
 #

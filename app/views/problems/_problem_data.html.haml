@@ -25,6 +25,7 @@
 
     - if can? :manage, problem and problem.instructor_id == @current_user.id
       %div UID: #{problem.uid}
+      -# = render :partial => 'problems/collection_checkboxes', :locals => {:previous => problem}
 
     - if can? :set_previous, problem
       %div
@@ -32,6 +33,7 @@
         = form_tag problem_path(:id => problem.id), :method => :put, :class => 'previous-form' do
           = text_field_tag :previous, nil, :id => nil, :class => 'form-control', :placeholder => 'Enter problem UID',
               :value => (problem.previous_version.uid if problem.previous_version)
+
 
     - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
       %div.bloom-buttons
@@ -48,32 +50,23 @@
       %p
         = problem.bloom_category
 
-    -# %div.show-collections
-    -#   Your collections:
-    -#   - Collection.accessible_by(current_ability, :manage).each do |collection|
-    -#     - if collection.problems.include? problem
-    -#       %p.collection-name
-    -#         = collection.name
-    -#
-    -# %button.update-collections
-    -#   Update Collections:
+
     - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
-      %div.collection-buttons
-        Your Collections:
+      = render :partial => 'problems/collection_buttons', :locals => {:problem => problem}
+
+
+    - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
+      %div.hide_checkbox
+        = submit_tag "show", :id => "hide_checkbox_block", :class => "hide_checkbox btn btn-default", :title => "show"
+
+      %div.edit-collections{:style => 'display: none'}
         - Collection.accessible_by(current_ability, :manage).each do |collection|
-          = form_tag problem_path(:id => problem.id), :method => :put do
-            - selected = collection.problems.include? problem
-            = hidden_field_tag :collection, collection.id, :id => nil
-            = submit_tag collection.name.truncate(35), :id => "toggle_collection_#{collection.id}_#{problem.id}", :class => "collection-button btn #{selected ? 'btn-info' : 'btn-default'}", :title => collection.name, :style => "display :#{selected ? 'block' : 'none'}"
-        %button{:class => "btn btn-default collections-more-toggle"}
-          More..
-        -# - Collection.accessible_by(current_ability, :manage).each do |collection|
-          = form_tag problem_path(:id => problem.id), :method => :put do
-            - selected = collection.problems.include? problem
-            = hidden_field_tag :collection, collection.id, :id => nil
-            = submit_tag collection.name.truncate(35), :id => "toggle_collection_#{collection.id}_#{problem.id}", :class => "collection-button btn #{selected ? 'btn-info' : 'btn-default'}", :title => collection.name, :style => "display: none"
-        %button{:class => "btn btn-default collections-less-toggle", :style => "display: none"}
-          Less..
+          - selected = collection.problems.include? problem
+          %li.collection-checkbox-li
+            %input{:type=>"checkbox", :class=>"collection-checkbox", :checked=>selected, :action=>"/problems/#{problem.id}", :collection => collection.id, :problem => problem.id}
+            =collection.name
+        %div.show_checkbox
+          = submit_tag "hide", :id => "show_checkbox_block", :class => "show_checkbox btn btn-default", :title => "hide", :style => 'display: none'
 
     - if can? :manage, problem and problem.instructor_id == @current_user.id
       %div
@@ -89,11 +82,11 @@
         - if !problem.previous_version.nil?
           = link_to "See Version History", problem_history_path(:id => problem.id), :id => "history_button_#{problem.id}", :class => 'history_button btn btn-default'
 
-    %div.supersede_form.hidden-additional{:style => 'display: none'}
-      = render :partial => 'problems/new_form', :locals => {:previous => problem}
+      %div.supersede_form.hidden-additional{:style => 'display: none'}
+        = render :partial => 'problems/new_form', :locals => {:previous => problem}
 
-    %div.history_list.hidden-additional{:style => 'display: none'}
-      = render :partial => 'problems/history_list', :locals => {:problem => problem}
+      %div.history_list.hidden-additional{:style => 'display: none'}
+        = render :partial => 'problems/history_list', :locals => {:problem => problem}
 
 
 - if column == :tags
