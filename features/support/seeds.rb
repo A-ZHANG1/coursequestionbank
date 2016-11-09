@@ -7,8 +7,15 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 @instructor = Instructor.create(name: "Example User", provider: "github", uid: "1234", username: "test")
-Whitelist.create(username: "test", provider: "github", privilege: "admin")
-@nub = Instructor.create(name: "noob", provider: "github", uid: "4321", username: "noob")
+Whitelist.create(username: @instructor.username, provider: "github", privilege: "Admin")
+
+@user03 = Instructor.create!(username: "stevenwuyinze", uid: "12345", name: "Steven (Yinze) Wu", provider: "developer")
+Whitelist.create!(username: @user03.username, provider: "developer", privilege: "Student")
+
+@user02 = Instructor.create!(username: "Another-UGSI", uid: "IMAGINARYUGSI", name: "Dorthy Luu",
+                               provider: "developer")
+Whitelist.create!(username: @user02.username, provider: "developer", privilege: "Instructor")
+
 # @tag1 = Tag.create(name: "quiz 1")
 # @tag2 = Tag.create(name: "quiz 2")
 # @tag3 = Tag.create(name: "quiz 3")

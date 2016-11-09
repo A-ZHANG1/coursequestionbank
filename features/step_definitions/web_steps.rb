@@ -403,6 +403,7 @@ Then /^(?:|I )should see a button "([^\"]*)"$/ do |text|
   should have_button text
 end
 
+
 Then(/^the problem containing "(.*?)" should have the tag "(.*?)"$/) do |problem_text, tag|
   problem = problems_with_text(problem_text)[0]
   problem.tags[0].name.should =~ /#{tag}/

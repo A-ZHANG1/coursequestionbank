@@ -35,6 +35,23 @@ var AdditionalHidden = {
         return false;
       });
 
+      problem.find('.hide_checkbox').click(function() {
+        problem.find('.edit-Collections').show()
+        problem.find('.show_checkbox').show()
+        $(this).hide();
+        return false;
+      });
+
+      problem.find('.show_checkbox').click(function() {
+        problem.find('.edit-Collections').hide()
+        problem.find('.hide_checkbox').show()
+        $(this).hide();
+        return false;
+      });
+
+
+
+
       problem.find('button.collections-more-toggle').click(function(){
         problem.find('.collection-button').each(function(){
           $(this).show();
@@ -216,3 +233,36 @@ var ChangeCollections = {
   }
 };
 $(ChangeCollections.setup);
+
+var ChangeCollectionsByCheckbox = {
+  setup: function() {
+    $('.collection-checkbox').each(function() {
+      var container = $(this);
+      container.click(function() {
+        $.ajax({
+          url: $(this).attr('action'),
+          type: 'PUT',
+          // success: ChangeCollectionsByCheckbox.editCollectionButton,
+          data: {"collection": $(this).attr("collection")}
+
+        });
+        button_id = "#toggle_collection_" + $(this).attr("collection") + "_" + $(this).attr("problem")
+        var button = $(button_id)
+        if (button.hasClass('btn-info')) {
+          button.removeClass('btn-info');
+          button.addClass('btn-default');
+        }
+        else if (button.hasClass('btn-default')) {
+          button.removeClass('btn-default');
+          button.addClass('btn-info');
+        }
+        button.toggle()
+
+        return true;
+      });
+
+    });
+  }
+
+};
+$(ChangeCollectionsByCheckbox.setup);
