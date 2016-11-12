@@ -7,6 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Instructor.delete_all
 Whitelist.delete_all
+Problem.delete_all
+Collection.delete_all
 
 @instructor = Instructor.create(name: "Example User", provider: "github", uid: "1234", username: "test")
 Whitelist.create(username: @instructor.username, provider: "github", privilege: "Admin")
