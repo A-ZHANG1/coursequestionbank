@@ -1,4 +1,4 @@
-Feature: User can remove individual problems from a Collection
+Feature: User can add problem to collection that using checkbox
   As an instructor
   So that I can organize my collections of questions
   I want to remove a problem from a collection

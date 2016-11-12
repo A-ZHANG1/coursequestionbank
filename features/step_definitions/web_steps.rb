@@ -456,3 +456,12 @@ end
 And(/^the plain text "([^"]*)" is shown$/) do |id|
   find_field(id).should be_visible
 end
+
+
+And(/^I should see image "([^"]*)"$/) do |arg|
+  pending
+end
+
+Then(/^I should see soltuion "([^"]*)" highlighted$/) do |arg|
+  pending
+end
