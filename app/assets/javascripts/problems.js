@@ -252,8 +252,8 @@ var ChangeCollectionsByCheckbox = {
 
         var button = $(this).find('input[type="submit"]');
 
-        debugger;
-        if ($(this).attr("checked") == "checked") {
+        
+        if ($(this).attr("checked") === "checked") {
           $(this).attr('checked',false);
           $(button_text).hide();
         }

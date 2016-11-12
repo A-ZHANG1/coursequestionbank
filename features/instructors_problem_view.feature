@@ -1,4 +1,4 @@
-Feature: Student's view of problem table, aka /problems, /homepage
+Feature: Instructor's view of problem table, aka /problems, /homepage
   As an instructor, I should see the edit panel for each question if the question belong to the instructor.
   I should not see the edit panel if the problems belongs to others.
 
