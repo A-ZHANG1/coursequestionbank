@@ -50,26 +50,24 @@ var AdditionalHidden = {
       });
 
 
-
-
-      problem.find('button.collections-more-toggle').click(function(){
-        problem.find('.collection-button').each(function(){
-          $(this).show();
-        })
-        $(this).hide();
-        problem.find('.collections-less-toggle').show()
-
-        return false;
-      })
-
-      problem.find('button.collections-less-toggle').click(function(){
-        problem.find('.collection-button.btn-default').each(function(){
-          $(this).hide();
-        })
-        $(this).hide();
-        problem.find('.collections-more-toggle').show()
-        return false;
-      })
+      // problem.find('button.collections-more-toggle').click(function(){
+      //   problem.find('.collection-button').each(function(){
+      //     $(this).show();
+      //   })
+      //   $(this).hide();
+      //   problem.find('.collections-less-toggle').show()
+      //
+      //   return false;
+      // })
+      //
+      // problem.find('button.collections-less-toggle').click(function(){
+      //   problem.find('.collection-button.btn-default').each(function(){
+      //     $(this).hide();
+      //   })
+      //   $(this).hide();
+      //   problem.find('.collections-more-toggle').show()
+      //   return false;
+      // })
 
 
       // var hide_collections_button = problem.find('button.collections-less-toggle')
@@ -205,34 +203,34 @@ var ChangeBloom = {
 $(ChangeBloom.setup);
 
 
-var ChangeCollections = {
-  setup: function() {
-    $('.collection-buttons').each(function() {
-      var container = $(this);
-      container.find('form').submit(function() {
-        $.ajax({
-          url: $(this).attr('action'),
-          type: 'PUT',
-          data: $(this).serialize()
-        });
-
-        var button = $(this).find('input[type="submit"]');
-
-        if (button.hasClass('btn-info')) {
-          button.removeClass('btn-info');
-          button.addClass('btn-default');
-        }
-        else if (button.hasClass('btn-default')) {
-          button.removeClass('btn-default');
-          button.addClass('btn-info');
-        }
-
-        return false;
-      });
-    });
-  }
-};
-$(ChangeCollections.setup);
+// var ChangeCollections = {
+//   setup: function() {
+//     $('.collection-buttons').each(function() {
+//       var container = $(this);
+//       container.find('form').submit(function() {
+//         $.ajax({
+//           url: $(this).attr('action'),
+//           type: 'PUT',
+//           data: $(this).serialize()
+//         });
+//
+//         var button = $(this).find('input[type="submit"]');
+//
+//         if (button.hasClass('btn-info')) {
+//           button.removeClass('btn-info');
+//           button.addClass('btn-default');
+//         }
+//         else if (button.hasClass('btn-default')) {
+//           button.removeClass('btn-default');
+//           button.addClass('btn-info');
+//         }
+//
+//         return false;
+//       });
+//     });
+//   }
+// };
+// $(ChangeCollections.setup);
 
 var ChangeCollectionsByCheckbox = {
   setup: function() {
