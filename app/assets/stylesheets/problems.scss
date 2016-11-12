@@ -95,7 +95,7 @@ div.prob-right {
   margin-left: 5px;
 }
 
-.prob_privacy, .prob_obsolete, .collection-buttons form, .collections-from-others form, .bloom-buttons form {
+.prob_privacy, .prob_obsolete, .collection-buttons form, .collections-from-others form, .bloom-buttons form{
   display: inline-block;
   margin: 2px 0;
 }
@@ -169,4 +169,12 @@ li.collection-checkbox-li{
 
 div.edit-collections{
   width: 800px;
+}
+
+
+.collection-checkbox-text form{
+  display: inline-block;
+  //float: left;
+  //width: 33%
+  //margin-left: S20px;
 }
