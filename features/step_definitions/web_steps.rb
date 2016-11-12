@@ -403,6 +403,7 @@ Then /^(?:|I )should see a button "([^\"]*)"$/ do |text|
   should have_button text
 end
 
+
 Then(/^the problem containing "(.*?)" should have the tag "(.*?)"$/) do |problem_text, tag|
   problem = problems_with_text(problem_text)[0]
   problem.tags[0].name.should =~ /#{tag}/
@@ -429,4 +430,13 @@ end
 
 Then(/^I should see "(.*?)" under "(.*?)"$/) do |arg1, arg2|
   pending # express the regexp above with the code you wish you had
+end
+
+
+Then(/^I should not see "(.*?)" checkbox$/) do |text|
+  checkboxName = find(:css, "#collections_#{collection.id}").should_not be_visible
+end
+
+Given(/^there exist a user with username "(.*?)" and uid "(.*?)"$/) do |username, uid|
+  Instructor.find_by_username_and_uid(username, uid).should_not be nil
 end

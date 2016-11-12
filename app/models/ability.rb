@@ -32,17 +32,17 @@ class Ability
     can [:read], Problem, :is_public => true
     can [:read], Collection, :is_public => true
 
+    if user.get_privilege == "Admin"
+      can :manage, :all
+    end
 
-    if user.privilege == "Instructor" or user.privilege == "Admin"
+    if user.get_privilege == "Instructor"
       can :manage, Problem, :instructor_id => user.id
-      can [:read, :update, :supersede, :view_history, :add_tags, :remove_tags, :bloom_categorize], Problem, :is_public => true
-
+      can [:read, :update, :supersede, :view_history, :add_tags, :remove_tags, :bloom_categorize, :add_to_collection], Problem, :is_public => true
       can :manage, Collection, :instructor_id => user.id
       can [:read, :export, :preview], Collection, :is_public => true
+      can :create, Collection
     end
 
-    if user.privilege == "Admin"
-      can :manage, Whitelist
-    end
   end
 end

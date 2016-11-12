@@ -16,14 +16,14 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    if cannot? :read, Problem
-    	flash[:notice] = "You don't have permission to access this site. Ask an administrator to be granted permission first."
-    	session.delete(:user_id)
-      redirect_to login_path
-    else
+    # if cannot? :read, Problem
+    # 	flash[:notice] = "You don't have permission to access this site. Ask an administrator to be granted permission first."
+    # 	session.delete(:user_id)
+    #   redirect_to login_path
+    # else
       flash[:notice] = "You don't have permission to access this page."
       redirect_to request.referer.present? ? :back : problems_path
-    end
+    # end
   end
 
 
