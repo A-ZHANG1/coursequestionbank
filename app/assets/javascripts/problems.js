@@ -50,8 +50,6 @@ var AdditionalHidden = {
       });
 
 
-
-
       problem.find('button.collections-more-toggle').click(function(){
         problem.find('.collection-button').each(function(){
           $(this).show();
@@ -72,11 +70,11 @@ var AdditionalHidden = {
       })
 
 
-      // var hide_collections_button = problem.find('button.collections-less-toggle')
-      // hide_collections_button.click(function(){
-      //   problem.find('.collection-button btn').toggle();
-      //   return false;
-      // })
+      var hide_collections_button = problem.find('button.collections-less-toggle')
+      hide_collections_button.click(function(){
+        problem.find('.collection-button btn').toggle();
+        return false;
+      })
 
     });
   }
@@ -246,17 +244,23 @@ var ChangeCollectionsByCheckbox = {
           data: {"collection": $(this).attr("collection")}
 
         });
+        // update belongs to which collecion
+
         button_id = "#toggle_collection_" + $(this).attr("collection") + "_" + $(this).attr("problem")
-        var button = $(button_id)
-        if (button.hasClass('btn-info')) {
-          button.removeClass('btn-info');
-          button.addClass('btn-default');
+        button_text = "#collection_text_" + $(this).attr("collection") + "_" + $(this).attr("problem")
+        // debugger;
+
+        var button = $(this).find('input[type="submit"]');
+
+
+        if ($(this).attr("checked") === "checked") {
+          $(this).attr('checked',false);
+          $(button_text).hide();
         }
-        else if (button.hasClass('btn-default')) {
-          button.removeClass('btn-default');
-          button.addClass('btn-info');
+        else {
+          $(this).attr('checked',true);
+          $(button_text).show();
         }
-        button.toggle()
 
         return true;
       });

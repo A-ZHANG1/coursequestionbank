@@ -5,14 +5,18 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Instructor.delete_all
+Whitelist.delete_all
+Problem.delete_all
+Collection.delete_all
 
 @instructor = Instructor.create(name: "Example User", provider: "github", uid: "1234", username: "test")
 Whitelist.create(username: @instructor.username, provider: "github", privilege: "Admin")
 
 @user03 = Instructor.create!(username: "stevenwuyinze", uid: "12345", name: "Steven (Yinze) Wu", provider: "developer")
-Whitelist.create!(username: @user03.username, provider: "developer", privilege: "Student")
+Whitelist.create!(username: @user03.username, provider: "github", privilege: "Student")
 
-@user02 = Instructor.create!(username: "Another-UGSI", uid: "IMAGINARYUGSI", name: "Dorthy Luu",
+@user02 = Instructor.create!(username: "Another-UGSI", uid: "123456", name: "Dorthy Luu",
                                provider: "developer")
 Whitelist.create!(username: @user02.username, provider: "developer", privilege: "Instructor")
 
@@ -25,7 +29,7 @@ Whitelist.create!(username: @user02.username, provider: "developer", privilege: 
 # @collection3 = Collection.create(name: "Spring 14")
 
 # @p1 = Problem.new(created_date: '2012-06-09 21:51:55 UTC', is_public: true, json: "", text:
-               
+
 #               "select_multiple do
 #     text %q{Around 2007, the claim \"Rails doesn\'t scale\"  was attributed to
 # Twitter engineers, and the fact that Twitter later moved
@@ -37,7 +41,7 @@ Whitelist.create!(username: @user02.username, provider: "developer", privilege: 
 #     distractor \"If you're building a startup and expect high volume, Raffi Krikorian would advise you to stay away from Ruby and Rails from the start.\"
 #     answer \"If Twitter had been architected as a service-oriented architecture from the start, they might have stayed on Ruby/Rails somewhat longer than they did.\"
 #   end"
-               
+
 #               )
 # @p1.instructor = @instructor
 # @p1.tags << @tag1
@@ -51,7 +55,7 @@ Whitelist.create!(username: @user02.username, provider: "developer", privilege: 
 
 
 # @p2 = Problem.new(created_date: '2013-06-09 21:51:55 UTC', is_public: true, json: "", text:
-               
+
 #               "select_multiple do
 
 #     text %q{Which statements comparing Plan-and-Document (P&D) with
@@ -86,8 +90,8 @@ Whitelist.create!(username: @user02.username, provider: "developer", privilege: 
 #     answer \"The Spiral methodology combines elements of the waterfall model
 #             with intermediate prototypes.\"
 
-#   end" 
-               
+#   end"
+
 #               )
 # @p2.instructor = @instructor
 # @p2.tags << @tag1

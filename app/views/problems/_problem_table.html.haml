@@ -9,7 +9,7 @@
   - if group_id == 0 and can? :manage, @collection
     = link_to 'New question', new_problem_path, :class => 'btn btn-primary'
 
-  - if columns.include? :checkbox
+  - if columns.include? :checkbox and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
     = form_tag update_multiple_tags_path, :id => "update_multiple_tags_#{group_id}", :class => 'check_form' do
       = text_field_tag :tag_names, nil, :id => nil, :class => 'form-control', :placeholder => 'tag 1, tag 2'
       = submit_tag 'Tag checked problems', :class => 'btn btn-primary'

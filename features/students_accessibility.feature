@@ -22,11 +22,11 @@ Feature: Student accessibility of the app
 
     When I am on the admin panel
     Then I should see "You don't have permission to access this page."
+    And I am on the CourseQuestionBank home page
 
   Scenario: we can not access my collection
 
     When I am on the dashboard
     Then I should see "You don't have permission to access this page."
-
-
+    And I am on the CourseQuestionBank home page
 

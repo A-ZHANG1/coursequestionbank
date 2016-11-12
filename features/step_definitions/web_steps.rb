@@ -431,3 +431,37 @@ end
 Then(/^I should see "(.*?)" under "(.*?)"$/) do |arg1, arg2|
   pending # express the regexp above with the code you wish you had
 end
+
+
+Then(/^I should not see "(.*?)" checkbox$/) do |text|
+  checkboxName = find(:css, "#collections_#{collection.id}").should_not be_visible
+end
+
+Given(/^there exist a user with username "(.*?)" and uid "(.*?)"$/) do |username, uid|
+  Instructor.find_by_username_and_uid(username, uid).should_not be nil
+end
+
+Then /^the "([^"*])" checkbox should be checked$/ do |id|
+  find("#{id}").should be_checked
+end
+
+And(/^I check "([^"]*)" checkbox$/) do |id|
+  check(id)
+end
+
+Then(/^the plain text "([^"]*)" is hidden$/) do |id|
+  find_field(id).should_not be_visible
+end
+
+And(/^the plain text "([^"]*)" is shown$/) do |id|
+  find_field(id).should be_visible
+end
+
+
+And(/^I should see image "([^"]*)"$/) do |arg|
+  pending
+end
+
+Then(/^I should see soltuion "([^"]*)" highlighted$/) do |arg|
+  pending
+end
