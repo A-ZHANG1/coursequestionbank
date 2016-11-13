@@ -1,10 +1,6 @@
 class RuqlReader
   def self.store_as_json(user, file)
-    debugger
     filename = file.path
-    debugger
-    Quiz.nuke_from_orbit
-    debugger
     Quiz.instance_eval "#{IO.read(filename)}"
     collections = []
     dups_found = false

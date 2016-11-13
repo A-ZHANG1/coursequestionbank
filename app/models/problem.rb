@@ -76,6 +76,14 @@ class Problem < ActiveRecord::Base
     return RuqlRenderer.render_from_json(self.json, new_uid, prev_uid)
   end
 
+  def view_select_type
+    if problem_type == "MultipuleChoice"
+      "checkbox"
+    else
+      "radio"
+    end
+  end
+
   def question_text
     return JSON.parse(json)["question_text"]
   end

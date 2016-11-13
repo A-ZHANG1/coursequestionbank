@@ -1,10 +1,10 @@
 GIT
   remote: https://github.com/stevenwuyinze/ruql
-  revision: 963b2d81e6e8d6aa457b5e00f7515499362034ca
+  revision: 578f607dd5a45e3c1b8c29c15033dafd8de948dd
   specs:
     ruql (0.1.5)
-      builder
-      getopt
+      builder (>= 3.0)
+      getopt (>= 1.0)
 
 GIT
   remote: https://github.com/sunspot/sunspot.git
@@ -279,4 +279,4 @@ RUBY VERSION
    ruby 2.3.0p0
 
 BUNDLED WITH
-   1.13.5
+   1.13.6
