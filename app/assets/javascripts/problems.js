@@ -61,6 +61,15 @@ var AdditionalHidden = {
         return false;
       });
 
+        problem.find('.btn-update').click(function() {
+            console.log("Received");
+            var pop = problem.find('.confirm-edit');
+            pop.toggle();
+            pop.find(".no-edit").on('click', function() {
+                pop.hide();
+            });
+            return false;
+        });
 
         problem.find('.minorupdate_button').click(function() {
             problem.find('.minor_form').toggle();
@@ -388,7 +397,7 @@ var Question = {
                   $(this).off("mouseover");
                   $(this).off("mouseleave");
               }
-              return false;
+              return true;
           }
 
           var checkCorrect = function(entrysDiv) {
@@ -397,7 +406,6 @@ var Question = {
                   var entryNum = problem.attr('id').split(/-/);
                   console.log(entryNum);
               });
-
           }
 
           question.find(".entrybox").mouseover(hoverOnEntry);

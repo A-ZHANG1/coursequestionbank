@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/stevenwuyinze/ruql
-  revision: 578f607dd5a45e3c1b8c29c15033dafd8de948dd
+  revision: dcb31d0a1964317bbe231ebea93f753de999673b
   specs:
-    ruql (0.1.5)
+    ruql (0.1.6)
       builder (>= 3.0)
       getopt (>= 1.0)
 

@@ -172,6 +172,7 @@ div.edit-collections {
 }
 
 .question {
+  font-size: 110%;
   margin-left: 5px;
 }
 .entrys {
@@ -179,17 +180,18 @@ div.edit-collections {
 }
 
 .entrybox {
-  padding: 3px;
-  margin: 3px;
+  padding: 5px;
+  margin: 5px;
   border-radius: 5px;
-  border: 1px solid grey;
+  border: 1px solid lightgrey;
   width: 500px;
   //display: inline;
 
 }
 //
 p.entrytext{
-  width: 600px;
+  width: 700px;
+  margin-left: 5px;
   display: inline;
   font-weight: normal !important;
   //white-space: pre-wrap;
@@ -212,6 +214,13 @@ p.entrytext{
 }
 
 .collection-text{
-  padding-right: 20px;
+  padding-right: 40px;
 }
 
+.confirm-edit{
+  position: absolute;
+  padding: 4px;
+  border: 2px double grey;
+  font-size: 120%;
+  background-color: antiquewhite;
+}
