@@ -58,7 +58,7 @@ class Problem < ActiveRecord::Base
       begin
         debugger
         question = Question.from_JSON(self.json)
-        quiz = Quiz.new("", nil, :questions => [question])
+        quiz = Quiz.new("jshadkfgkgsefhjrvcghjdrv", :questions => [question])
         quiz.render_with("Html5", {'template' => 'preview.html.erb'})
         self.update_attributes(:rendered_text => quiz.output)
         quiz.output
@@ -86,6 +86,10 @@ class Problem < ActiveRecord::Base
 
   def question_text
     return JSON.parse(json)["question_text"]
+  end
+
+  def question_image
+    return JSON.parse(json)["question_image"]
   end
 
   def answer_entrys
