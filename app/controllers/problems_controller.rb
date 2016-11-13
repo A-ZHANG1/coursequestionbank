@@ -279,39 +279,25 @@ class ProblemsController < ApplicationController
   end
 
   def edit_minor
+    # debugger
+
+    new_problem = RuqlReader.read_problem(@current_user, params[:ruql_source])
+    original_problem = Problem.find_by_uid(params[:parent_uid])
+
+
     debugger
-
-    parent_uid = params[:parent_uid]
-
-    privacy = params[:privacy] ? params[:privacy].strip.downcase : nil
-    category = Problem.all_bloom_categories.include?(params[:category]) ? params[:category] : nil
-    collections = []
-    if params[:collections]
-      params[:collections].each do |key, value|
-        col = Collection.find(key)
-        authorize! :manage, col
-        collections << col
-      end
-    end
-
-
-    begin
-      problem = RuqlReader.read_problem(@current_user, params[:ruql_source])
-      problem.is_public = privacy == 'public'
-      problem.save
-      problem.add_tags(self.class.parse_list params[:tag_names])
-      collections.each {|c| c.problems << problem}
-    rescue Exception => e
-      if request.xhr?
-        render :json => {'error' => e.message}
+    if !new_problem[:json].nil?
+      if original_problem[:json] != new_problem[:json]
+        original_problem[:json] = new_problem[:json]
+        original_problem.save
+        # Problem.find_by_uid(new_problem[:uid]).destory!
+        flash[:notice] = "Question updated."
       else
-        flash[:ruql_source] = params[:ruql_source]
-        redirect_to :back
+        flash[:notice] = "Nothing changes."
       end
-      return
+
     end
 
-    flash[:notice] = "Question update." if !flash[:notice]
     if request.xhr?
       render :json => {'error' => nil}
     else
