@@ -12,7 +12,7 @@
 
           %input{:type=> "radio", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i]}
           %p.entrytext
-            = test_problem.answer_entrys[i].strip
+            = test_problem.answer_entrys[i].strip.html_safe
     %button{:type => "button", :class => "button-check btn btn-default"}
       Check Answer
 
@@ -28,7 +28,7 @@
         %div.entrybox{:answer_id => "entry_#{i+1}"}
           %input{:type=> "checkbox", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i]}
           %p.entrytext
-            = test_problem.answer_entrys[i].strip
+            = test_problem.answer_entrys[i].strip.html_safe
     %button{:type => "button", :class => "button-check btn btn-default"}
       Check Answer
 
@@ -43,4 +43,3 @@
     %input{:type => "text"}
     %button{:type => "button", :class => "button-check btn btn-default"}
       Check Answer
->>>>>>> 65e7617b5c77b8405137752b5de022844bcd98d4
