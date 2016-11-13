@@ -1,0 +1,25 @@
+
+- previous = local_assigns[:previous] || nil
+- source = @ruql_source || (previous && previous.ruql_source) || ''
+- tags = (previous && previous.tags.map(&:name).join(', ')) || ''
+
+
+= form_tag edit_minor_path, :method => :post, :class => 'form-horizontal new-form'  do
+
+  %div.form-group
+    = label_tag :ruql_source, 'Source:', :class => 'col-xs-12 col-sm-2 control-label'
+    %div.col-xs-12.col-sm-10
+      = text_area_tag :ruql_source, source, :class => 'source_field form-control', :rows => 15, :placeholder => 'RuQL source code'
+
+  %div.form-group{:style => 'display: none'}
+    = label_tag :parent_uid, 'Parent:', :class => 'col-xs-12 col-sm-2 control-label'
+    %div.col-xs-12.col-sm-10
+      = text_field_tag :parent_uid, nil, :id => nil, :class => 'form-control', :placeholder => 'Parent UID', :value => (previous.uid if previous)
+
+
+
+  %div.form-group
+    %div.col-sm-2
+    %div.col-xs-12.col-sm-10
+      %p.message
+      = submit_tag "update", :class => 'btn btn-primary'
