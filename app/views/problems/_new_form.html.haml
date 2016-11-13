@@ -46,5 +46,7 @@
     %div.col-sm-2
     %div.col-xs-12.col-sm-10
       %p.message
+      - if previous?
+        - 
       - submit_msg = previous ? (edit? 'Update' : 'Supersede question') : 'Create question'
       = submit_tag submit_msg, :class => 'btn btn-primary'
