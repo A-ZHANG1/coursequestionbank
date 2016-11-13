@@ -56,7 +56,7 @@
 
     - if can? :add_to_collection, problem
       %div.hide_checkbox
-        = submit_tag "show", :id => "hide_checkbox_block", :class => "hide_checkbox btn btn-default", :title => "show"
+        = submit_tag "Show All Collections", :id => "hide_checkbox_block", :class => "hide_checkbox btn btn-default", :title => "show"
 
       %div.edit-collections{:style => 'display: none'}
         - Collection.accessible_by(current_ability, :manage).each do |collection|
@@ -65,7 +65,7 @@
             %input{:type=>"checkbox", :id =>"collections_checkbox_#{collection.id}_#{problem.id}",:class=>"collection-checkbox", :checked=>selected, :action=>"/problems/#{problem.id}", :collection => collection.id, :problem => problem.id}
             =collection.name
         %div.show_checkbox
-          = submit_tag "hide", :id => "show_checkbox_block", :class => "show_checkbox btn btn-default", :title => "hide", :style => 'display: none'
+          = submit_tag "Hide Collections", :id => "show_checkbox_block", :class => "show_checkbox btn btn-default", :title => "hide", :style => 'display: none'
 
     - if can? :manage, problem
       %div

@@ -10,7 +10,7 @@ class RuqlRenderer
     result << ruql_question_header(json_hash)
     result << "\n  uid #{uid.inspect}" if uid
     result << "\n  #uid #{prev_uid.inspect}" if prev_uid
-    result << "\n  image " + json_hash["question_image"].inspect if json_hash["question_image"].inspect !=
+    result << "\n  image " + json_hash["question_image"].inspect if json_hash["question_image"] != nil
     result << "\n  explanation " + json_hash["global_explanation"].inspect if json_hash["global_explanation"] != nil
     result << "\n  text " + json_hash["question_text"].inspect
     answers.each do |answer|
