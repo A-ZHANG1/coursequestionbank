@@ -306,3 +306,107 @@ var ChangeCollectionsByCheckbox = {
 
 };
 $(ChangeCollectionsByCheckbox.setup);
+
+
+
+var Question = {
+  setup: function() {
+    $('.select_multiple_question').each(function() {
+      var question = $(this);
+      question.ready(function() {
+          var hoverOnEntry = function() {
+              $(this).css('border', '2px solid dodgerblue');
+          }
+          var hoverOffEntry = function() {
+              $(this).css('border', '1px solid grey');
+          }
+          var unCheckAll = function(entrysDiv) {
+              $(entrysDiv).find(".entrybox").each(function() {
+                  $(this).on("mouseover", hoverOnEntry);
+                  $(this).on("mouseleave", hoverOffEntry);
+                  $(this).mouseleave();
+              });
+          }
+          var clickOnEntry = function() {
+              choice = $(this).find(":checkbox")
+              if (choice.is(':checked')) {
+                  choice.prop('checked', false);
+                  $(this).on("mouseover", hoverOnEntry);
+                  $(this).on("mouseleave", hoverOffEntry);
+              } else {
+                  // unCheckAll($(this).parent());
+                  $(this).mouseover();
+                  choice.prop('checked', true);
+                  $(this).off("mouseover");
+                  $(this).off("mouseleave");
+              }
+              return false;
+          }
+
+          var checkCorrect = function(entrysDiv) {
+              var keys = [false, false, false, true];
+              $(entrysDiv).find(".entrybox").each(function() {
+                  var entryNum = problem.attr('id').split(/-/);
+                  console.log(entryNum);
+              });
+
+          }
+
+          question.find(".entrybox").mouseover(hoverOnEntry);
+          question.find(".entrybox").mouseleave(hoverOffEntry);
+          question.find(".entrybox").click(clickOnEntry);
+      });
+
+    });
+
+    $('.multiple_choice_question').each(function() {
+      var question = $(this);
+      question.ready(function() {
+          var hoverOnEntry = function() {
+              $(this).css('border', '2px solid dodgerblue');
+          }
+          var hoverOffEntry = function() {
+              $(this).css('border', '1px solid grey');
+          }
+          var unCheckAll = function(entrysDiv) {
+              $(entrysDiv).find(".entrybox").each(function() {
+                  $(this).on("mouseover", hoverOnEntry);
+                  $(this).on("mouseleave", hoverOffEntry);
+                  $(this).mouseleave();
+              });
+          }
+          var clickOnEntry = function() {
+              choice = $(this).find(":radio");
+              if (choice.is(':checked')) {
+                  choice.prop('checked', false);
+                  $(this).on("mouseover", hoverOnEntry);
+                  $(this).on("mouseleave", hoverOffEntry);
+              } else {
+                  unCheckAll($(this).parent());
+                  $(this).mouseover();
+                  choice.prop('checked', true);
+                  $(this).off("mouseover");
+                  $(this).off("mouseleave");
+              }
+              return false;
+          }
+
+          var checkCorrect = function(entrysDiv) {
+              var keys = [false, false, false, true];
+              $(entrysDiv).find(".entrybox").each(function() {
+                  var entryNum = problem.attr('id').split(/-/);
+                  console.log(entryNum);
+              });
+
+          }
+
+          question.find(".entrybox").mouseover(hoverOnEntry);
+          question.find(".entrybox").mouseleave(hoverOffEntry);
+          question.find(".entrybox").click(clickOnEntry);
+      });
+
+    });
+
+  }
+};
+$(Question.setup);

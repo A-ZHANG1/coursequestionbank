@@ -5,7 +5,8 @@
 
 
 - if column == :problem
-  %div.problem_view= problem.html5.html_safe
+  = render :partial => "problems/student_answer", :locals => {:test_problem => problem},:columns => [:checkbox, :problem]
+
 
   %div.additional
     %div.prob-right
@@ -76,7 +77,7 @@
           Clip Source Code
 
         = link_to "Supersede", supersede_path(:id => problem.id), :id => "supersede_button_#{problem.id}", :class => 'supersede_button btn btn-default'
-        = link_to "update", minorupdate_path(:id => problem.id), :id => "minorupdate_button_#{problem.id}", :class => 'minorupdate_button btn btn-default'
+        = link_to "Update", minorupdate_path(:id => problem.id), :id => "minorupdate_button_#{problem.id}", :class => 'minorupdate_button btn btn-default'
 
         - if !problem.previous_version.nil?
           = link_to "See Version History", problem_history_path(:id => problem.id), :id => "history_button_#{problem.id}", :class => 'history_button btn btn-default'
