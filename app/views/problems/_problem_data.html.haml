@@ -24,8 +24,8 @@
 
     %div Created #{problem.created_date} by #{problem.instructor.name}
 
-    -# - if can? :manage, problem
-    -#   %div UID: #{problem.uid}
+    - if can? :manage, problem
+      %div UID: #{problem.uid}
     -#   = render :partial => 'problems/collection_checkboxes', :locals => {:previous => problem}
 
     - if can? :set_previous, problem
