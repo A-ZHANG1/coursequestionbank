@@ -87,6 +87,10 @@ class Problem < ActiveRecord::Base
     return JSON.parse(json)["question_text"]
   end
 
+  def question_image
+    return JSON.parse(json)["question_image"]
+  end
+
   def answer_entrys
     return JSON.parse(json)["answers"].collect{|entry| entry["answer_text"]}
   end
@@ -203,7 +207,7 @@ class Problem < ActiveRecord::Base
     return false if tag_name.strip == ""
     return false if tags.find_by_name(tag_name)
 
-    tags << (Tag.where(name: tag_name)[0] || Tag.create(name: tag_name))
+    tags << (Tag.were(name: tag_name)[0] || Tag.create(name: tag_name))
     save
     return true
   end
