@@ -4,7 +4,8 @@
 - tags = (previous && previous.tags.map(&:name).join(', ')) || ''
 
 
-= form_tag problems_path, :method => :post, :class => 'form-horizontal new-form' do
+= form_tag edit_minor_path, :method => :post, :class => 'form-horizontal new-form'  do
+
   %div.form-group
     = label_tag :ruql_source, 'Source:', :class => 'col-xs-12 col-sm-2 control-label'
     %div.col-xs-12.col-sm-10
@@ -14,6 +15,11 @@
     = label_tag :tag_names, 'Tags:', :class => 'col-xs-12 col-sm-2 control-label'
     %div.col-xs-12.col-sm-10
       = text_field_tag :tag_names, nil, :id => nil, :class => 'form-control', :placeholder => 'tag 1, tag 2', :value => (tags if tags != '')
+
+  %div.form-group{:style => 'display: none'}
+    = label_tag :parent_uid, 'Parent:', :class => 'col-xs-12 col-sm-2 control-label'
+    %div.col-xs-12.col-sm-10
+      = text_field_tag :parent_uid, nil, :id => nil, :class => 'form-control', :placeholder => 'Parent UID', :value => (previous.uid if previous)
 
   %div.form-group
     = label_tag :ruql_source, 'Category:', :class => 'col-xs-12 col-sm-2 control-label'

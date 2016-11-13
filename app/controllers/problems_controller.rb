@@ -78,7 +78,6 @@ class ProblemsController < ApplicationController
   end
 
   def create
-    debugger
     parent_uid = params[:parent_uid]
     if parent_uid
       previous_version = Problem.find_by_uid(params[:parent_uid])
@@ -136,7 +135,6 @@ class ProblemsController < ApplicationController
   def update
     problem = Problem.find(params[:id])
 
-    debugger
     if !params[:privacy].nil?
       authorize! :set_privacy, problem
       privacy = params[:privacy].downcase.strip
@@ -280,4 +278,47 @@ class ProblemsController < ApplicationController
     @history = @problem.history
   end
 
+  def edit_minor
+    debugger
+
+    parent_uid = params[:parent_uid]
+
+    privacy = params[:privacy] ? params[:privacy].strip.downcase : nil
+    category = Problem.all_bloom_categories.include?(params[:category]) ? params[:category] : nil
+    collections = []
+    if params[:collections]
+      params[:collections].each do |key, value|
+        col = Collection.find(key)
+        authorize! :manage, col
+        collections << col
+      end
+    end
+
+
+    begin
+      problem = RuqlReader.read_problem(@current_user, params[:ruql_source])
+      problem.is_public = privacy == 'public'
+      problem.save
+      problem.add_tags(self.class.parse_list params[:tag_names])
+      collections.each {|c| c.problems << problem}
+    rescue Exception => e
+      if request.xhr?
+        render :json => {'error' => e.message}
+      else
+        flash[:ruql_source] = params[:ruql_source]
+        redirect_to :back
+      end
+      return
+    end
+
+    flash[:notice] = "Question update." if !flash[:notice]
+    if request.xhr?
+      render :json => {'error' => nil}
+    else
+      redirect_to problems_path
+    end
+
+  end
+
 end
+
