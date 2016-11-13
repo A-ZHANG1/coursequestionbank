@@ -16,7 +16,16 @@ Coursequestionbank::Application.routes.draw do
   post 'problems/:id/tags/add' => 'problems#add_tags', :as => 'add_tags'
   post 'problems/:id/tags/remove' => 'problems#remove_tags', :as => 'remove_tags'
   post 'update_multiple_tags' => 'problems#update_multiple_tags'
+
   get 'problems/:id/supersede' => 'problems#supersede', :as => 'supersede'
+
+  post 'problems/:id/minorupdate' => 'problems#minorupdate', :as => "minorupdate"
+  get 'problems/:id/minorupdate' => 'problems#minorupdate', :as => "minorupdate"
+
+
+  post 'problems/edit_minor' => 'problems#edit_minor', :as => "edit_minor"
+
+
   get 'problems/:id/history' => 'problems#view_history', :as => 'problem_history'
 
   get 'profile' => 'instructors#show', :as => 'profile'

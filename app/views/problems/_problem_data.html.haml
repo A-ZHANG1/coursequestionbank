@@ -76,6 +76,7 @@
           Clip Source Code
 
         = link_to "Supersede", supersede_path(:id => problem.id), :id => "supersede_button_#{problem.id}", :class => 'supersede_button btn btn-default'
+        = link_to "update", minorupdate_path(:id => problem.id), :id => "minorupdate_button_#{problem.id}", :class => 'minorupdate_button btn btn-default'
 
         - if !problem.previous_version.nil?
           = link_to "See Version History", problem_history_path(:id => problem.id), :id => "history_button_#{problem.id}", :class => 'history_button btn btn-default'
@@ -86,10 +87,22 @@
       %div.history_list.hidden-additional{:style => 'display: none'}
         = render :partial => 'problems/history_list', :locals => {:problem => problem}
 
+<<<<<<< HEAD
 - if can? :manage, problem
   - if column == :tags
     %div{:id => "all_tags_#{problem.id}", :class => 'tag_list'}
       = render :partial => 'problems/tags', locals: { problem: problem }
 
+=======
+      %div.minor_form.hidden-additional{:style => 'display: none'}
+        = render :partial => 'problems/minor_form', :locals => {:previous => problem}
+
+
+- if column == :tags
+  %div{:id => "all_tags_#{problem.id}", :class => 'tag_list'}
+    = render :partial => 'problems/tags', locals: { problem: problem }
+
+  - if can? :manage, problem
+>>>>>>> iter3_1
     = form_tag add_tags_path(id: problem.id), class: 'add_tags_form' do
       = text_field_tag :tag_names, nil, id: "add_tags_#{problem.id}", class: 'form-control', placeholder: 'Add tags'
