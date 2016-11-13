@@ -397,7 +397,7 @@ var Question = {
                   $(this).off("mouseover");
                   $(this).off("mouseleave");
               }
-              return false;
+              return true;
           }
 
           var checkCorrect = function(entrysDiv) {
@@ -406,7 +406,6 @@ var Question = {
                   var entryNum = problem.attr('id').split(/-/);
                   console.log(entryNum);
               });
-
           }
 
           question.find(".entrybox").mouseover(hoverOnEntry);

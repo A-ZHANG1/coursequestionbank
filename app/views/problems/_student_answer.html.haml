@@ -5,7 +5,7 @@
       = test_problem.question_text.html_safe
     - if !test_problem.question_image.nil?
       %br
-        = image_tag test_problem.question_image, :style => "max-height: 400px;"
+        = image_tag test_problem.question_image, :style => "max-width: 600px;"
     %div.entrys{:tag => "multiple"}
       - for i in (0..test_problem.answer_entrys.length - 1)
         %div.entrybox{:answer_id => "entry_#{i+1}"}
