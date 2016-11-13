@@ -61,6 +61,15 @@ var AdditionalHidden = {
         return false;
       });
 
+        problem.find('.btn-update').click(function() {
+            console.log("Received");
+            var pop = problem.find('.confirm-edit');
+            pop.toggle();
+            pop.find(".no-edit").on('click', function() {
+                pop.hide();
+            });
+            return false;
+        });
 
         problem.find('.minorupdate_button').click(function() {
             problem.find('.minor_form').toggle();
