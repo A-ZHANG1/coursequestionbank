@@ -20,6 +20,30 @@ var Supersession = {
 $(Supersession.setup);
 
 
+var MinorUpdate = {
+    setup: function() {
+        $('.minor_form form').submit(function(e) {
+            $.ajax({
+                context: this,
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(data, textStatus, jqXHR) {
+                    if (data.error === null)
+                        window.location.href = '/problems';
+                    else
+                        $(this).find('.message').text(data.error);
+                }
+            });
+            return false;
+        });
+    }
+};
+$(MinorUpdate.setup);
+
+
+
+
 var AdditionalHidden = {
   setup: function() {
     $('.additional').each(function() {
@@ -27,13 +51,25 @@ var AdditionalHidden = {
       problem.find('.supersede_button').click(function() {
         problem.find('.supersede_form').toggle();
         problem.find('.history_list').hide();
+          problem.find('.minor_form').hide();
         return false;
       });
       problem.find('.history_button').click(function() {
         problem.find('.supersede_form').hide();
         problem.find('.history_list').toggle();
+          problem.find('.minor_form').hide();
         return false;
       });
+
+
+        problem.find('.minorupdate_button').click(function() {
+            problem.find('.minor_form').toggle();
+            problem.find('.supersede_form').hide();
+            problem.find('.history_list').hide();
+            return false;
+        });
+
+
 
       problem.find('.hide_checkbox').click(function() {
         problem.find('.edit-Collections').show()

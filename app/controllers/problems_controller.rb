@@ -78,6 +78,7 @@ class ProblemsController < ApplicationController
   end
 
   def create
+    debugger
     parent_uid = params[:parent_uid]
     if parent_uid
       previous_version = Problem.find_by_uid(params[:parent_uid])
@@ -135,6 +136,7 @@ class ProblemsController < ApplicationController
   def update
     problem = Problem.find(params[:id])
 
+    debugger
     if !params[:privacy].nil?
       authorize! :set_privacy, problem
       privacy = params[:privacy].downcase.strip
@@ -256,6 +258,16 @@ class ProblemsController < ApplicationController
       end
     end
     redirect_to :back
+  end
+
+  def minorupdate
+    @problem = Problem.find(params[:id])
+    @ruql_source = flash[:ruql_source]
+  end
+
+  def minor
+    @problem = Problem.find(params[:id])
+    @ruql_source = flash[:ruql_source]
   end
 
   def supersede
