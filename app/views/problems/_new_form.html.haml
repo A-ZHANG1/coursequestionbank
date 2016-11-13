@@ -2,13 +2,16 @@
 - previous = local_assigns[:previous] || nil
 - edit = local_assigns[:edit]
 - if edit
+  = edit
   - source = previous.ruql_source(new = false)
 - else
+  - if previous.uid = "5c7327b8-6492-4fe5-931e-b4257e7561f7"
+    = previous.ruql_source
   - source = @ruql_source || (previous && previous.ruql_source) || ''
 - tags = (previous && previous.tags.map(&:name).join(', ')) || ''
 
 
-= form_tag problems_path, :method => :post, :class => 'form-horizontal new-form' do
+= form_tag problems_path, :method => :post, :class => 'form-horizontal new-form', :previous => "#{previous.id}" do
   %div.form-group
     = label_tag :ruql_source, 'Source:', :class => 'col-xs-12 col-sm-2 control-label'
     %div.col-xs-12.col-sm-10
@@ -19,10 +22,11 @@
     %div.col-xs-12.col-sm-10
       = text_field_tag :tag_names, nil, :id => nil, :class => 'form-control', :placeholder => 'tag 1, tag 2', :value => (tags if tags != '')
 
-  %div.form-group
-    = label_tag :parent_uid, 'Parent:', :class => 'col-xs-12 col-sm-2 control-label'
-    %div.col-xs-12.col-sm-10
-      = text_field_tag :parent_uid, nil, :id => nil, :class => 'form-control', :placeholder => 'Parent UID', :value => (previous.uid if previous)
+  - if !edit
+    %div.form-group
+      = label_tag :parent_uid, 'Parent:', :class => 'col-xs-12 col-sm-2 control-label'
+      %div.col-xs-12.col-sm-10
+        = text_field_tag :parent_uid, nil, :id => nil, :class => 'form-control', :placeholder => 'Parent UID', :value => (previous.uid if previous)
 
   %div.form-group
     = label_tag :ruql_source, 'Category:', :class => 'col-xs-12 col-sm-2 control-label'
@@ -46,7 +50,12 @@
     %div.col-sm-2
     %div.col-xs-12.col-sm-10
       %p.message
-      - if previous?
-        - 
-      - submit_msg = previous ? (edit? 'Update' : 'Supersede question') : 'Create question'
+      - if previous
+        - if edit
+          - submit_msg = 'Update'
+        - else
+          - submit_msg = 'Supersede question'
+      - else
+        - submit_msg = 'Create question'
+      -# - submit_msg = previous ? (edit? 'Update' : 'Supersede question') : 'Create question'
       = submit_tag submit_msg, :class => 'btn btn-primary'

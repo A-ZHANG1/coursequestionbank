@@ -6,7 +6,8 @@ class RuqlRenderer
     return "" if json_code == nil || json_code.length <= 2
     json_hash = JSON.parse(json_code)
     answers = json_hash["answers"]
-    return ruql_true_false(json_hash) if json_hash["question_type"] == "TrueFalse"
+    # debugger
+    return ruql_true_false(json_hash, uid, prev_uid) if json_hash["question_type"] == "TrueFalse"
     result << ruql_question_header(json_hash)
     result << "\n  uid #{uid.inspect}" if uid
     result << "\n  #uid #{prev_uid.inspect}" if prev_uid
@@ -20,7 +21,7 @@ class RuqlRenderer
     return result
   end
 
-  def self.ruql_true_false(json_hash)
+  def self.ruql_true_false(json_hash, uid, prev_uid)
     line = "truefalse "
     line += json_hash["question_text"].inspect
     json_hash["answers"].each do |answer|
@@ -31,6 +32,13 @@ class RuqlRenderer
         line += ', :explanation => ' + answer["explanation"].inspect
       end
     end
+    # debugger
+    if uid
+      # debugger
+      line += ",  :uid => #{uid.inspect}"
+      # debugger
+    end
+    line += ",  #:uid => #{prev_uid.inspect}" if prev_uid
     return line
   end
 

@@ -7,16 +7,34 @@ var Supersession = {
           type: 'POST',
           data: $(this).serialize(),
           success: function(data, textStatus, jqXHR) {
+            if (data.error === null){
+              // debugger;
+              window.location.reload()
+            }else
+              $(this).find('.message').text(data.error);
+          }
+      });
+
+      return false;
+    });
+
+    $('.minor_form form').submit(function(e) {
+
+      // debugger
+      $.ajax({
+          context: this,
+          url: "/problems/" + $(this).attr('previous'),
+          type: 'DELETE',
+          data: {"id" : $(this).attr('previous')},
+          success: function(data, textStatus, jqXHR) {
             if (data.error === null)
               window.location.href = '/problems';
             else
               $(this).find('.message').text(data.error);
           }
       });
-      return false;
-    });
 
-    $('.minor_form form').submit(function(e) {
+      // debugger
       $.ajax({
           context: this,
           url: $(this).attr('action'),
@@ -29,20 +47,6 @@ var Supersession = {
               $(this).find('.message').text(data.error);
           }
       });
-
-      $.ajax({
-          context: this,
-          url: $(this).attr('action'),
-          type: 'DELETE',
-          data: $(this).serialize(),
-          success: function(data, textStatus, jqXHR) {
-            if (data.error === null)
-              window.location.href = '/problems';
-            else
-              $(this).find('.message').text(data.error);
-          }
-      });
-
       return false;
     });
   }
@@ -125,31 +129,31 @@ var AdditionalHidden = {
       });
 
 
-      problem.find('button.collections-more-toggle').click(function(){
-        problem.find('.collection-button').each(function(){
-          $(this).show();
-        })
-        $(this).hide();
-        problem.find('.collections-less-toggle').show()
+      // problem.find('button.collections-more-toggle').click(function(){
+      //   problem.find('.collection-button').each(function(){
+      //     $(this).show();
+      //   })
+      //   $(this).hide();
+      //   problem.find('.collections-less-toggle').show()
+      //
+      //   return false;
+      // })
+      //
+      // problem.find('button.collections-less-toggle').click(function(){
+      //   problem.find('.collection-button.btn-default').each(function(){
+      //     $(this).hide();
+      //   })
+      //   $(this).hide();
+      //   problem.find('.collections-more-toggle').show()
+      //   return false;
+      // })
 
-        return false;
-      })
 
-      problem.find('button.collections-less-toggle').click(function(){
-        problem.find('.collection-button.btn-default').each(function(){
-          $(this).hide();
-        })
-        $(this).hide();
-        problem.find('.collections-more-toggle').show()
-        return false;
-      })
-
-
-      var hide_collections_button = problem.find('button.collections-less-toggle')
-      hide_collections_button.click(function(){
-        problem.find('.collection-button btn').toggle();
-        return false;
-      })
+      // var hide_collections_button = problem.find('button.collections-less-toggle')
+      // hide_collections_button.click(function(){
+      //   problem.find('.collection-button btn').toggle();
+      //   return false;
+      // })
 
     });
   }
@@ -278,34 +282,34 @@ var ChangeBloom = {
 $(ChangeBloom.setup);
 
 
-var ChangeCollections = {
-  setup: function() {
-    $('.collection-buttons').each(function() {
-      var container = $(this);
-      container.find('form').submit(function() {
-        $.ajax({
-          url: $(this).attr('action'),
-          type: 'PUT',
-          data: $(this).serialize()
-        });
-
-        var button = $(this).find('input[type="submit"]');
-
-        if (button.hasClass('btn-info')) {
-          button.removeClass('btn-info');
-          button.addClass('btn-default');
-        }
-        else if (button.hasClass('btn-default')) {
-          button.removeClass('btn-default');
-          button.addClass('btn-info');
-        }
-
-        return false;
-      });
-    });
-  }
-};
-$(ChangeCollections.setup);
+// var ChangeCollections = {
+//   setup: function() {
+//     $('.collection-buttons').each(function() {
+//       var container = $(this);
+//       container.find('form').submit(function() {
+//         $.ajax({
+//           url: $(this).attr('action'),
+//           type: 'PUT',
+//           data: $(this).serialize()
+//         });
+//
+//         var button = $(this).find('input[type="submit"]');
+//
+//         if (button.hasClass('btn-info')) {
+//           button.removeClass('btn-info');
+//           button.addClass('btn-default');
+//         }
+//         else if (button.hasClass('btn-default')) {
+//           button.removeClass('btn-default');
+//           button.addClass('btn-info');
+//         }
+//
+//         return false;
+//       });
+//     });
+//   }
+// };
+// $(ChangeCollections.setup);
 
 var ChangeCollectionsByCheckbox = {
   setup: function() {

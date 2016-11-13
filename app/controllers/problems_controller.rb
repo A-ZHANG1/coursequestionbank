@@ -78,6 +78,7 @@ class ProblemsController < ApplicationController
   end
 
   def create
+    debugger
     parent_uid = params[:parent_uid]
     if parent_uid
       previous_version = Problem.find_by_uid(params[:parent_uid])
@@ -126,8 +127,10 @@ class ProblemsController < ApplicationController
 
     flash[:notice] = "Question created." if !flash[:notice]
     if request.xhr?
+
       render :json => {'error' => nil}
     else
+
       redirect_to problems_path
     end
   end
@@ -258,22 +261,22 @@ class ProblemsController < ApplicationController
     redirect_to :back
   end
 
-  def minorupdate
-    @problem = Problem.find(params[:id])
-    @ruql_source = flash[:ruql_source]
-  end
-
-  def minor
-    @problem = Problem.find(params[:id])
-    @ruql_source = flash[:ruql_source]
-  end
-
-  def supersede
-    @problem = Problem.find(params[:id])
-    # debugger
-    @ruql_source = flash[:ruql_source]
-    # debugger
-  end
+  # def minorupdate
+  #   @problem = Problem.find(params[:id])
+  #   @ruql_source = flash[:ruql_source]
+  # end
+  #
+  # def minor
+  #   @problem = Problem.find(params[:id])
+  #   @ruql_source = flash[:ruql_source]
+  # end
+  #
+  # def supersede
+  #   @problem = Problem.find(params[:id])
+  #   # debugger
+  #   @ruql_source = flash[:ruql_source]
+  #   # debugger
+  # end
 
   def view_history
     @problem = Problem.find(params[:id])
@@ -283,31 +286,11 @@ class ProblemsController < ApplicationController
   def destroy
     @problem = Problem.find(params[:id])
     @problem.destroy
-  end
-
-  def edit_minor
-
-    new_problem = RuqlReader.read_problem(@current_user, params[:ruql_source])
-    original_problem = Problem.find_by_uid(params[:parent_uid])
-
-    if !new_problem[:json].nil?
-      if original_problem[:json] != new_problem[:json]
-        original_problem[:json] = new_problem[:json]
-        original_problem.save
-
-        flash[:notice] = "Question updated."
-      else
-        flash[:notice] = "Nothing changes."
-      end
-
-    end
-
     if request.xhr?
+      debugger
       render :json => {'error' => nil}
     else
+      debugger
       redirect_to problems_path
     end
-
   end
-
-end
