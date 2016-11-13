@@ -87,8 +87,9 @@
 
       %div.history_list.hidden-additional{:style => 'display: none'}
         = render :partial => 'problems/history_list', :locals => {:problem => problem}
+
       %div.minor_form.hidden-additional{:style => 'display: none'}
-        = render :partial => 'problems/minor_form', :locals => {:previous => problem}
+        = render :partial => 'problems/new_form', :locals => {:previous => problem, :edit => true}
 
 - if can? :manage, problem
   - if column == :tags

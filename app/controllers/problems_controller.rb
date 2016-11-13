@@ -270,12 +270,19 @@ class ProblemsController < ApplicationController
 
   def supersede
     @problem = Problem.find(params[:id])
+    # debugger
     @ruql_source = flash[:ruql_source]
+    # debugger
   end
 
   def view_history
     @problem = Problem.find(params[:id])
     @history = @problem.history
+  end
+
+  def destroy
+    @problem = Problem.find(params[:id])
+    @problem.destroy
   end
 
   def edit_minor
@@ -304,4 +311,3 @@ class ProblemsController < ApplicationController
   end
 
 end
-

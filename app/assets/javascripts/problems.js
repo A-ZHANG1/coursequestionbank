@@ -15,31 +15,61 @@ var Supersession = {
       });
       return false;
     });
+
+    $('.minor_form form').submit(function(e) {
+      $.ajax({
+          context: this,
+          url: $(this).attr('action'),
+          type: 'POST',
+          data: $(this).serialize(),
+          success: function(data, textStatus, jqXHR) {
+            if (data.error === null)
+              window.location.href = '/problems';
+            else
+              $(this).find('.message').text(data.error);
+          }
+      });
+
+      $.ajax({
+          context: this,
+          url: $(this).attr('action'),
+          type: 'DELETE',
+          data: $(this).serialize(),
+          success: function(data, textStatus, jqXHR) {
+            if (data.error === null)
+              window.location.href = '/problems';
+            else
+              $(this).find('.message').text(data.error);
+          }
+      });
+
+      return false;
+    });
   }
 };
 $(Supersession.setup);
 
 
-var MinorUpdate = {
-    setup: function() {
-        $('.minor_form form').submit(function(e) {
-            $.ajax({
-                context: this,
-                url: $(this).attr('action'),
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function(data, textStatus, jqXHR) {
-                    if (data.error === null)
-                        window.location.href = '/problems';
-                    else
-                        $(this).find('.message').text(data.error);
-                }
-            });
-            return false;
-        });
-    }
-};
-$(MinorUpdate.setup);
+// var MinorUpdate = {
+//     setup: function() {
+//         $('.minor_form form').submit(function(e) {
+//             $.ajax({
+//                 context: this,
+//                 url: $(this).attr('action'),
+//                 type: 'POST',
+//                 data: $(this).serialize(),
+//                 success: function(data, textStatus, jqXHR) {
+//                     if (data.error === null)
+//                         window.location.href = '/problems';
+//                     else
+//                         $(this).find('.message').text(data.error);
+//                 }
+//             });
+//             return false;
+//         });
+//     }
+// };
+// $(MinorUpdate.setup);
 
 
 

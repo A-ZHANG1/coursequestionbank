@@ -69,9 +69,11 @@ class Problem < ActiveRecord::Base
     end
   end
 
-  def ruql_source
-    new_uid = SecureRandom.uuid
-    prev_uid = self.uid
+  def ruql_source(new = true)
+    if new
+      new_uid = SecureRandom.uuid
+      prev_uid = self.uid
+    end
     return RuqlRenderer.render_from_json(self.json, new_uid, prev_uid)
   end
 

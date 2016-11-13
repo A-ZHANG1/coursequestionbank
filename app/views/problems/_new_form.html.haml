@@ -1,6 +1,10 @@
 
 - previous = local_assigns[:previous] || nil
-- source = @ruql_source || (previous && previous.ruql_source) || ''
+- edit = local_assigns[:edit]
+- if edit
+  - source = previous.ruql_source(new = false)
+- else
+  - source = @ruql_source || (previous && previous.ruql_source) || ''
 - tags = (previous && previous.tags.map(&:name).join(', ')) || ''
 
 
@@ -42,5 +46,5 @@
     %div.col-sm-2
     %div.col-xs-12.col-sm-10
       %p.message
-      - submit_msg = previous ? 'Supersede question' : 'Create question'
+      - submit_msg = previous ? (edit? 'Update' : 'Supersede question') : 'Create question'
       = submit_tag submit_msg, :class => 'btn btn-primary'
