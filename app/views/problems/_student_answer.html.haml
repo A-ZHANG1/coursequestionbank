@@ -1,9 +1,10 @@
 
 %div.question{:id => "#{test_problem.uid}"}
-  = test_problem.question_text
+  %div.questiontext
+    = test_problem.question_text.html_safe
   %div.entrys
     - for i in (0..test_problem.answer_entrys.length - 1)
       %div.entrybox
         %input{:type=> "checkbox", :value=> 1, :checked=>test_problem.answer_correct?[i]}
         %label.entrytext
-          = test_problem.answer_entrys[i].strip
+          = test_problem.answer_entrys[i].strip.html_safe

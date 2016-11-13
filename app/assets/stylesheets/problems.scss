@@ -197,6 +197,13 @@ label.entrytext{
   //white-space: -moz-pre-wrap;
 }
 
+.questiontext{
+  width: 600px;
+  //white-space: pre-wrap;
+  word-wrap: break-word;
+  //white-space: -moz-pre-wrap;
+}
+
 .collection-checkbox-text form{
   display: inline-block;
   //float: left;

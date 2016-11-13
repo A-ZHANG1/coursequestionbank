@@ -56,9 +56,8 @@ class Problem < ActiveRecord::Base
 
     if json and !json.empty?
       begin
-        debugger
         question = Question.from_JSON(self.json)
-        quiz = Quiz.new("", nil, :questions => [question])
+        quiz = Quiz.new("", :questions => [question])
         quiz.render_with("Html5", {'template' => 'preview.html.erb'})
         self.update_attributes(:rendered_text => quiz.output)
         quiz.output
@@ -123,10 +122,8 @@ class Problem < ActiveRecord::Base
 
   def self.filter(user, filters, bump_problem)
 
-    # debugger
     # if Problem.count != 0
       problems = Problem.search do
-        # debugger
         any_of do
           with(:instructor_id, user.id)
           with(:is_public, true)
