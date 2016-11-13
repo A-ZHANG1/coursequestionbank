@@ -1,8 +1,8 @@
 GIT
-  remote: https://github.com/saasbook/ruql
-  revision: b20e78b54aa36da5a9946578ab58868fff80a1f7
+  remote: https://github.com/stevenwuyinze/ruql
+  revision: dcb31d0a1964317bbe231ebea93f753de999673b
   specs:
-    ruql (0.1.5)
+    ruql (0.1.6)
       builder (>= 3.0)
       getopt (>= 1.0)
 
