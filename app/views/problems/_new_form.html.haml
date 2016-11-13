@@ -59,3 +59,14 @@
         - submit_msg = 'Create question'
       -# - submit_msg = previous ? (edit? 'Update' : 'Supersede question') : 'Create question'
       = submit_tag submit_msg, :class => 'btn btn-primary'
+
+%div.form-group{:class => 'confirm-edit', :style => 'display: none'}
+  %label
+    You only want to update question when making minor edits.
+    %br
+    Large-scale edits are more suitable for creating a new question by hitting supersede.
+    %br
+    Are you sure you still want to continue?
+  = submit_tag "Yes. Proceed!", :class => 'btn btn-default'
+  %button{:type => "button", :class => "no-edit btn btn-default"}
+    No. Go Back!

@@ -78,7 +78,7 @@ class ProblemsController < ApplicationController
   end
 
   def create
-    debugger
+    # debugger
     parent_uid = params[:parent_uid]
     if parent_uid
       previous_version = Problem.find_by_uid(params[:parent_uid])
@@ -294,3 +294,5 @@ class ProblemsController < ApplicationController
       redirect_to problems_path
     end
   end
+
+end
