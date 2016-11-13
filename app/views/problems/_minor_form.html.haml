@@ -1,8 +1,7 @@
 
 - previous = local_assigns[:previous] || nil
-- source = @ruql_source || (previous && previous.ruql_source) || ''
+- source = @ruql_source || (previous && previous.ruql_source(false)) || ''
 - tags = (previous && previous.tags.map(&:name).join(', ')) || ''
-
 
 = form_tag edit_minor_path, :method => :post, :class => 'form-horizontal new-form'  do
 

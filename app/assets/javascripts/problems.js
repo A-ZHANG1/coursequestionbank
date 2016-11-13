@@ -8,7 +8,7 @@ var Supersession = {
           data: $(this).serialize(),
           success: function(data, textStatus, jqXHR) {
             if (data.error === null)
-              window.location.href = '/problems';
+              window.location.reload();
             else
               $(this).find('.message').text(data.error);
           }
@@ -30,7 +30,7 @@ var MinorUpdate = {
                 data: $(this).serialize(),
                 success: function(data, textStatus, jqXHR) {
                     if (data.error === null)
-                        window.location.href = '/problems';
+                        window.location.reload();
                     else
                         $(this).find('.message').text(data.error);
                 }
