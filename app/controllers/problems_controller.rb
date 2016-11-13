@@ -279,18 +279,15 @@ class ProblemsController < ApplicationController
   end
 
   def edit_minor
-    # debugger
 
     new_problem = RuqlReader.read_problem(@current_user, params[:ruql_source])
     original_problem = Problem.find_by_uid(params[:parent_uid])
 
-
-    debugger
     if !new_problem[:json].nil?
       if original_problem[:json] != new_problem[:json]
         original_problem[:json] = new_problem[:json]
         original_problem.save
-        # Problem.find_by_uid(new_problem[:uid]).destory!
+
         flash[:notice] = "Question updated."
       else
         flash[:notice] = "Nothing changes."
