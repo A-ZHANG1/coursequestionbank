@@ -7,6 +7,12 @@ class Collection < ActiveRecord::Base
   scope :mine_or_public, ->(user) {where('instructor_id=? OR is_public=?', "#{user.id}", 'true')}
   scope :public, where(:is_public => true)
 
+  searchable do
+    text :name, :more_like_this => true
+    text :description, :more_like_this => true
+  end
+
+
   def set_attributes(params)
     self.name = params[:name] if params[:name]
     self.description = params[:description] if params[:description]
