@@ -43,10 +43,8 @@ Coursequestionbank::Application.routes.draw do
   get 'collections/:id/export' => 'collections#export', :as => 'export'
   get 'collections/:id/preview' => 'collections#preview', :as => 'preview'
   get 'finalize_upload' => 'collections#finalize_upload'
-
   post 'collections/filters' => 'collections#set_filters', :as => 'set_filters'
-
-
+  get 'collections/search/' => 'collections#search', :as => 'search_collection'
   # post 'update_all' => 'collections#update_all'
   # match 'checked_problems' => 'collections#checked_problems'
 
