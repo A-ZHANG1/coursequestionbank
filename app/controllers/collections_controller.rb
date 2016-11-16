@@ -17,10 +17,11 @@ class CollectionsController < ApplicationController
   end
 
   def search
+    debugger
     @search = params[:search]
     # if (@search.nil? or search.empty?)
-    @collection_by_name = Collection.where(:name => @search, :is_public => true)
-    @collection_by_description = Collection.where(:description => @search, :is_public => true)
+    @collection_by_name = Collection.where(:name => @search, :is_public => true) + @current_user.collections.where(:name => @search)
+    @collection_by_description = Collection.where(:description => @search, :is_public => true) + @current_user.collections.where(:description => @search)
 
     if @collection_by_name.nil? && @collection_by_description.nil?
       flash[:notice] = "Can't find collection \"#{@search}\""
@@ -28,9 +29,9 @@ class CollectionsController < ApplicationController
     end
 
     if @collection_by_name.nil?
-      @collections = @collection_by_description
+      @collections = @collection_by_description.uniq! 
     else
-      @collections = @collection_by_name  
+      @collections = @collection_by_name.uniq! 
     end 
     # debugger
   end
