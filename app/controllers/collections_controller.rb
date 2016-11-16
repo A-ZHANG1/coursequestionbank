@@ -54,8 +54,13 @@ class CollectionsController < ApplicationController
 
   def search
     # debugger
+
     @search = params[:search]
-    # if (@search.nil? or search.empty?)
+
+    if @search == ""
+      redirect_to collections_path and return
+    end
+
     @collection_by_name = Collection.where(:name => @search, :is_public => true) + @current_user.collections.where(:name => @search)
     @collection_by_description = Collection.where(:description => @search, :is_public => true) + @current_user.collections.where(:description => @search)
 
@@ -68,8 +73,7 @@ class CollectionsController < ApplicationController
       @collections = @collection_by_description.uniq! 
     else
       @collections = @collection_by_name.uniq! 
-    end 
-    # debugger
+    end
   end
 
   def edit
