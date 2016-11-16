@@ -8,15 +8,23 @@ class CollectionsController < ApplicationController
   # def set_current_collection
   # end
 
+  @@defaults = HashWithIndifferentAccess.new({
+                                                 'search' => "",
+                                                 'collections' =>[],
+                                                 'description' => "",
+                                                 'per_page' => 60, 'page' => 1 })
+
+
+
   def set_filter_options
-    # session[:filters] ||= HashWithIndifferentAccess.new(@@defaults)
-    #
-    # @@defaults.each do |key, value|
-    #   session[:filters][key] ||= value
-    # end
-    #
-    # session[:filters][:page] = nil
-    # session[:filters] = session[:filters].merge params.slice(:page, :per_page)
+    session[:filters] ||= HashWithIndifferentAccess.new(@@defaults)
+
+    @@defaults.each do |key, value|
+      session[:filters][key] ||= value
+    end
+
+    session[:filters][:page] = nil
+    session[:filters] = session[:filters].merge params.slice(:page, :per_page)
   end
 
   def set_filters
@@ -42,7 +50,8 @@ class CollectionsController < ApplicationController
       session[:filters][:description] = []
     end
 
-    redirect_to :back
+    if 
+    redirect_to collections_path
   end
 
 

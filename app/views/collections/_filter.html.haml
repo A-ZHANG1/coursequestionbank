@@ -1,0 +1,6 @@
+= form_tag set_filters_path, :method => :post, :id => 'filter-form' do
+  %div.form-group
+    = label_tag :search, 'Search Keywords:'
+    = text_field_tag :search, session[:filters][:search], class: 'form-control', placeholder: 'Search'
+
+  %hr

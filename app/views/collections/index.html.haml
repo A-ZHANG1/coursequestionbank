@@ -1,8 +1,5 @@
 %div#filter-sidebar
-  = label_tag :search, 'Search Keywords:'
-
-  = text_field_tag :search, session[:filters][:search], class: 'form-control', placeholder: 'Search'
-
+  = render :partial => 'filter'
 
 %div#filter-content.container-fluid
   %h3.section_title= @heading
