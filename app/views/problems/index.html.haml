@@ -6,13 +6,6 @@
   = render :partial => 'problem_table', :locals => {:problems => @problems, :columns => [:checkbox, :problem, :tags],
                                                     :empty_msg => 'No questions matched your search criteria'}
 
-  = form_tag '/search' do
-    = field_set_tag do
-      = label_tag :title, 'Title:'
-      = text_field_tag :title
-      = label_tag :notes, 'Notes:'
-      = text_field_tag :notes
-      = submit_tag 'Save Changes'
 
   - if !@problems.nil? and !@problems.select{|p| can? :read, p}.empty?
     %div.row#page_options
