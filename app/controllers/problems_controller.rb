@@ -63,7 +63,7 @@ class ProblemsController < ApplicationController
   end
 
   def index
-    if can? :manage, Collection and @current_user.collection
+    if can? :manage, Collection and @current_user.collections
       @collections = @current_user.collections + Collection.where(:is_public => true)
     else
       @collections = Collection.where(:is_public => true)
