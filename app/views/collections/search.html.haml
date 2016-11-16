@@ -5,10 +5,10 @@
     = link_to 'New collection', new_collection_path, :class => 'btn btn-primary'
     = link_to 'Upload questions', upload_path, :class => 'btn btn-primary'
 
-<<<<<<< HEAD
+
 - if @collections.nil? || @collections.empty? 
   %h4.section_body No Collection matches
-=======
+
 %div#filter-sidebar
   = form_tag search_collection_path do
     = field_set_tag do
@@ -17,7 +17,7 @@
       %br
       = submit_tag 'Search', :class => 'btn btn-primary'
   %hr
->>>>>>> 8f377d661e8ccf7fc985c1bd777f64ae14287cc8
+
 
 %div#filter-content.container-fluid
   - if @collections.nil? || @collections.empty?
