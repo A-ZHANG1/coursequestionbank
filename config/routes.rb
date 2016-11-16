@@ -29,6 +29,7 @@ Coursequestionbank::Application.routes.draw do
   get 'problems/:id/history' => 'problems#view_history', :as => 'problem_history'
 
   get 'profile' => 'instructors#show', :as => 'profile'
+  
   get 'admin' => 'instructors#admin', :as => 'admin'
   post 'admin/instructor' => 'instructors#update_instructor', :as => 'update_instructor'
   # delete 'admin/instructor/:id' => 'instructors#delete_whitelist_entry', :as => 'whitelist_entry'
@@ -38,9 +39,12 @@ Coursequestionbank::Application.routes.draw do
   # post 'collections/:id/problems/add' => 'collections#add_problems'
   # post 'collections/:id/problems/remove' => 'collections#remove_problems'
   # get 'mark_as_current' => 'instructors#mark_as_current'
+  post 'collections/search/' => 'collections#search', :as => 'search_collection'
   get 'collections/:id/export' => 'collections#export', :as => 'export'
   get 'collections/:id/preview' => 'collections#preview', :as => 'preview'
   get 'finalize_upload' => 'collections#finalize_upload'
+  post 'collections/filters' => 'collections#set_filters', :as => 'set_filters'
+  get 'collections/search/' => 'collections#search', :as => 'search_collection'
   # post 'update_all' => 'collections#update_all'
   # match 'checked_problems' => 'collections#checked_problems'
 

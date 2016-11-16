@@ -4,6 +4,7 @@ class Instructor < ActiveRecord::Base
 
   has_many :collections
   has_many :problems
+  
   def self.dev_users
     where(:provider => "developer")
   end

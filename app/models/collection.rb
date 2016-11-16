@@ -6,6 +6,17 @@ class Collection < ActiveRecord::Base
   # scope :collection, ->(collection_name) { where(name: collection_name) }
   scope :mine_or_public, ->(user) {where('instructor_id=? OR is_public=?', "#{user.id}", 'true')}
   scope :public, where(:is_public => true)
+  
+  searchable do
+    text :name, :more_like_this => true
+    text :description, :more_like_this => true
+  end
+
+  searchable do
+    text :name, :more_like_this => true
+    text :description, :more_like_this => true
+  end
+
 
   def set_attributes(params)
     self.name = params[:name] if params[:name]
@@ -16,6 +27,18 @@ class Collection < ActiveRecord::Base
     end
   end
 
+  # def self.search(search)
+  #   # debugger
+  #   # if Problem.count != 0
+  #     collections = Collection.search do
+  #       # debugger
+  #       any_of do
+  #         with(:search, collection.name)
+  #         with(:search, collection.description)
+  #       end
+  #     end
+  #   end
+  
   def export(format)
     if problems.empty?
       return nil
