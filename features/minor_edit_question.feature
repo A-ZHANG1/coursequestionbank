@@ -1,4 +1,4 @@
-Scenario:
+Feature:
   As an instructor/Admin, I want to do minor edit on a question
 Background:
   Given I am signed in with uid "1234" and provider "github"
