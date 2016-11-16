@@ -5,32 +5,24 @@ Feature: User can add individual problems to a Collection
 
 Background:
   Given I am signed in with uid "1234" and provider "github"
-  And I have uploaded 'micro_quizzes.txt'
+  And I have uploaded 'bloom_test.txt'
   And I am on the CourseQuestionBank home page
 
-Scenario: Add problem to a different collection (belongs to two collections)
-  When I toggle collection "1/29/15 (W2 L2): Ruby; HTTP/HTML/CSS basics" for problem containing "Around 2007, the claim"
-  Then I should see "Problem added to 1/29/15 (W2 L2): Ruby; HTTP/HTML/CSS basics"
-  When I follow "My Collections"
-  When I follow "1/29/15 (W2 L2): Ruby; HTTP/HTML/CSS basics"
-  Then I should see "Around 2007, the claim"
-  
-  When I follow "My Collections"
-  When I follow "1/22/15 (W1 L2)"
-  Then I should see "Around 2007, the claim"
-  
-  When I follow "My Collections"
-  When I follow "3/7 version control"
-  Then I should not see "Around 2007, the claim"
+Scenario: Add two collections that can see
+  When I am on the dashboard
+  And I follow "New collection"
+  And I fill in "name" with "test1"
+  And I press "Create"
+  And I am on the dashboard
+  And I should see Collection 'test1' in the database
 
-Scenario: Add problem to a collection after removing it
-  When I toggle collection "1/22/15 (W1 L2)" for problem containing "Around 2007, the claim"
-  Then I should see "Problem removed from 1/22/15 (W1 L2)"
-  When I toggle collection "1/22/15 (W1 L2)" for problem containing "Around 2007, the claim"
-  Then I should see "Problem added to 1/22/15 (W1 L2)"
-  When I follow "My Collections"
-  When I follow "1/29/15 (W2 L2): Ruby; HTTP/HTML/CSS basics"
-  Then I should not see "Around 2007, the claim"
-  When I follow "My Collections"
-  When I follow "1/22/15 (W1 L2)"
-  Then I should see "Around 2007, the claim"
+  When I follow "New collection"
+  And I fill in "name" with "test2"
+  And I press "Create"
+  And I am on the dashboard
+  And I should see Collection 'test2' in the database
+
+  When I am on the CourseQuestionBank home page
+  And I press "show"
+  Then I should see "test1"
+  Then I should see "test2"

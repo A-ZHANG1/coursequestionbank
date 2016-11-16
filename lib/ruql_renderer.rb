@@ -9,13 +9,12 @@ class RuqlRenderer
     return ruql_true_false(json_hash) if json_hash["question_type"] == "TrueFalse"
     result << ruql_question_header(json_hash)
     result << "\n  uid #{uid.inspect}" if uid
-    result << "\n  # uid #{prev_uid.inspect}" if prev_uid
+    result << "\n  #uid #{prev_uid.inspect}" if prev_uid
+    result << "\n  image " + json_hash["question_image"].inspect if json_hash["question_image"] != nil
+    result << "\n  explanation " + json_hash["global_explanation"].inspect if json_hash["global_explanation"] != nil
     result << "\n  text " + json_hash["question_text"].inspect
-    answers.each do |answer| # answers first
-      result << ruql_answer_line(answer) if answer["correct"]
-    end
-    answers.each do |answer| # distractors second
-      result << ruql_answer_line(answer) if !answer["correct"]
+    answers.each do |answer|
+      result << ruql_answer_line(answer)
     end
     result << "\nend"
     return result
@@ -57,5 +56,4 @@ class RuqlRenderer
     end
     return line
   end
-
 end

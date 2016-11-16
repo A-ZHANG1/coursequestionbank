@@ -1,7 +1,7 @@
 require 'ruql_renderer'
 
 class Problem < ActiveRecord::Base
-  attr_accessible :created_date, :is_public, :last_used, :rendered_text, :text, :json, :problem_type, :obsolete, :bloom_category, :uid
+  attr_accessible :created_date, :is_public, :last_used, :rendered_text, :json, :text, :problem_type, :obsolete, :bloom_category, :uid
   has_and_belongs_to_many :tags
   belongs_to :instructor
   has_and_belongs_to_many :collections
@@ -57,22 +57,56 @@ class Problem < ActiveRecord::Base
     if json and !json.empty?
       begin
         question = Question.from_JSON(self.json)
-        quiz = Quiz.new("", nil, :questions => [question])
+        quiz = Quiz.new("", :questions => [question])
         quiz.render_with("Html5", {'template' => 'preview.html.erb'})
         self.update_attributes(:rendered_text => quiz.output)
         quiz.output
-      rescue
-        return 'There was a problem rendering this question'
+      rescue Exception => e
+        return 'There was a problem rendering this question' + e.message
       end
     else
       'This question could not be displayed (no JSON found)'
     end
   end
 
-  def ruql_source
-    new_uid = SecureRandom.uuid
-    prev_uid = self.uid
+  def ruql_source(new = true)
+    if new
+      new_uid = SecureRandom.uuid
+      prev_uid = self.uid
+    end
     return RuqlRenderer.render_from_json(self.json, new_uid, prev_uid)
+  end
+
+  def view_select_type
+    if problem_type == "MultipuleChoice"
+      "checkbox"
+    else
+      "radio"
+    end
+  end
+
+  def question_text
+    return JSON.parse(json)["question_text"]
+  end
+
+  def question_image
+    return JSON.parse(json)["question_image"]
+  end
+
+  def answer_entrys
+    return JSON.parse(json)["answers"].collect{|entry| entry["answer_text"]}
+  end
+
+  def answer_correct?
+    return JSON.parse(json)["answers"].collect{|entry| entry["correct"]}
+  end
+
+  def answer_explanation
+    return JSON.parse(json)["answers"].collect{|entry| entry["explanation"]}
+  end
+
+  def global_explanation
+    return JSON.parse(json)["global_explanation"]
   end
 
   def self.from_JSON(instructor, json_source)
@@ -80,10 +114,10 @@ class Problem < ActiveRecord::Base
     json_hash = JSON.parse(json_source)
     problem = Problem.new(text: "",
                           json: json_source,
-                          is_public: true,
+                          is_public: false,
                           problem_type: json_hash["question_type"],
                           created_date: Time.now,
-                          uid: json_hash["uid"].equal?(-1) ? SecureRandom.uuid : json_hash["uid"])
+                          uid: json_hash["uid"].equal?(nil) ? SecureRandom.uuid : json_hash["uid"])
     problem.instructor = instructor
     json_hash["question_tags"].each do |tag_name|
       tag = Tag.find_by_name(tag_name) || Tag.create(name: tag_name)
@@ -94,10 +128,8 @@ class Problem < ActiveRecord::Base
 
   def self.filter(user, filters, bump_problem)
 
-    # debugger
     # if Problem.count != 0
       problems = Problem.search do
-        # debugger
         any_of do
           with(:instructor_id, user.id)
           with(:is_public, true)

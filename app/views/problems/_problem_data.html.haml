@@ -5,7 +5,8 @@
 
 
 - if column == :problem
-  %div.problem_view= problem.html5.html_safe
+  = render :partial => "problems/student_answer", :locals => {:test_problem => problem},:columns => [:checkbox, :problem]
+
 
   %div.additional
     %div.prob-right
@@ -23,9 +24,9 @@
 
     %div Created #{problem.created_date} by #{problem.instructor.name}
 
-    - if can? :manage, problem and problem.instructor_id == @current_user.id
+    - if can? :manage, problem
       %div UID: #{problem.uid}
-      -# = render :partial => 'problems/collection_checkboxes', :locals => {:previous => problem}
+    -#   = render :partial => 'problems/collection_checkboxes', :locals => {:previous => problem}
 
     - if can? :set_previous, problem
       %div
@@ -35,7 +36,7 @@
               :value => (problem.previous_version.uid if problem.previous_version)
 
 
-    - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
+    - if can?  :bloom_categorize, problem
       %div.bloom-buttons
         Bloom Category:
         - Problem.all_bloom_categories.each do |category|
@@ -50,25 +51,23 @@
       %p
         = problem.bloom_category
 
-
     - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
-      = render :partial => 'problems/collection_buttons', :locals => {:problem => problem}
+      = render :partial => 'problems/collection_text', :locals => {:problem => problem}
 
-
-    - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
+    - if can? :add_to_collection, problem
       %div.hide_checkbox
-        = submit_tag "show", :id => "hide_checkbox_block", :class => "hide_checkbox btn btn-default", :title => "show"
+        = submit_tag "Show All Collections", :id => "hide_checkbox_block", :class => "hide_checkbox btn btn-default", :title => "show"
 
       %div.edit-collections{:style => 'display: none'}
         - Collection.accessible_by(current_ability, :manage).each do |collection|
           - selected = collection.problems.include? problem
           %li.collection-checkbox-li
-            %input{:type=>"checkbox", :class=>"collection-checkbox", :checked=>selected, :action=>"/problems/#{problem.id}", :collection => collection.id, :problem => problem.id}
+            %input{:type=>"checkbox", :id =>"collections_checkbox_#{collection.id}_#{problem.id}",:class=>"collection-checkbox", :checked=>selected, :action=>"/problems/#{problem.id}", :collection => collection.id, :problem => problem.id}
             =collection.name
         %div.show_checkbox
-          = submit_tag "hide", :id => "show_checkbox_block", :class => "show_checkbox btn btn-default", :title => "hide", :style => 'display: none'
+          = submit_tag "Hide Collections", :id => "show_checkbox_block", :class => "show_checkbox btn btn-default", :title => "hide", :style => 'display: none'
 
-    - if can? :manage, problem and problem.instructor_id == @current_user.id
+    - if can? :manage, problem
       %div
         Supersede:
         %textarea{:id => "source_#{problem.id}", :value => "current_ruql", :style => "display: none"}= #{problem.ruql_source}
@@ -78,6 +77,7 @@
           Clip Source Code
 
         = link_to "Supersede", supersede_path(:id => problem.id), :id => "supersede_button_#{problem.id}", :class => 'supersede_button btn btn-default'
+        = link_to "Update", minorupdate_path(:id => problem.id), :id => "minorupdate_button_#{problem.id}", :class => 'minorupdate_button btn btn-default'
 
         - if !problem.previous_version.nil?
           = link_to "See Version History", problem_history_path(:id => problem.id), :id => "history_button_#{problem.id}", :class => 'history_button btn btn-default'
@@ -87,11 +87,13 @@
 
       %div.history_list.hidden-additional{:style => 'display: none'}
         = render :partial => 'problems/history_list', :locals => {:problem => problem}
+      %div.minor_form.hidden-additional{:style => 'display: none'}
+        = render :partial => 'problems/minor_form', :locals => {:previous => problem}
 
+- if can? :manage, problem
+  - if column == :tags
+    %div{:id => "all_tags_#{problem.id}", :class => 'tag_list'}
+      = render :partial => 'problems/tags', locals: { problem: problem }
 
-- if column == :tags
-  %div{:id => "all_tags_#{problem.id}", :class => 'tag_list'}
-    = render :partial => 'problems/tags', locals: { problem: problem }
-
-  = form_tag add_tags_path(id: problem.id), class: 'add_tags_form' do
-    = text_field_tag :tag_names, nil, id: "add_tags_#{problem.id}", class: 'form-control', placeholder: 'Add tags'
+    = form_tag add_tags_path(id: problem.id), class: 'add_tags_form' do
+      = text_field_tag :tag_names, nil, id: "add_tags_#{problem.id}", class: 'form-control', placeholder: 'Add tags'
