@@ -8,7 +8,7 @@ var Supersession = {
           data: $(this).serialize(),
           success: function(data, textStatus, jqXHR) {
             if (data.error === null)
-              window.location.href = '/problems';
+              window.location.reload();
             else
               $(this).find('.message').text(data.error);
           }
@@ -20,6 +20,30 @@ var Supersession = {
 $(Supersession.setup);
 
 
+var MinorUpdate = {
+    setup: function() {
+        $('.minor_form form').submit(function(e) {
+            $.ajax({
+                context: this,
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(data, textStatus, jqXHR) {
+                    if (data.error === null)
+                        window.location.reload();
+                    else
+                        $(this).find('.message').text(data.error);
+                }
+            });
+            return false;
+        });
+    }
+};
+$(MinorUpdate.setup);
+
+
+
+
 var AdditionalHidden = {
   setup: function() {
     $('.additional').each(function() {
@@ -27,13 +51,34 @@ var AdditionalHidden = {
       problem.find('.supersede_button').click(function() {
         problem.find('.supersede_form').toggle();
         problem.find('.history_list').hide();
+          problem.find('.minor_form').hide();
         return false;
       });
       problem.find('.history_button').click(function() {
         problem.find('.supersede_form').hide();
         problem.find('.history_list').toggle();
+          problem.find('.minor_form').hide();
         return false;
       });
+
+        problem.find('.btn-update').click(function() {
+            console.log("Received");
+            var pop = problem.find('.confirm-edit');
+            pop.toggle();
+            pop.find(".no-edit").on('click', function() {
+                pop.hide();
+            });
+            return false;
+        });
+
+        problem.find('.minorupdate_button').click(function() {
+            problem.find('.minor_form').toggle();
+            problem.find('.supersede_form').hide();
+            problem.find('.history_list').hide();
+            return false;
+        });
+
+
 
       problem.find('.hide_checkbox').click(function() {
         problem.find('.edit-Collections').show()
@@ -270,3 +315,106 @@ var ChangeCollectionsByCheckbox = {
 
 };
 $(ChangeCollectionsByCheckbox.setup);
+
+
+
+var Question = {
+  setup: function() {
+    $('.select_multiple_question').each(function() {
+      var question = $(this);
+      question.ready(function() {
+          var hoverOnEntry = function() {
+              $(this).css('border', '2px solid dodgerblue');
+          }
+          var hoverOffEntry = function() {
+              $(this).css('border', '1px solid grey');
+          }
+          var unCheckAll = function(entrysDiv) {
+              $(entrysDiv).find(".entrybox").each(function() {
+                  $(this).on("mouseover", hoverOnEntry);
+                  $(this).on("mouseleave", hoverOffEntry);
+                  $(this).mouseleave();
+              });
+          }
+          var clickOnEntry = function() {
+              choice = $(this).find(":checkbox")
+              if (choice.is(':checked')) {
+                  choice.prop('checked', false);
+                  $(this).on("mouseover", hoverOnEntry);
+                  $(this).on("mouseleave", hoverOffEntry);
+              } else {
+                  // unCheckAll($(this).parent());
+                  $(this).mouseover();
+                  choice.prop('checked', true);
+                  $(this).off("mouseover");
+                  $(this).off("mouseleave");
+              }
+              return false;
+          }
+
+          var checkCorrect = function(entrysDiv) {
+              var keys = [false, false, false, true];
+              $(entrysDiv).find(".entrybox").each(function() {
+                  var entryNum = problem.attr('id').split(/-/);
+                  console.log(entryNum);
+              });
+
+          }
+
+          question.find(".entrybox").mouseover(hoverOnEntry);
+          question.find(".entrybox").mouseleave(hoverOffEntry);
+          question.find(".entrybox").click(clickOnEntry);
+      });
+
+    });
+
+    $('.multiple_choice_question').each(function() {
+      var question = $(this);
+      question.ready(function() {
+          var hoverOnEntry = function() {
+              $(this).css('border', '2px solid dodgerblue');
+          }
+          var hoverOffEntry = function() {
+              $(this).css('border', '1px solid grey');
+          }
+          var unCheckAll = function(entrysDiv) {
+              $(entrysDiv).find(".entrybox").each(function() {
+                  $(this).on("mouseover", hoverOnEntry);
+                  $(this).on("mouseleave", hoverOffEntry);
+                  $(this).mouseleave();
+              });
+          }
+          var clickOnEntry = function() {
+              choice = $(this).find(":radio");
+              if (choice.is(':checked')) {
+                  choice.prop('checked', false);
+                  $(this).on("mouseover", hoverOnEntry);
+                  $(this).on("mouseleave", hoverOffEntry);
+              } else {
+                  unCheckAll($(this).parent());
+                  $(this).mouseover();
+                  choice.prop('checked', true);
+                  $(this).off("mouseover");
+                  $(this).off("mouseleave");
+              }
+              return true;
+          }
+
+          var checkCorrect = function(entrysDiv) {
+              var keys = [false, false, false, true];
+              $(entrysDiv).find(".entrybox").each(function() {
+                  var entryNum = problem.attr('id').split(/-/);
+                  console.log(entryNum);
+              });
+          }
+
+          question.find(".entrybox").mouseover(hoverOnEntry);
+          question.find(".entrybox").mouseleave(hoverOffEntry);
+          question.find(".entrybox").click(clickOnEntry);
+      });
+
+    });
+
+  }
+};
+$(Question.setup);
