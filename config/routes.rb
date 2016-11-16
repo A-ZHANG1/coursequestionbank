@@ -29,6 +29,7 @@ Coursequestionbank::Application.routes.draw do
   get 'problems/:id/history' => 'problems#view_history', :as => 'problem_history'
 
   get 'profile' => 'instructors#show', :as => 'profile'
+  
   get 'admin' => 'instructors#admin', :as => 'admin'
   post 'admin/instructor' => 'instructors#update_instructor', :as => 'update_instructor'
   # delete 'admin/instructor/:id' => 'instructors#delete_whitelist_entry', :as => 'whitelist_entry'
