@@ -17,15 +17,22 @@ class CollectionsController < ApplicationController
   end
 
   def search
-    # debugger
-    @name = params[:name]
-    @collection = Collection.find_by_name(@name)
-    if @collection.nil?
-      redirect_to collections_path
-      flash[:notice] = "Can't find collection with Name: \"#{@name}\""
-    else
+    @search = params[:search]
+    # if (@search.nil? or search.empty?)
+    @collection_by_name = Collection.where(:name => @search, :is_public => true)
+    @collection_by_description = Collection.where(:description => @search, :is_public => true)
+
+    if @collection_by_name.nil? && @collection_by_description.nil?
+      flash[:notice] = "Can't find collection \"#{@search}\""
       redirect_to collections_path
     end
+
+    if @collection_by_name.nil?
+      @collections = @collection_by_description
+    else
+      @collections = @collection_by_name  
+    end 
+    # debugger
   end
 
   def edit
@@ -48,11 +55,7 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    if params[:name].nil? 
-      @collection = Collection.find(params[:id])
-    else
-      @collection = Collection.find_by_name(@name)
-    end
+    @collection = Collection.find(params[:id])
     @problems = @collection.problems
   end
 

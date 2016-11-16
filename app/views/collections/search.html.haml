@@ -15,7 +15,7 @@
     = link_to 'Upload questions', upload_path, :class => 'btn btn-primary'
     
 
-- if @collections.empty?
+- if @collections.nil? || @collections.empty?
   %h4.section_body You have no collections.
 
 - else
