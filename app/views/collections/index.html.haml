@@ -1,12 +1,11 @@
-
 %h3.section_title= @heading
 
 %div.section_options
-  - if can? :create, Collection
+  = render :partial => 'filter'
+  - if can? :create, Collection    
     = link_to 'New collection', new_collection_path, :class => 'btn btn-primary'
     = link_to 'Upload questions', upload_path, :class => 'btn btn-primary'
-
-
+    
 - if @collections.empty?
   %h4.section_body You have no collections.
 

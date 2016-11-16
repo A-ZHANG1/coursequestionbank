@@ -1,14 +1,9 @@
-
 %div#filter-sidebar
   = render :partial => 'filter'
 
-
 %div#filter-content.container-fluid
-
-  
   = render :partial => 'problem_table', :locals => {:problems => @problems, :columns => [:checkbox, :problem, :tags],
                                                     :empty_msg => 'No questions matched your search criteria'}
-
 
   - if !@problems.nil? and !@problems.select{|p| can? :read, p}.empty?
     %div.row#page_options

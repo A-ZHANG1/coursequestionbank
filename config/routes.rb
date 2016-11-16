@@ -29,6 +29,7 @@ Coursequestionbank::Application.routes.draw do
   # post 'collections/:id/problems/add' => 'collections#add_problems'
   # post 'collections/:id/problems/remove' => 'collections#remove_problems'
   # get 'mark_as_current' => 'instructors#mark_as_current'
+  post 'collections/search/' => 'collections#search', :as => 'search_collection'
   get 'collections/:id/export' => 'collections#export', :as => 'export'
   get 'collections/:id/preview' => 'collections#preview', :as => 'preview'
   get 'finalize_upload' => 'collections#finalize_upload'
