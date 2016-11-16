@@ -3,11 +3,6 @@ class CollectionsController < ApplicationController
 
   before_filter :set_filter_options
 
-  # after_filter :set_current_collection
-
-  # def set_current_collection
-  # end
-
   def set_filter_options
     # session[:filters] ||= HashWithIndifferentAccess.new(@@defaults)
     #
