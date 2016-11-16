@@ -5,7 +5,6 @@ class InstructorsController < ApplicationController
     @heading = 'Your collections'
     @instructor = Instructor.find_by_id(@current_user)
     @collections = @instructor.collections.to_a
-    debugger
     render :template => 'collections/index'
   end
 
