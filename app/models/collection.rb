@@ -12,6 +12,12 @@ class Collection < ActiveRecord::Base
     text :description, :more_like_this => true
   end
 
+  searchable do
+    text :name, :more_like_this => true
+    text :description, :more_like_this => true
+  end
+
+
   def set_attributes(params)
     self.name = params[:name] if params[:name]
     self.description = params[:description] if params[:description]

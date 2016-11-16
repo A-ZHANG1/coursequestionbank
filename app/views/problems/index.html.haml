@@ -2,6 +2,7 @@
   = render :partial => 'filter'
 
 %div#filter-content.container-fluid
+
   = render :partial => 'problem_table', :locals => {:problems => @problems, :columns => [:checkbox, :problem, :tags],
                                                     :empty_msg => 'No questions matched your search criteria'}
 

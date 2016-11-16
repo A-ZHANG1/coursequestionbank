@@ -1,9 +1,50 @@
 class CollectionsController < ApplicationController
   load_and_authorize_resource
+
+  before_filter :set_filter_options
+
   # after_filter :set_current_collection
 
   # def set_current_collection
   # end
+
+  def set_filter_options
+    # session[:filters] ||= HashWithIndifferentAccess.new(@@defaults)
+    #
+    # @@defaults.each do |key, value|
+    #   session[:filters][key] ||= value
+    # end
+    #
+    # session[:filters][:page] = nil
+    # session[:filters] = session[:filters].merge params.slice(:page, :per_page)
+  end
+
+  def set_filters
+    session[:filters] = session[:filters].merge params.slice(:search, :collections, :description)
+
+    session[:filters][:collections] = []
+    if params[:collections]
+      params[:collections].each do |key, value|
+        session[:filters][:collections] << Integer(key) if value == "1"
+      end
+    end
+    if session[:filters][:collections].include?(0)
+      session[:filters][:collections] = []
+    end
+
+    session[:filters][:description] = []
+    if params[:description]
+      params[:description].each do |key, value|
+        session[:filters][:description] << Integer(key) if value == "1"
+      end
+    end
+    if session[:filters][:description].include?(0)
+      session[:filters][:description] = []
+    end
+
+    redirect_to :back
+  end
+
 
   def new
     @collection = Collection.new
