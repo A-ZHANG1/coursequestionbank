@@ -291,12 +291,9 @@ var ChangeCollectionsByCheckbox = {
         });
         // update belongs to which collecion
 
-        button_id = "#toggle_collection_" + $(this).attr("collection") + "_" + $(this).attr("problem")
         button_text = "#collection_text_" + $(this).attr("collection") + "_" + $(this).attr("problem")
-        // debugger;
 
         var button = $(this).find('input[type="submit"]');
-
 
         if ($(this).attr("checked") === "checked") {
           $(this).attr('checked',false);
