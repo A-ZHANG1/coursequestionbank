@@ -5,10 +5,6 @@
     = link_to 'New collection', new_collection_path, :class => 'btn btn-primary'
     = link_to 'Upload questions', upload_path, :class => 'btn btn-primary'
 
-
-- if @collections.nil? || @collections.empty? 
-  %h4.section_body No Collection matches
-
 %div#filter-sidebar
   = form_tag search_collection_path do
     = field_set_tag do
@@ -21,7 +17,7 @@
 
 %div#filter-content.container-fluid
   - if @collections.nil? || @collections.empty?
-    %h4.section_body You have no collections.
+    %h4.section_body No Collection matches.
 
   - else
     %div.table-responsive.section_body

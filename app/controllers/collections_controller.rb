@@ -68,7 +68,7 @@ class CollectionsController < ApplicationController
     if @uniq_collections != nil
       @collections = @uniq_collections
     end
-    debugger 
+    
     if @search.empty? && @collections.nil? 
       redirect_to collections_path
     end
