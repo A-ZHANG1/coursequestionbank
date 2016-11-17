@@ -60,25 +60,13 @@ When /^(?:|I )update '(.*)' to '(.*)'$/ do |former, new|
 end
 
 Given /^(?:|I )have uploaded '(.*)'$/ do |file|
-  pending
-  # steps %Q{
-  #   Given I am on the upload page
-  #   And I attach the file "features/test_files/#{file}" to "file_upload"
-  #   And I press "Upload File"
-  #   Then I should see "Upload successful!"
-  # }
-end
-
-
-Then /^I should see the collection "(.*?)"$/ do |arg1|
   steps %Q{
-    Given I am on the collection search page
-    And I fill in "Search" with "#{arg1}"
-    # Then I am on the collection search result page
+    Given I am on the upload page
+    And I attach the file "features/test_files/#{file}" to "file_upload"
+    And I press "Upload File"
+    Then I should see "Upload successful!"
   }
-end  
-
-
+end
 
 When /^(?:|I )create a new collection '(.*)'(.*)/ do |name, optional|
   steps %Q{
@@ -132,22 +120,19 @@ Given(/^I have added problem containing "(.*?)" to "(.*?)"$/) do |arg1, arg2|
 end
 
 When /^I follow "(.*)" for problem containing "(.*)"/ do |link_id, problem_text|
-  pending
-  # problem = problems_with_text(problem_text)[0].id
-  # click_link("#{link_id}_#{problem}")
+  problem = problems_with_text(problem_text)[0].id
+  click_link("#{link_id}_#{problem}")
 end
 
 When /^I press button "(.*)" for problem containing "(.*)"/ do |link_id, problem_text|
-  pending
-  # problem = problems_with_text(problem_text)[0].id
-  # click_on("copy_source_button_#{problem}")
+  problem = problems_with_text(problem_text)[0].id
+  click_on("copy_source_button_#{problem}")
 end
 
 When /^I toggle collection "(.*)" for problem containing "(.*)"/ do |collection_name, problem_text|
-  pending
-  # problem = problems_with_text(problem_text)[0].id
-  # collection = Collection.find_by_name(collection_name).id
-  # click_on("toggle_collection_#{collection}_#{problem}")
+  problem = problems_with_text(problem_text)[0].id
+  collection = Collection.find_by_name(collection_name).id
+  click_on("toggle_collection_#{collection}_#{problem}")
 end
 
 When /^I choose sort by "(.*)"/ do |option|
@@ -186,8 +171,7 @@ When /^I press the trash icon at '(.*)'/ do |collection|
 end
 
 When /^I fill in "(.*)" with text of "(.*)"/ do |field, file|
-  pending
-  # fill_in(field, :with => IO.read("features/test_files/" + file))
+  fill_in(field, :with => IO.read("features/test_files/" + file))
 end
 
 Given /^(?:|I )am on (.+)$/ do |page_name|
@@ -200,8 +184,7 @@ end
 
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
-  pending
-  # click_button(button)
+  click_button(button)
 end
 
 When /^(?:|I )follow "([^"]*)"$/ do |link|
@@ -209,8 +192,7 @@ When /^(?:|I )follow "([^"]*)"$/ do |link|
 end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
-  pending
-  # fill_in(field, :with => value)
+  fill_in(field, :with => value)
 end
 
 When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
@@ -255,12 +237,11 @@ When /^(?:|I )attach the file "([^\"]*)" to "([^\"]*)"$/ do |path, field|
 end
 
 Then /^(?:|I )should see "([^\"]*)"$/ do |text|
-  pending
-  # if page.respond_to? :should
-  #   page.should have_content(text)
-  # else
-  #   assert page.has_content?(text)
-  # end
+  if page.respond_to? :should
+    page.should have_content(text)
+  else
+    assert page.has_content?(text)
+  end
 end
 
 Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
@@ -455,11 +436,6 @@ end
 Then(/^I should not see "(.*?)" checkbox$/) do |text|
   checkboxName = find(:css, "#collections_#{collection.id}").should_not be_visible
 end
-
-Then(/^I should not see content "(.*?)"$/) do |text|
-  page.should_not have_content(text)
-end
-
 
 Given(/^there exist a user with username "(.*?)" and uid "(.*?)"$/) do |username, uid|
   Instructor.find_by_username_and_uid(username, uid).should_not be nil
