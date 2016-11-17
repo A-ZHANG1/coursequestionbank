@@ -6,14 +6,33 @@ Feature: User can search for a collection
 Background:
   Given I am signed in with uid "1234" and provider "github"
   And I have uploaded 'bloom_test.txt'
-  And I am on the CourseQuestionBank home page
-  And I follow "Public Collection"
+  Then I am signed in with uid "1234" and provider "github"
+
+  When I am on the dashboard
+  And I follow "New collection"
+  And I fill in "name" with "test1"
+  And I press "Create"
+  And I am on the dashboard
+  And I should see Collection 'test1' in the database
+
 Scenario: I search a solution that does not exist
-  When I fill in "search_collection" with "Foo"
-  Then I should see "Your search Foo did not match any result"
-Scenario: I search by collection name
-  When I fill in "search_collection" with "A few example question"
-  Then I should see "A few example question" under "collection"
-Scenario: I search by collection owner name
-  When I fill in "search_collection" with "admin"
-  Then I should see "A few example question" under "collection"
+  When I fill in "Search" with "cs169"
+  Then I should not see "cs169"
+  Then I should see "test1"
+  Then I should see "No collection matches"
+
+Scenario: I search by collection name that User created
+  When I fill in "Search" with "test1"
+  Then I should see "test1"
+  Then I should not see "No collection matches"
+
+Scenario: I search by collection name that User uploaded
+  When I fill in "Search" with "A few example questions"
+  Then I should see "A few example questions"
+  Then I should not see "No collection matches"
+
+
+Scenario: I search by collection with empty string
+  When I fill in "Search" with ""
+  Then I should see "test1"
+  Then I should not see "No collection matches"
