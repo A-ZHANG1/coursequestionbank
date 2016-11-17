@@ -112,8 +112,9 @@ class Problem < ActiveRecord::Base
   def sub_questions
     # To do: figure out why exactly the question
     if problem_type == "Group"
+      debugger
       JSON.parse(json)["questions"].map do |question_json|
-        q = Problem.from_JSON(nil, question_json)
+        q = Problem.from_JSON(nil, JSON.parse(question_json))
       end
     else
       return nil
