@@ -13,8 +13,8 @@ Feature: Student's view of problem table, aka /problems, /homepage
 
   Scenario: I can not see the edit panel catagory
     When I am on the CourseQuestionBank home page
-    Then I should see "Question Text"
-    And I should see "Which of the following best identifies the four basic operations supported by RDBMS?"
+    Then I should not see "Question Text"
+    And I should not see "Which of the following best identifies the four basic operations supported by RDBMS?"
     And I should see "Student!"
     And I should not see "Previous version:"
     And I should not see "Your Collections:"
