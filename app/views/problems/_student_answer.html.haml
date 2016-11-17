@@ -43,3 +43,17 @@
     %input{:type => "text"}
     %button{:type => "button", :class => "button-check btn btn-default"}
       Check Answer
+
+- if test_problem.problem_type == "Group"
+  %div.question{:id => "#{test_problem.uid}", :class => "question"}
+    %p
+      = test_problem.question_text.html_safe
+    - if !test_problem.question_image.nil?
+      %br
+        = image_tag test_problem.question_image, :style => "max-height: 400px;"
+    = "Attempting to render a group question"
+    = test_problem.sub_questions
+    -#= test_problem.sub_questions.class
+    -#- test_problem.sub_questions.each do |sub_question|
+    -#  = sub_question.class
+    -#  = sub_question

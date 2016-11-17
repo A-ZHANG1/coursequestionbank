@@ -9,6 +9,7 @@ class UploadController < ApplicationController
       end
     rescue Exception => e
       flash[:notice] = e.message()
+      # flash[:notice] = e.backtrace()
       flash.keep
       redirect_to upload_path
       return
