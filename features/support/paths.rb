@@ -19,6 +19,7 @@ module NavigationHelpers
     when /^the dashboard$/ then '/profile'
     when /^the upload page$/ then '/upload'
     when /^the admin panel$/ then '/admin'
+    when /^the collection search page$/ then '/collections'
     when /^the finalize upload page$/ then '/finalize_upload'
     when /^the collection edit page$/ then  '/collections/1/edit'
 
