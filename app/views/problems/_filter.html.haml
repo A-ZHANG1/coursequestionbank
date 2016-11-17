@@ -42,6 +42,9 @@
   - unless @collections.nil?
     %div.form-group
       = label_tag :collections, 'Collections:'
+      - @uniq_collections = @collections.uniq!
+      - if @uniq_collections != nil
+        - @collections = @uniq_collections 
       - @collections.each do |collection|
         %div.filter_option
           = check_box_tag "collections[#{collection.id}]", 1,  !!(session[:filters][:collections].include? collection.id), class: 'checkbox', id: "collections_#{collection.id}"

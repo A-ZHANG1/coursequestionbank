@@ -1,25 +1,26 @@
 class CollectionsController < ApplicationController
   load_and_authorize_resource
 
+  def convert_to_int(arg = params[:description] )
+    if params[arg]
+      params[parg].each do |key, value|
+        session[:filters][arg] << Integer(key) if value == "1"
+      end
+    end
+  end
+
   def set_filters
     session[:filters] = session[:filters].merge params.slice(:search, :collections, :description)
 
     session[:filters][:collections] = []
-    if params[:collections]
-      params[:collections].each do |key, value|
-        session[:filters][:collections] << Integer(key) if value == "1"
-      end
-    end
+    
+    convert_to_int(:colllections)
     if session[:filters][:collections].include?(0)
       session[:filters][:collections] = []
     end
 
     session[:filters][:description] = []
-    if params[:description]
-      params[:description].each do |key, value|
-        session[:filters][:description] << Integer(key) if value == "1"
-      end
-    end
+    convert_to_int(:description)
     if session[:filters][:description].include?(0)
       session[:filters][:description] = []
     end
@@ -40,7 +41,6 @@ class CollectionsController < ApplicationController
   end
 
   def search
-
     @search = params[:search]
     # if (@search.nil? or search.empty?)
     @collection_by_name = Collection.where(:name => @search, :is_public => true) + @current_user.collections.where(:name => @search)
