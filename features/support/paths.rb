@@ -19,6 +19,8 @@ module NavigationHelpers
     when /^the dashboard$/ then '/profile'
     when /^the upload page$/ then '/upload'
     when /^the admin panel$/ then '/admin'
+    when /^the collection search page$/ then '/collections' 
+    when /^the collection search page of "(.*?)" $/ then '/collections' 
     when /^the finalize upload page$/ then '/finalize_upload'
 
     # Add more mappings here.
