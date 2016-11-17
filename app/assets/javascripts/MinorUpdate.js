@@ -1,6 +1,6 @@
-var Supersession = {
+var MinorUpdate = {
     setup: function() {
-        $('.supersede_form form').submit(function(e) {
+        $('.minor_form form').submit(function(e) {
             $.ajax({
                 context: this,
                 url: $(this).attr('action'),
@@ -17,7 +17,4 @@ var Supersession = {
         });
     }
 };
-$(Supersession.setup);
-
-
-
+$(MinorUpdate.setup);

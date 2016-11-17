@@ -1,7 +1,7 @@
 Feature: As an instructor, I should see the see the solution highlighted with each problem
 
   Background:
-    Given I am signed in with uid "12345" and provider "github"
+    Given I am signed in with uid "1234" and provider "github"
     And I have uploaded 'bloom_test.txt'
 
   Scenario: I should see the solution highlighted in the given problem

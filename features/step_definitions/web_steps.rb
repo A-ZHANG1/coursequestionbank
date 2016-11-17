@@ -31,6 +31,10 @@ module WithinHelpers
 end
 World(WithinHelpers)
 
+Then /^I should see the image "(.+)"$/ do |image|
+    page.should have_xpath("//img[@src=\"#{image}\"]")
+end
+
 # Single-line step scoper
 When /^(.*) within (.*[^:])$/ do |step, parent|
   with_scope(parent) { When step }
@@ -181,7 +185,6 @@ end
 When /^(?:|I )go to (.+)$/ do |page_name|
   visit path_to(page_name)
 end
-
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
@@ -463,7 +466,7 @@ And(/^I should see image "([^"]*)"$/) do |arg|
 end
 
 Then(/^I should see soltuion "([^"]*)" highlighted$/) do |arg|
-  pending
+  page.should have_css("div.entrybox")
 end
 
 Then(/^I should see "([^"]*)" notice$/) do |arg|
