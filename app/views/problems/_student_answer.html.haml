@@ -51,9 +51,5 @@
     - if !test_problem.question_image.nil?
       %br
         = image_tag test_problem.question_image, :style => "max-height: 400px;"
-    = "Attempting to render a group question"
-    = test_problem.sub_questions.length
-    -#= test_problem.sub_questions.class
-    -#- test_problem.sub_questions.each do |sub_question|
-    -#  = sub_question.class
-    -#  = sub_question
+    - test_problem.sub_questions.each do |sub_question|
+      = render :partial => "problems/student_answer", :locals => {:test_problem => sub_question}
