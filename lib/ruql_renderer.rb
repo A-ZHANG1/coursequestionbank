@@ -29,6 +29,10 @@ class RuqlRenderer
   end
 
   def render_questions(json_hash, uid = "", prev_uid = "")
+    if json_hash["question_type"] == "TrueFalse"
+      render_true_false(json_hash)
+      return
+    end
     render_question_header(json_hash)
     @level += 1
     write_line("uid #{uid.inspect}", uid.to_s != "")
@@ -57,8 +61,6 @@ class RuqlRenderer
       json_hash["questions"].each do |sub_question|
         render_questions(sub_question)
       end
-    elsif json_hash["question_type"] == "TrueFalse"
-      render_true_false(json_hash)
     else
       json_hash["answers"].each do |answer|
         render_answer_line(answer)
@@ -77,16 +79,15 @@ class RuqlRenderer
         line += ', :explanation => ' + answer["explanation"].inspect
       end
     end
-    return line
+    write_line(line)
   end
-
 
   def render_answer_line(answer)
     type = answer["correct"] ? "answer" : "distractor"
-    explain = ""
+    body = answer["answer_text"].inspect
     if answer["explanation"]
-      explain += ', :explanation => ' + answer["explanation"].inspect
+      body += ', :explanation => ' + answer["explanation"].inspect
     end
-    write_line([type, answer["answer_text"].inspect, explain].join(" "))
+    write_line([type, body].join(" "))
   end
 end
