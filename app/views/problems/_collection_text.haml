@@ -1,5 +1,5 @@
 %div.collection-checkbox-text
-  Your Collections:
+  Belongs to collections:
   - Collection.accessible_by(current_ability, :manage).each do |collection|
     = form_tag problem_path(:id => problem.id), :method => :put do
       - selected = collection.problems.include? problem
