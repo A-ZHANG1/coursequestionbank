@@ -76,8 +76,8 @@
                 :value => "copy_source_button_#{problem.id}", :style => ('display: none' if not Rails.env.test?)}
           Clip Source Code
 
-        = link_to "Supersede", supersede_path(:id => problem.id), :id => "supersede_button_#{problem.id}", :class => 'supersede_button btn btn-default'
-        = link_to "Update", minorupdate_path(:id => problem.id), :id => "minorupdate_button_#{problem.id}", :class => 'minorupdate_button btn btn-default'
+        = link_to "Supersede", supersede_path(:id => problem.id), :id => "supersede_button_#{problem.id}", :class => 'supersede_button btn btn-default', :value => "Supersede"
+        = link_to "Update", minorupdate_path(:id => problem.id), :id => "minorupdate_button_#{problem.id}", :value => "Update", :class => 'minorupdate_button btn btn-default'
 
         - if !problem.previous_version.nil?
           = link_to "See Version History", problem_history_path(:id => problem.id), :id => "history_button_#{problem.id}", :class => 'history_button btn btn-default'

@@ -1,21 +1,22 @@
 Feature:
   As an instructor/Admin, I want to do minor edit on a question
-Background:
+
+Scenario: I edit the question slightly
   Given I am signed in with uid "1234" and provider "github"
   Then I should see "Admin"
   And I have uploaded 'bloom_test.txt'
   And I am on the CourseQuestionBank home page
-Scenario: I edit the question slighly
-  And I press "Update"
-  And I enter "Some question text" in question text
+  Then I should see "Update"
+  And I follow "Update"
   And I press "Confirm Update"
-  Then I should see "You only want to update question when making minor edits. "
-  And I click "Yes. Proceed"
-  And I should see "Some question text"
+  Then I should see "Which of the following best identifies the four basic operations supported by RDBMS? HTTP Get, Put, Post, Delete CRUD REST"
+
 Scenario: I edit the question, then I regreted that I was editing too much on this question
-  And I press "Update"
-  And I enter "Some question text" in question text
+  Given I am signed in with uid "1234" and provider "github"
+  Then I should see "Admin"
+  And I have uploaded 'test_question_with_image.txt'
+  And I am on the CourseQuestionBank home page
+  Then I should see "Update"
+  And I follow "Update"
   And I press "Confirm Update"
-  Then I should see "You only want to update question when making minor edits. "
-  And I click "No Go Back!"
-  And I should not see "Some question text"
+  Then I should see "An HTTP request must consist of both a(n) ----- and a(n) ----- CRUD action, database header, cookie URL, wildcard URI, HTTP request method"
