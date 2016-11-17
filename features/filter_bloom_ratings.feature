@@ -18,7 +18,7 @@ Scenario: negative filtering by Bloom rating
   When I press "Understand"
   And I check "Evaluate"
   And I press "Search"
-  Then I should not see "No questions matched your search criteria"
+  Then I should see "No questions matched your search criteria"
 
 Scenario: filtering by multiple ratings
   When I press "Evaluate"
@@ -31,4 +31,4 @@ Scenario: filtering by multiple ratings
 Scenario: no matching results for Bloom Taxonomy rating
   When I check "Remember"
   And I press "Search"
-  Then I should not see "No questions matched your search criteria"
+  Then I should see "No questions matched your search criteria"

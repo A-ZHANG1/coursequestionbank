@@ -29,24 +29,35 @@ var AdditionalHidden = {
         problem.find(button_name).show();
       }
 
-      problem.find('.supersede_button').click(function() {
-        // problem.find('.supersede_form').toggle();
-        // problem.find('.history_list').hide();
-        // problem.find('.minor_form').hide();
-        toggle_behavior('.supersede_form');
-        hide_behavior('.history_list');
-        hide_behavior('.minor_form');
+      function event_handling(select_button, hide_button_one, hide_button_two, toggle_button){
+        problem.find(select_button).click(function() {
+        toggle_behavior(toggle_button);
+        hide_behavior(hide_button_one);
+        hide_behavior(hide_button_two);
         return false;
-      });
-      problem.find('.history_button').click(function() {
-        // problem.find('.supersede_form').hide();
-        // problem.find('.history_list').toggle();
-        // problem.find('.minor_form').hide();
-        hide_behavior('.supersede_form');
-        toggle_behavior('.history_list');
-        hide_behavior('minor_form');
-        return false;
-      });
+      });}
+
+      event_handling('.supersede_button', '.history_list', '.minor_form', '.supersede_form');
+      // problem.find('.supersede_button').click(function() {
+      //   // problem.find('.supersede_form').toggle();
+      //   // problem.find('.history_list').hide();
+      //   // problem.find('.minor_form').hide();
+      //   toggle_behavior('.supersede_form');
+      //   hide_behavior('.history_list');
+      //   hide_behavior('.minor_form');
+      //   return false;
+      // });
+
+      event_handling('.history_list', '.supersede_form', '.minor_form', '.history_list');
+      // problem.find('.history_button').click(function() {
+      //   // problem.find('.supersede_form').hide();
+      //   // problem.find('.history_list').toggle();
+      //   // problem.find('.minor_form').hide();
+      //   hide_behavior('.supersede_form');
+      //   toggle_behavior('.history_list');
+      //   hide_behavior('minor_form');
+      //   return false;
+      // });
 
         problem.find('.btn-update').click(function() {
             console.log("Received");
@@ -58,15 +69,16 @@ var AdditionalHidden = {
             return false;
         });
 
-        problem.find('.minorupdate_button').click(function() {
-            // problem.find('.minor_form').toggle();
-            // problem.find('.supersede_form').hide();
-            // problem.find('.history_list').hide();
-            toggle_behavior('.minor_form');
-            hide_behavior('.supersede_form');
-            hide_behavior('.history_list');
-            return false;
-        });
+        event_handling('.minorupdate_button', '.supersede_form', '.history_list', '.minor_form');
+        // problem.find('.minorupdate_button').click(function() {
+        //     // problem.find('.minor_form').toggle();
+        //     // problem.find('.supersede_form').hide();
+        //     // problem.find('.history_list').hide();
+        //     toggle_behavior('.minor_form');
+        //     hide_behavior('.supersede_form');
+        //     hide_behavior('.history_list');
+        //     return false;
+        // });
 
 
 
@@ -83,7 +95,7 @@ var AdditionalHidden = {
         // problem.find('.edit-Collections').hide()
         // problem.find('.hide_checkbox').show()
         hide_behavior('.edit-Collections');
-        hide_behavior('.hide_checkbox');
+        show_behavior('.hide_checkbox');
         $(this).hide();
         return false;
       });
