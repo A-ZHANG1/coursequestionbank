@@ -5,7 +5,7 @@
 
 
 - if column == :problem
-  = render :partial => "problems/student_answer", :locals => {:test_problem => problem},:columns => [:checkbox, :problem]
+  = render :partial => "problems/student_answer", :locals => {:test_problem => problem, :index => -1},:columns => [:checkbox, :problem]
 
 
   %div.additional
