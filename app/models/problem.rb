@@ -112,10 +112,11 @@ class Problem < ActiveRecord::Base
   def sub_questions
     # To do: figure out why exactly the question
     if problem_type == "Group"
-      debugger
-      JSON.parse(json)["questions"].map do |question_json|
-        q = Problem.from_JSON(nil, JSON.parse(question_json))
+      sub_problems = []
+      JSON.parse(json)["questions"].each do |question_json|
+        sub_problems << Problem.from_JSON(nil, question_json.to_json)
       end
+      return sub_problems
     else
       return nil
     end
