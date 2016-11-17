@@ -102,7 +102,17 @@ class Problem < ActiveRecord::Base
   end
 
   def answer_explanation
-    return JSON.parse(json)["answers"].collect{|entry| entry["explanation"]}
+    return JSON.parse(json)["answers"].collect do |entry|
+      if entry["explanation"].to_s != ""
+        entry["explanation"]
+      else
+        if entry["correct"]
+          "Correct!"
+        else
+          JSON.parse(json)["global_explanation"].to_s
+        end
+      end
+    end
   end
 
   def global_explanation

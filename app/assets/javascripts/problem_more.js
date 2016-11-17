@@ -81,17 +81,31 @@ var Question = {
                     return true;
                 }
 
-                var checkCorrect = function(entrysDiv) {
-                    var keys = [false, false, false, true];
-                    $(entrysDiv).find(".entrybox").each(function() {
-                        var entryNum = problem.attr('id').split(/-/);
-                        console.log(entryNum);
+                var checkCorrect = function(checkButton) {
+
+                    $(this).parent().find(".entrybox").each(function() {
+                        // debugger
+                        // debugger
+                        if ($(this).find('input[type="radio"]').is(':checked')){
+                            $(this).find('.entryexplain').show();
+                            if ($(this).attr('correct') == 'true')
+                                $(this).css('border', '2px solid green');
+                            else
+                                $(this).css('border', '2px solid red');
+                        }else{
+                            $(this).find('.entryexplain').hide();
+                            $(this).on("mouseover", hoverOnEntry);
+                            $(this).on("mouseleave", hoverOffEntry);
+                        }
+                        // $(this).toggle()
                     });
                 }
+
 
                 question.find(".entrybox").mouseover(hoverOnEntry);
                 question.find(".entrybox").mouseleave(hoverOffEntry);
                 question.find(".entrybox").click(clickOnEntry);
+                question.find(".check-answer").click(checkCorrect)
             });
 
         });
