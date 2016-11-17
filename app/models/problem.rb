@@ -138,8 +138,6 @@ class Problem < ActiveRecord::Base
   end
 
   def self.filter(user, filters, bump_problem)
-
-    # if Problem.count != 0
       problems = Problem.search do
         any_of do
           with(:instructor_id, user.id)
@@ -190,31 +188,15 @@ class Problem < ActiveRecord::Base
 
         paginate :page => filters['page'], :per_page => filters['per_page']
       end
-    # end
-
-    # debugger
-
     if !problems.nil?
       results = problems.results
       if !bump_problem.nil?
         results.reject! {|p| p.id == bump_problem.id}
         results.insert(0, bump_problem)
       end
-    # else
-      # results = []
     end
-
     return results
   end
-
-  # def supersede(user, source)
-  #   new_problem = RuqlReader.read_problem(user, source)
-  #   new_problem.previous_version = self
-  #   new_problem.is_public = self.is_public
-  #   new_problem.tags += tags
-  #   new_problem.save
-  #   new_problem
-  # end
 
   def add_tag(tag_name)
     return false if tag_name.strip == ""

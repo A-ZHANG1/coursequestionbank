@@ -30,3 +30,6 @@ Feature: Student accessibility of the app
     Then I should see "You don't have permission to access this page."
     And I am on the CourseQuestionBank home page
 
+  # Scenario: we cannot search collections
+    
+  #   When I am 

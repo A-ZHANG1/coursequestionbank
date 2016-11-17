@@ -30,3 +30,5 @@ Feature: Instructor accessibility of the app
     Then I should see "Upload questions"
     And I should see "New collection"  
 
+  # Scenario: I can search for collections
+    
