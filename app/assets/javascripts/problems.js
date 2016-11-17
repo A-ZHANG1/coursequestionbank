@@ -20,21 +20,50 @@ var MinorUpdate = {
 $(MinorUpdate.setup);
 
 
+
+// buttons = ["collection", "bloom"]
+
+// buttons.each do |button|
+//   $("#{button}").click(function(){
+//     $("#button}").hide()
+
+//   })
+
+
 var AdditionalHidden = {
 
   setup: function() {
     $('.additional').each(function() {
       var problem = $(this);
+      
+      function toggle_behavior(button_name){
+        problem.find(button_name).toggle();
+      }
+
+      function hide_behavior(button_name){
+        problem.find(button_name).hide();
+      }
+
+      function show_behavior(button_name){
+        problem.find(button_name).show();
+      }
+
       problem.find('.supersede_button').click(function() {
-        problem.find('.supersede_form').toggle();
-        problem.find('.history_list').hide();
-          problem.find('.minor_form').hide();
+        // problem.find('.supersede_form').toggle();
+        // problem.find('.history_list').hide();
+        // problem.find('.minor_form').hide();
+        toggle_behavior('.supersede_form');
+        hide_behavior('.history_list');
+        show_behavior('.minor_form');
         return false;
       });
       problem.find('.history_button').click(function() {
-        problem.find('.supersede_form').hide();
-        problem.find('.history_list').toggle();
-          problem.find('.minor_form').hide();
+        // problem.find('.supersede_form').hide();
+        // problem.find('.history_list').toggle();
+        // problem.find('.minor_form').hide();
+        hide_behavior('.supersede_form');
+        toggle_behavior('.history_list');
+        hide_behavior('minor_form');
         return false;
       });
 
@@ -49,24 +78,31 @@ var AdditionalHidden = {
         });
 
         problem.find('.minorupdate_button').click(function() {
-            problem.find('.minor_form').toggle();
-            problem.find('.supersede_form').hide();
-            problem.find('.history_list').hide();
+            // problem.find('.minor_form').toggle();
+            // problem.find('.supersede_form').hide();
+            // problem.find('.history_list').hide();
+            toggle_behavior('.minor_form');
+            hide_behavior('.supersede_form');
+            hide_behavior('.history_list');
             return false;
         });
 
 
 
       problem.find('.hide_checkbox').click(function() {
-        problem.find('.edit-Collections').show()
-        problem.find('.show_checkbox').show()
+        // problem.find('.edit-Collections').show()
+        // problem.find('.show_checkbox').show()
+        show_behavior('.edit-Collections');
+        show_behavior('.show_checkbox');
         $(this).hide();
         return false;
       });
 
       problem.find('.show_checkbox').click(function() {
-        problem.find('.edit-Collections').hide()
-        problem.find('.hide_checkbox').show()
+        // problem.find('.edit-Collections').hide()
+        // problem.find('.hide_checkbox').show()
+        hide_behavior('.edit-Collections');
+        hide_behavior('.hide_checkbox');
         $(this).hide();
         return false;
       });
@@ -77,8 +113,8 @@ var AdditionalHidden = {
           $(this).show();
         })
         $(this).hide();
-        problem.find('.collections-less-toggle').show()
-
+        //problem.find('.collections-less-toggle').show()
+        show_behavior('.collections-less-toggle');
         return false;
       })
 
@@ -87,14 +123,16 @@ var AdditionalHidden = {
           $(this).hide();
         })
         $(this).hide();
-        problem.find('.collections-more-toggle').show()
+        //problem.find('.collections-more-toggle').show()
+        show_behavior('.collections-more-toggle');
         return false;
       })
 
 
       var hide_collections_button = problem.find('button.collections-less-toggle')
       hide_collections_button.click(function(){
-        problem.find('.collection-button btn').toggle();
+        //problem.find('.collection-button btn').toggle();
+        toggle_behavior('.collections-button btn');
         return false;
       })
 
