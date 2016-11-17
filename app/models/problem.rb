@@ -109,6 +109,19 @@ class Problem < ActiveRecord::Base
     return JSON.parse(json)["global_explanation"]
   end
 
+  def sub_questions
+    # To do: figure out why exactly the question
+    if problem_type == "Group"
+      sub_problems = []
+      JSON.parse(json)["questions"].each do |question_json|
+        sub_problems << Problem.from_JSON(nil, question_json.to_json)
+      end
+      return sub_problems
+    else
+      return nil
+    end
+  end
+
   def self.from_JSON(instructor, json_source)
     return "" if json_source == nil || json_source.length <= 2
     json_hash = JSON.parse(json_source)

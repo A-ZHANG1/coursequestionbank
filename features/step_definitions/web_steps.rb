@@ -468,3 +468,9 @@ end
 Then(/^I should see soltuion "([^"]*)" highlighted$/) do |arg|
   pending
 end
+
+Then(/^I should see "([^"]*)" notice$/) do |arg|
+  if Collection.find_by_name(arg) ==nil and Collection.find_by_description(arg) ==nil
+      "No collection matches"
+  end
+end

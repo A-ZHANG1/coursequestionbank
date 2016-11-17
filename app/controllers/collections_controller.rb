@@ -41,7 +41,6 @@ class CollectionsController < ApplicationController
   end
 
   def search
-
     @search = params[:search]
     # if (@search.nil? or search.empty?)
     @collection_by_name = Collection.where(:name => @search, :is_public => true) + @current_user.collections.where(:name => @search)

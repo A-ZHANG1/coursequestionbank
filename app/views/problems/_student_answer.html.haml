@@ -1,4 +1,3 @@
-
 - if test_problem.problem_type == "MultipleChoice" or test_problem.problem_type == "TrueFalse"
   %div.question{:id => "#{test_problem.uid}", :class => "multiple_choice_question"}
     %p
@@ -43,3 +42,15 @@
     %input{:type => "text"}
     %button{:type => "button", :class => "button-check btn btn-default"}
       Check Answer
+
+- if test_problem.problem_type == "Group"
+  %div.question{:id => "#{test_problem.uid}", :class => "question"}
+    %p
+      = test_problem.question_text.html_safe
+    - if !test_problem.question_image.nil?
+      %br
+        = image_tag test_problem.question_image, :style => "max-height: 400px;"
+    - sub_questions = test_problem.sub_questions
+    - for i in (0..sub_questions.length - 1)
+      - sub_question = sub_questions[i]
+      = render :partial => "problems/student_answer", :locals => {:test_problem => sub_question}
