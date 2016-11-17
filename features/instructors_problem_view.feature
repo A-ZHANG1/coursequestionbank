@@ -14,11 +14,9 @@ Feature: Instructor's view of problem table, aka /problems, /homepage
 
   Scenario: I can not see the edit panel of problems doe not belong to me
     When I am on the CourseQuestionBank home page
-    Then I should see "Question Text"
-    And I should see "Which of the following best identifies the four basic operations supported by RDBMS?"
     And I should not see "Previous version:"
-    And I should see "Your Collections:"
-    And I should see "Bloom Category:"
+    And I should not see "Your Collections:"
+    And I should not see "Bloom Category:"
     And I should not see "Supersede:"
 
   Scenario: I can see the edit panel of the problems belong to me

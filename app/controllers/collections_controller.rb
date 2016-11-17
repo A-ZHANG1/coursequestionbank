@@ -1,19 +1,6 @@
 class CollectionsController < ApplicationController
   load_and_authorize_resource
 
-  before_filter :set_filter_options
-
-  def set_filter_options
-    # session[:filters] ||= HashWithIndifferentAccess.new(@@defaults)
-    #
-    # @@defaults.each do |key, value|
-    #   session[:filters][key] ||= value
-    # end
-    #
-    # session[:filters][:page] = nil
-    # session[:filters] = session[:filters].merge params.slice(:page, :per_page)
-  end
-
   def set_filters
     session[:filters] = session[:filters].merge params.slice(:search, :collections, :description)
 
@@ -53,23 +40,20 @@ class CollectionsController < ApplicationController
   end
 
   def search
-    # debugger
+
     @search = params[:search]
     # if (@search.nil? or search.empty?)
     @collection_by_name = Collection.where(:name => @search, :is_public => true) + @current_user.collections.where(:name => @search)
     @collection_by_description = Collection.where(:description => @search, :is_public => true) + @current_user.collections.where(:description => @search)
-
-    if @collection_by_name.nil? && @collection_by_description.nil?
-      flash[:notice] = "Can't find collection \"#{@search}\""
-      redirect_to collections_path
+    @collections = @collection_by_name + @collection_by_description
+    @uniq_collections = @collections.uniq!
+    if @uniq_collections != nil
+      @collections = @uniq_collections
     end
 
-    if @collection_by_name.nil?
-      @collections = @collection_by_description.uniq! 
-    else
-      @collections = @collection_by_name.uniq! 
-    end 
-    # debugger
+    if @search.empty? && @collections.nil?
+      redirect_to collections_path
+    end
   end
 
   def edit
@@ -117,24 +101,6 @@ class CollectionsController < ApplicationController
     flash[:notice] = 'Collection deleted'
     redirect_to profile_path
   end
-
-  # def add_problems
-  #   collection = Collection.find(params[:id])
-  #   problem_ids = self.class.parse_list params[:problem_ids]
-  #   problems = problem_ids.map{|id| Problem.find_by_id(id)}.reject{|p| p.nil?}
-  #   problems.each {|p| collection.problems << p if !collection.problems.include?(p)}
-  #   flash[:notice] = "Problems added"
-  #   redirect_to :back
-  # end
-
-  # def remove_problems
-  #   collection = Collection.find(params[:id])
-  #   problem_ids = self.class.parse_list params[:problem_ids]
-  #   problems = problem_ids.map{|id| Problem.find_by_id(id)}.reject{|p| p.nil?}
-  #   problems.each {|p| collection.problems.delete(p) if collection.problems.include?(p)}
-  #   flash[:notice] = "Problems removed"
-  #   redirect_to :back
-  # end
 
   def export
     @collection = Collection.find(params[:id])

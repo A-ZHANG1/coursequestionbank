@@ -22,6 +22,7 @@ module NavigationHelpers
     when /^the collection search page$/ then '/collections' 
     when /^the collection search page of "(.*?)" $/ then '/collections' 
     when /^the finalize upload page$/ then '/finalize_upload'
+    when /^the collection edit page$/ then  '/collections/1/edit'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
