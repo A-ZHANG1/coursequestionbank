@@ -20,16 +20,6 @@ var MinorUpdate = {
 $(MinorUpdate.setup);
 
 
-
-buttons = ["collection", "bloom"]
-
-buttons.each do |button|
-  $("#{button}").click(function(){
-    $("#button}").hide()
-
-  })
-
-
 var AdditionalHidden = {
 
   setup: function() {
