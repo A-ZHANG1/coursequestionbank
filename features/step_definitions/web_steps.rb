@@ -69,6 +69,17 @@ Given /^(?:|I )have uploaded '(.*)'$/ do |file|
   # }
 end
 
+
+Then /^I should see the collection "(.*?)"$/ do |arg1|
+  steps %Q{
+    Given I am on the collection search page
+    And I fill in "Search" with "#{arg1}"
+    # Then I am on the collection search result page
+  }
+end  
+
+
+
 When /^(?:|I )create a new collection '(.*)'(.*)/ do |name, optional|
   steps %Q{
     Given I am on the dashboard
@@ -444,6 +455,11 @@ end
 Then(/^I should not see "(.*?)" checkbox$/) do |text|
   checkboxName = find(:css, "#collections_#{collection.id}").should_not be_visible
 end
+
+Then(/^I should not see content "(.*?)"$/) do |text|
+  page.should_not have_content(text)
+end
+
 
 Given(/^there exist a user with username "(.*?)" and uid "(.*?)"$/) do |username, uid|
   Instructor.find_by_username_and_uid(username, uid).should_not be nil

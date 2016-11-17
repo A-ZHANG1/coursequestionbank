@@ -63,10 +63,10 @@ class ProblemsController < ApplicationController
   end
 
   def index
-    if @current_user.respond_to?(:collections)
-      @collections = @current_user.collections
+    if can? :manage, Collection and @current_user.collections
+      @collections = @current_user.collections + Collection.where(:is_public => true)
     else
-      @collections = Collection.find_by_is_public(:true)
+      @collections = Collection.where(:is_public => true)
     end
     # @is_student = cannot? :manage Collections
     # debugger
@@ -304,4 +304,3 @@ class ProblemsController < ApplicationController
   end
 
 end
-

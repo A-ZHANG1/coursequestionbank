@@ -1,9 +1,32 @@
 class CollectionsController < ApplicationController
   load_and_authorize_resource
-  # after_filter :set_current_collection
 
-  # def set_current_collection
-  # end
+  def set_filters
+    session[:filters] = session[:filters].merge params.slice(:search, :collections, :description)
+
+    session[:filters][:collections] = []
+    if params[:collections]
+      params[:collections].each do |key, value|
+        session[:filters][:collections] << Integer(key) if value == "1"
+      end
+    end
+    if session[:filters][:collections].include?(0)
+      session[:filters][:collections] = []
+    end
+
+    session[:filters][:description] = []
+    if params[:description]
+      params[:description].each do |key, value|
+        session[:filters][:description] << Integer(key) if value == "1"
+      end
+    end
+    if session[:filters][:description].include?(0)
+      session[:filters][:description] = []
+    end
+
+    redirect_to :back
+  end
+
 
   def new
     @collection = Collection.new
@@ -14,6 +37,23 @@ class CollectionsController < ApplicationController
     @heading = 'Public collections'
     @instructor = Instructor.find_by_id(@current_user)
     @collections = Collection.public
+  end
+
+  def search
+
+    @search = params[:search]
+    # if (@search.nil? or search.empty?)
+    @collection_by_name = Collection.where(:name => @search, :is_public => true) + @current_user.collections.where(:name => @search)
+    @collection_by_description = Collection.where(:description => @search, :is_public => true) + @current_user.collections.where(:description => @search)
+    @collections = @collection_by_name + @collection_by_description
+    @uniq_collections = @collections.uniq!
+    if @uniq_collections != nil
+      @collections = @uniq_collections
+    end
+
+    if @search.empty? && @collections.nil?
+      redirect_to collections_path
+    end
   end
 
   def edit
@@ -61,24 +101,6 @@ class CollectionsController < ApplicationController
     flash[:notice] = 'Collection deleted'
     redirect_to profile_path
   end
-
-  # def add_problems
-  #   collection = Collection.find(params[:id])
-  #   problem_ids = self.class.parse_list params[:problem_ids]
-  #   problems = problem_ids.map{|id| Problem.find_by_id(id)}.reject{|p| p.nil?}
-  #   problems.each {|p| collection.problems << p if !collection.problems.include?(p)}
-  #   flash[:notice] = "Problems added"
-  #   redirect_to :back
-  # end
-
-  # def remove_problems
-  #   collection = Collection.find(params[:id])
-  #   problem_ids = self.class.parse_list params[:problem_ids]
-  #   problems = problem_ids.map{|id| Problem.find_by_id(id)}.reject{|p| p.nil?}
-  #   problems.each {|p| collection.problems.delete(p) if collection.problems.include?(p)}
-  #   flash[:notice] = "Problems removed"
-  #   redirect_to :back
-  # end
 
   def export
     @collection = Collection.find(params[:id])

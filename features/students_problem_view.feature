@@ -1,5 +1,5 @@
 Feature: Student's view of problem table, aka /problems, /homepage
-  As a Student, I should not see the edit panel for each question, just the plain text of the question
+  As a Student, I should not see the edit panel for each question, just the plain text of the question only if the question is public
 
 
   Background:
@@ -11,11 +11,23 @@ Feature: Student's view of problem table, aka /problems, /homepage
     When I am on the CourseQuestionBank home page
     Then I should see "Student!"
 
-  Scenario: I can not see the edit panel catagory
+  Scenario: I can not see the edit panel catagory and the problem if the problem is private by default
     When I am on the CourseQuestionBank home page
-    Then I should see "Question Text"
-    And I should see "Which of the following best identifies the four basic operations supported by RDBMS?"
     And I should see "Student!"
+    And I should not see "Which of the following best identifies the four basic operations supported by RDBMS?"
+    And I should not see "Previous version:"
+    And I should not see "Your Collections:"
+    And I should not see "Bloom Category:"
+    And I should not see "Supersede:"
+
+  Scenario: I can not see the edit panel catagory and the problem if the problem is public
+    Given I am signed in with uid "1234" and provider "github"
+    And I am on the collection edit page
+    And I press the private button
+    Given I am signed in with uid "12345" and provider "github"
+    When I am on the CourseQuestionBank home page
+    And I should see "Student!"
+    And I should see "Which of the following best identifies the four basic operations supported by RDBMS?"
     And I should not see "Previous version:"
     And I should not see "Your Collections:"
     And I should not see "Bloom Category:"
