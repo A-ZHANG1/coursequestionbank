@@ -12,6 +12,11 @@ Given(/^I press the private button$/) do
   click_button "Private"
 end
 
+Given(/^I press the update button$/) do
+
+  click_button "Update"
+end
+
 Given(/^the upload fails$/) do
   pending # express the regexp above with the code you wish you had
 end

@@ -4,23 +4,26 @@ Feature: User should be able to see group of questions with same resource
 
   Scenario: Admin should see image in problem's view if a group of questions contains same image
     Given I am signed in with uid "1234" and provider "github"
-    And I have uploaded 'group_question_with_image1.txt'
+    And I have uploaded 'group_question_with_image.txt'
     And I am on the CourseQuestionBank home page
-    And I should see image "image1"
-    And I should see "question1"
-    And I should see "question1-1"
-    And I should see "question1-2"
+    Then I should see the image "http://www.websiteoptimization.com/secrets/metrics/10-21-http-request.png"
+    #And I should see "question1"
+    #And I should see "question1-1"
+    #And I should see "question1-2"
 
   Scenario: Instructor should see image in problem's view if a group of questions contains same image
-    Given I am signed in with uid "12345" and provider "github"
-    And I have uploaded 'group_question_with_image1.txt'
+    Given I am signed in with uid "123456" and provider "github"
+    And I have uploaded 'group_question_with_image.txt'
     And I am on the CourseQuestionBank home page
-    And I should see image "image2-2"
-    And I should see image "image2-3"
+    Then I should see the image "http://www.websiteoptimization.com/secrets/metrics/10-21-http-request.png"
+    
 
   Scenario: Student should see image in problem's view if a group of questions contains same image
-    Given I am signed in with uid "123456" and provider "github"
-    And I have uploaded 'group_question_with_image1.txt'
-    And I am on the CourseQuestionBank home page
-    And I should see image "image3-1"
-    And I should see image "image3-2"
+    Given I am signed in with uid "1234" and provider "github"
+    And I have uploaded 'group_question_with_image.txt'
+    And I am on the collection edit page
+    And I press the private button
+    Given I am signed in with uid "12345" and provider "github"
+    When I am on the CourseQuestionBank home page
+    Then I should see the image "http://www.websiteoptimization.com/secrets/metrics/10-21-http-request.png"
+    
