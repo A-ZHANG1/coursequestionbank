@@ -466,7 +466,7 @@ And(/^I should see image "([^"]*)"$/) do |arg|
 end
 
 Then(/^I should see soltuion "([^"]*)" highlighted$/) do |arg|
-  pending
+  page.should have_css("div.entrybox")
 end
 
 Then(/^I should see "([^"]*)" notice$/) do |arg|
