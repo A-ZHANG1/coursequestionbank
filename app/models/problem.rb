@@ -27,10 +27,10 @@ class Problem < ActiveRecord::Base
     string    :bloom_category
     string    :uid
 
-    string    :tag_names, :multiple => true do
+    string :tag_names, :multiple => true do
       tags.map(&:name)
     end
-    integer   :collection_ids, :multiple => true do
+    integer :collection_ids, :multiple => true do
       collections.map(&:id)
     end
   end
@@ -102,18 +102,14 @@ class Problem < ActiveRecord::Base
   end
 
   def answer_explanation
-    if problem_type == "FillIn"
-      return JSON.parse(json)["global_explanation"].to_s
-    else
-      return JSON.parse(json)["answers"].collect do |entry|
-        if entry["explanation"].to_s != ""
-          entry["explanation"]
+    return JSON.parse(json)["answers"].collect do |entry|
+      if entry["explanation"].to_s != ""
+        entry["explanation"]
+      else
+        if entry["correct"]
+          "Correct!"
         else
-          if entry["correct"]
-            "Correct!"
-          else
-            "Wrong"
-          end
+          JSON.parse(json)["global_explanation"].to_s
         end
       end
     end
