@@ -141,7 +141,7 @@ class Problem < ActiveRecord::Base
                           access_level: 1,
                           problem_type: json_hash["question_type"],
                           created_date: Time.now,
-                          uid: json_hash["uid"].equal?(-1) ? SecureRandom.uuid : json_hash["uid"])
+                          uid: json_hash["uid"].equal?(nil) ? SecureRandom.uuid : json_hash["uid"])
     problem.instructor = instructor
     json_hash["question_tags"].each do |tag_name|
       tag = Tag.find_by_name(tag_name) || Tag.create(name: tag_name)
