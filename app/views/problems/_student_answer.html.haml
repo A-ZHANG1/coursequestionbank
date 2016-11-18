@@ -66,10 +66,10 @@
         = test_problem.answer_entrys[0]
       %div.entryexplain.fillin-correct{:style => "display: none"}
         %p.entrytext
-          = "Correct.\n" + test_problem.answer_explanation
+          = "Correct.\n" + test_problem.global_explanation.to_s
       %div.entryexplain.fillin-wrong{:style => "display: none"}
         %p.entrytext
-          = "Wrong.\n" + test_problem.answer_explanation
+          = "Wrong.\n" + test_problem.global_explanation.to_s
 
 - if test_problem.problem_type == "Group"
   %div.question{:id => "#{test_problem.uid}", :class => "question"}
