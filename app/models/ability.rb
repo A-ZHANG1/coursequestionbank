@@ -39,7 +39,7 @@ class Ability
 
     if user.get_privilege == "Instructor"
       can :manage, Problem, :instructor_id => user.id
-      can [:read, :update, :supersede, :view_history, :add_tags, :remove_tags, :bloom_categorize, :add_to_collection], Problem, :access_level =>1  :access_level => 2
+      can [:read, :update, :supersede, :view_history, :add_tags, :remove_tags, :bloom_categorize, :add_to_collection], Problem, :access_level =>1,  :access_level => 2
       can :manage, Collection, :instructor_id => user.id
       can [:read, :export, :preview], Collection, :access_level => 2, :access_level => 1
       can :create, Collection
