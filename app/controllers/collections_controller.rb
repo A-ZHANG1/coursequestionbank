@@ -106,7 +106,7 @@ class CollectionsController < ApplicationController
       if params[:access_level].nil? == false
         name = {"Public" => 1, "Share" => 2, "Private" => 3}
         level = name[params[:access_level]]
-        debugger
+        # debugger
         collection.access_level = level
       end
       collection.save
