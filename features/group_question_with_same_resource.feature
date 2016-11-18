@@ -22,7 +22,6 @@ Feature: User should be able to see group of questions with same resource
     Given I am signed in with uid "1234" and provider "github"
     And I have uploaded 'group_question_with_image.txt'
     And I am on the collection edit page
-    And I press the private button
     Given I am signed in with uid "12345" and provider "github"
     When I am on the CourseQuestionBank home page
     Then I should see the image "http://www.websiteoptimization.com/secrets/metrics/10-21-http-request.png"
