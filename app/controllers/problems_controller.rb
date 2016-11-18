@@ -269,11 +269,6 @@ class ProblemsController < ApplicationController
     @ruql_source = flash[:ruql_source]
   end
 
-  def minor
-    @problem = Problem.find(params[:id])
-    @ruql_source = flash[:ruql_source]
-  end
-
   def supersede
     @problem = Problem.find(params[:id])
     @ruql_source = flash[:ruql_source]
