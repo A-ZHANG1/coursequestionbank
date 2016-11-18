@@ -15,7 +15,7 @@ Scenario: I can answer a fill-in-the-blank question
   And I am on the CourseQuestionBank home page
   And I fill in "eb3f6f5e-99b4-4d3e-b961-6deb47c23591-fill-in" with "/route/i"
   And I press "Check Answer"
-  And I should see "Correct"
+  And I should see a correct message
   And I fill in "fill-in" with "Java"
   And I press "Check Answer"
-  And I should see "Wrong"
+  And the plain text "Wrong" is shown

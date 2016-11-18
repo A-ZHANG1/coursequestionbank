@@ -64,7 +64,7 @@
     %div.entrybox
       %p.answer{:style => "display: none"}
         = test_problem.answer_entrys[0]
-      %div.entryexplain.fillin-correct{:style => "display: none"}
+      %div.entryexplain.fillin-correct{:style => "display: none", :name => "correct"}
         %p.entrytext
           = "Correct.\n" + test_problem.answer_explanation
       %div.entryexplain.fillin-wrong{:style => "display: none"}
