@@ -462,10 +462,6 @@ And(/^the plain text "([^"]*)" is shown$/) do |id|
 end
 
 
-And(/^I should see image "([^"]*)"$/) do |arg|
-  pending
-end
-
 Then(/^I should see soltuion "([^"]*)" highlighted$/) do |arg|
   page.should have_css("div.entrybox")
 end

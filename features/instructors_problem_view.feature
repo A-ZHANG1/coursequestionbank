@@ -14,7 +14,6 @@ Feature: Instructor's view of problem table, aka /problems, /homepage
 
   Scenario: I can not see the edit panel of problems doe not belong to me
     When I am on the CourseQuestionBank home page
-    And I should not see "Previous version:"
     And I should not see "Your Collections:"
     And I should not see "Bloom Category:"
     And I should not see "Supersede:"
@@ -23,7 +22,6 @@ Feature: Instructor's view of problem table, aka /problems, /homepage
     When I am on the CourseQuestionBank home page
     And I have uploaded 'foo.txt'
     Then I should see "Which tiers in the three-tier architecture are involved in handling views?"
-    And I should see "Previous version:"
     And I should see "Your Collections:"
     And I should see "Bloom Category:"
     And I should see "Supersede:"
