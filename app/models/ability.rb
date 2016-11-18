@@ -29,16 +29,17 @@ class Ability
     # See the wiki for details:
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
 
-    can [:read], Problem, :is_public => true
-    can [:read], Collection, :is_public => true
+    can [:read], Problem, :access_level => 3
+    can [:read], Collection, :access_level => 3
 
     if user.get_privilege == "Admin"
       can :manage, :all
+
     end
 
     if user.get_privilege == "Instructor"
       can :manage, Problem, :instructor_id => user.id
-      can [:read, :update, :supersede, :view_history, :add_tags, :remove_tags, :bloom_categorize, :add_to_collection], Problem, :is_public => true
+      can [:read, :update, :supersede, :view_history, :add_tags, :remove_tags, :bloom_categorize, :add_to_collection], Problem, :access_level => 2
       can :manage, Collection, :instructor_id => user.id
       can [:read, :export, :preview], Collection, :is_public => true
       can :create, Collection

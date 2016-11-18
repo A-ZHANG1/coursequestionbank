@@ -64,9 +64,9 @@ class ProblemsController < ApplicationController
 
   def index
     if can? :manage, Collection and @current_user.collections
-      @collections = @current_user.collections + Collection.where(:is_public => true)
+      @collections = @current_user.collections + Collection.where(:access_level => 2) + Collection.where(:access_level => 3)
     else
-      @collections = Collection.where(:is_public => true)
+      @collections = Collection.where(:access_level => 3)
     end
     # @is_student = cannot? :manage Collections
     # debugger
@@ -136,16 +136,22 @@ class ProblemsController < ApplicationController
     problem = Problem.find(params[:id])
 
     if !params[:privacy].nil?
+
       authorize! :set_privacy, problem
       privacy = params[:privacy].downcase.strip
       if privacy == 'public'
-        problem.is_public = true
+        # problem.is_public = true
+        problem.access_level = 2
+      elsif privacy == 'share'
+        problem.access_level = 3
       elsif privacy == 'private'
-        problem.is_public = false
+        # problem.is_public = false
+        problem.access_level = 1
       else
         return
       end
       problem.save
+
       flash[:notice] = "Problem changed to #{privacy}" if !request.xhr?
     end
 
