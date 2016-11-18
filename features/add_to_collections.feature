@@ -9,20 +9,12 @@ Background:
   And I am on the CourseQuestionBank home page
 
 Scenario: Add two collections that can see
-  When I am on the dashboard
-  And I follow "New collection"
-  And I fill in "name" with "test1"
-  And I press "Create"
-  And I am on the dashboard
-  And I should see Collection 'test1' in the database
-
-  When I follow "New collection"
-  And I fill in "name" with "test2"
-  And I press "Create"
-  And I am on the dashboard
-  And I should see Collection 'test2' in the database
-
   When I am on the CourseQuestionBank home page
+  And I should see "Which of the following"
   And I press "show"
-  Then I should see "test1"
-  Then I should see "test2"
+
+  When I checked "A few example questions"
+
+  When I unchecked "A few example questions"
+
+

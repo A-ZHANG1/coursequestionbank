@@ -484,3 +484,12 @@ end
 Then(/^I select "([^"]*)" in "([^"]*)"$/) do |str, element|
   select str, from: element
 end
+
+
+When(/^I checked "([^"]*)"$/) do |arg|
+  page.check(arg)
+end
+
+When(/^I unchecked "([^"]*)"$/) do |arg|
+  page.uncheck(arg)
+end
