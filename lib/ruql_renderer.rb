@@ -23,7 +23,7 @@ class RuqlRenderer
 
   def write_line(text, cond = true)
     if text.to_s != "" && cond
-      @result << (["\t"] * @level).join("")
+      @result << (["  "] * @level).join("")
       @result << text + "\n"
     end
   end
