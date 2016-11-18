@@ -184,26 +184,37 @@ div.edit-collections {
   margin: 5px;
   border-radius: 5px;
   border: 1px solid lightgrey;
-  width: 500px;
+  width: 800px;
   //display: inline;
 
 }
 //
 p.entrytext{
-  width: 700px;
+  width: 800px;
   margin-left: 5px;
   display: inline;
-  font-weight: normal !important;
   //white-space: pre-wrap;
   word-wrap: break-word;
   //white-space: -moz-pre-wrap;
 }
 
-.questiontext{
+p.questiontext{
   width: 800px;
+  display: inline;
   //white-space: pre-wrap;
   word-wrap: break-word;
   //white-space: -moz-pre-wrap;
+}
+
+pre {
+    width: 800px;
+    font-family: Arial, sans-erif;
+    font-size: 14px;
+    margin-top: 5px;
+    tab-size: 2;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    //white-space: -moz-pre-wrap;
 }
 
 .collection-checkbox-text form{
