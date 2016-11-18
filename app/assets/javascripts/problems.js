@@ -24,46 +24,30 @@ var AdditionalHidden = {
         return false;
       });}
 
-      event_handling('.supersede_button', '.history_list', '.minor_form', '.supersede_form');
-      event_handling('.history_list', '.supersede_form', '.minor_form', '.history_list');
-      event_handling('.minorupdate_button', '.supersede_form', '.history_list', '.minor_form');
-
-        problem.find('.btn-update').click(function() {
-            console.log("Received");
-            var pop = problem.find('.confirm-edit');
-            pop.toggle();
-            pop.find(".no-edit").on('click', function() {
-                pop.hide();
-            });
-            return false;
+      function toggle_checkbox(toggle_button, arg1, arg2){
+      problem.find(toggle_button).click(function() {
+      // problem.find('.edit-Collections').show()
+      // problem.find('.show_checkbox').show()
+        if (toggle_button === '.hide_checkbox'){
+          show_behavior(arg1);
+        }
+        else if (toggle_button === '.show_checkbox'){
+          hide_behavior(arg1);
+        } 
+        show_behavior(arg2);
+        $(this).hide();
+        return false;
         });
-
-      problem.find('.hide_checkbox').click(function() {
-        // problem.find('.edit-Collections').show()
-        // problem.find('.show_checkbox').show()
-        show_behavior('.edit-Collections');
-        show_behavior('.show_checkbox');
-        $(this).hide();
-        return false;
-      });
-
-      problem.find('.show_checkbox').click(function() {
-        // problem.find('.edit-Collections').hide()
-        // problem.find('.hide_checkbox').show()
-        hide_behavior('.edit-Collections');
-        show_behavior('.hide_checkbox');
-        $(this).hide();
-        return false;
-      });
+      }
 
       function toggle_collection(click_toggle, operate_toggle, show_toggle){
 
           problem.find(click_toggle).click(function(){
           problem.find(operate_toggle).each(function(){
-            if (operate_toggle == '.collection-button'){
+            if (operate_toggle === '.collection-button'){
               $(this).show();
             }
-            else if(click_toggle == '.collection-button.btn-default'){
+            else if(click_toggle === '.collection-button.btn-default'){
               $(this).hide();
             }
           })
@@ -74,6 +58,22 @@ var AdditionalHidden = {
         })
       }
 
+     problem.find('.btn-update').click(function() {
+          console.log("Received");
+          var pop = problem.find('.confirm-edit');
+          pop.toggle();
+          pop.find(".no-edit").on('click', function() {
+              pop.hide();
+          });
+          return false;
+      });
+
+
+      event_handling('.supersede_button', '.history_list', '.minor_form', '.supersede_form');
+      event_handling('.history_list', '.supersede_form', '.minor_form', '.history_list');
+      event_handling('.minorupdate_button', '.supersede_form', '.history_list', '.minor_form');
+      toggle_checkbox('.hide_checkbox', '.edit-Collections', '.show_checkbox')
+      toggle_checkbox('.show_checkbox', '.edit-Collections', '.hide_checkbox')
       toggle_collection('button.collections-more-toggle', '.collection-button', '.collections-less-toggle')
       toggle_collection('button.collections-less-toggle', '.collection-button.btn-default', '.collections-more-toggle')
 
