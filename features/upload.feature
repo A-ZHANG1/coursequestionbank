@@ -18,6 +18,12 @@ Scenario: upload a file successfully
 	And I press "Upload File"
 	Then I should see "Upload successful!"
 
+Scenario: upload a file successfully
+    Given I am on the upload page
+    And I attach the file "features/test_files/advanced_render.txt" to "file_upload"
+    And I press "Upload File"
+    Then I should see "Upload successful!"
+
 Scenario: syntax error in the file
 	Given I am on the upload page
 	And I attach the file "features/test_files/foo_error.txt" to "file_upload"
