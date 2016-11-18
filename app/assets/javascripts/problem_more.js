@@ -42,7 +42,7 @@ var Question = {
 
                         if ($(this).find('input[type="checkbox"]').is(':checked')){
                             $(this).find('.entryexplain').show();
-                            if ($(this).attr('correct') == 'true')
+                            if ($(this).attr('correct') === 'true')
                                 $(this).css('border', '2px solid green');
                             else
                                 $(this).css('border', '2px solid red');
@@ -103,7 +103,7 @@ var Question = {
                         // debugger
                         if ($(this).find('input[type="radio"]').is(':checked')){
                             $(this).find('.entryexplain').show();
-                            if ($(this).attr('correct') == 'true')
+                            if ($(this).attr('correct') === 'true')
                                 $(this).css('border', '2px solid green');
                             else
                                 $(this).css('border', '2px solid red');
@@ -134,7 +134,7 @@ var Question = {
                 }
 
                 var checkCorrect = function(checkButton) {
-                    if ($(this).parent().find(".students-answer").val() == $(this).parent().find("p.answer").text().trim()){
+                    if ($(this).parent().find(".students-answer").val() === $(this).parent().find("p.answer").text().trim()){
                        $(this).parent().find(".entrybox").css('border', '2px solid green');
                        $(this).parent().find(".fillin-correct").show()
                        $(this).parent().find(".fillin-wrong").hide()
