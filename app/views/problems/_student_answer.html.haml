@@ -19,7 +19,8 @@
                 = test_problem.answer_entrys[i].strip.html_safe
             %div.entryexplain{:style => "display:none"}
               %p.entrytext
-                = test_problem.answer_explanation[i].strip
+                %br
+                  = test_problem.answer_explanation[i].strip
       %button{:type => "button", :class => "button-check btn btn-default check-answer"}
         Check Answer
 
@@ -32,28 +33,43 @@
         = image_tag test_problem.question_image, :style => "max-height: 400px;"
     %div.entrys{:tag => "multiple"}
       - for i in (0..test_problem.answer_entrys.length - 1)
-        %div.entrybox{:answer_id => "entry_#{i+1}"}
+        - correct = test_problem.answer_correct?[i]
+        %div.entrybox{:answer_id => "entry_#{i+1}", :correct => correct.to_s}
           %div.entrybody
-            %input{:type=> "checkbox", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i]}
+            - if can? :see_answer, test_problem
+              %input{:type=> "checkbox", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i]}
+            - else
+              %input{:type=> "checkbox", :name => "#{test_problem.uid}", :value=> 1, :checked=>false}
             %p.entrytext
               = test_problem.answer_entrys[i].strip.html_safe
-          %div.entryexplain
+          %div.entryexplain{:style => "display:none"}
             %p.entrytext
-              = test_problem.answer_explanation[i].strip
-    %button{:type => "button", :class => "button-check btn btn-default"}
+              %br
+                = test_problem.answer_explanation[i].strip
+    %button{:type => "button", :class => "button-check btn btn-default check-answer"}
       Check Answer
 
+
 - if test_problem.problem_type == "FillIn"
-  %div.question{:id => "#{test_problem.uid}", :class => "question"}
+  %div.question{:id => "#{test_problem.uid}", :class => "fillin_question"}
     %p.questiontext
       = test_problem.question_text.html_safe
     - if !test_problem.question_image.nil?
       %br
         = image_tag test_problem.question_image, :style => "max-height: 400px;"
     = "Your Answer:"
-    %input{:type => "text"}
-    %button{:type => "button", :class => "button-check btn btn-default"}
+    %input{:type => "text", :class => "students-answer", :id => "#{test_problem.uid}-fill-in", :name => "fill-in"}
+    %button{:type => "button", :class => "button-check btn btn-default check-answer"}
       Check Answer
+    %div.entrybox
+      %p.answer{:style => "display: none"}
+        = test_problem.answer_entrys[0]
+      %div.entryexplain.fillin-correct{:style => "display: none"}
+        %p.entrytext
+          = "Correct.\n" + test_problem.answer_explanation
+      %div.entryexplain.fillin-wrong{:style => "display: none"}
+        %p.entrytext
+          = "Wrong.\n" + test_problem.answer_explanation
 
 - if test_problem.problem_type == "Group"
   %div.question{:id => "#{test_problem.uid}", :class => "question"}

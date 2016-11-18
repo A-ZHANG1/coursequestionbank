@@ -14,18 +14,16 @@ Feature: Instructor's view of problem table, aka /problems, /homepage
 
   Scenario: I can not see the edit panel of problems doe not belong to me
     When I am on the CourseQuestionBank home page
-    And I should not see "Previous version:"
-    And I should not see "Your Collections:"
-    And I should not see "Bloom Category:"
-    And I should not see "Supersede:"
+    And I should see "Belongs to collections:"
+    And I should see "Bloom category:"
+    And I should not see "Edit question:"
 
   Scenario: I can see the edit panel of the problems belong to me
+    Given I am signed in with uid "1234" and provider "github" 
     When I am on the CourseQuestionBank home page
-    And I have uploaded 'foo.txt'
-    Then I should see "Which tiers in the three-tier architecture are involved in handling views?"
-    And I should see "Previous version:"
-    And I should see "Your Collections:"
-    And I should see "Bloom Category:"
-    And I should see "Supersede:"
+    Then I should see "Which of the following best identifies the four basic operations supported by RDBMS?"
+    And I should see "Belongs to collections:"
+    And I should see "Bloom category:"
+    And I should see "Edit question:"
 
 
