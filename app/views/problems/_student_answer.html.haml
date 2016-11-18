@@ -37,9 +37,9 @@
         %div.entrybox{:answer_id => "entry_#{i+1}", :correct => correct.to_s}
           %div.entrybody
             - if can? :see_answer, test_problem
-              %input{:type=> "checkbox", :id => "#{test_problem.uid}-#{i}", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i]}
+              %input{:type=> "checkbox", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i]}
             - else
-              %input{:type=> "checkbox", :id => "#{test_problem.uid}-#{i}", :name => "#{test_problem.uid}", :value=> 1, :checked=>false}
+              %input{:type=> "checkbox", :name => "#{test_problem.uid}", :value=> 1, :checked=>false}
             %p.entrytext
               = test_problem.answer_entrys[i].strip.html_safe
           %div.entryexplain{:style => "display:none"}
@@ -66,10 +66,10 @@
         = test_problem.answer_entrys[0]
       %div.entryexplain.fillin-correct{:style => "display: none"}
         %p.entrytext
-          = "Correct.\n" + test_problem.answer_explanation
+          = "Correct.\n" + test_problem.global_explanation.to_s
       %div.entryexplain.fillin-wrong{:style => "display: none"}
         %p.entrytext
-          = "Wrong.\n" + test_problem.answer_explanation
+          = "Wrong.\n" + test_problem.global_explanation.to_s
 
 - if test_problem.problem_type == "Group"
   %div.question{:id => "#{test_problem.uid}", :class => "question"}
