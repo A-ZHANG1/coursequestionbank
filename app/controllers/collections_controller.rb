@@ -9,6 +9,7 @@ class CollectionsController < ApplicationController
     end
   end
 
+
   def set_filters
     session[:filters] = session[:filters].merge params.slice(:search, :collections, :description)
 
