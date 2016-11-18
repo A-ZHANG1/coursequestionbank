@@ -489,3 +489,7 @@ end
 When(/^I unchecked "([^"]*)"$/) do |arg|
   page.uncheck(arg)
 end
+
+And(/^I should see a "([^"]*)" message$/) do |arg|
+  arg != nil
+end

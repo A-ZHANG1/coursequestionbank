@@ -37,9 +37,9 @@
         %div.entrybox{:answer_id => "entry_#{i+1}", :correct => correct.to_s}
           %div.entrybody
             - if can? :see_answer, test_problem
-              %input{:type=> "checkbox", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i]}
+              %input{:type=> "checkbox", :id => "#{test_problem.uid}-#{i}", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i]}
             - else
-              %input{:type=> "checkbox", :name => "#{test_problem.uid}", :value=> 1, :checked=>false}
+              %input{:type=> "checkbox", :id => "#{test_problem.uid}-#{i}", :name => "#{test_problem.uid}", :value=> 1, :checked=>false}
             %p.entrytext
               = test_problem.answer_entrys[i].strip.html_safe
           %div.entryexplain{:style => "display:none"}
