@@ -5,15 +5,23 @@
     - if !test_problem.question_image.nil?
       %br
         = image_tag test_problem.question_image, :style => "max-width: 600px;"
-    %div.entrys{:tag => "multiple"}
-      - for i in (0..test_problem.answer_entrys.length - 1)
-        %div.entrybox{:answer_id => "entry_#{i+1}"}
-
-          %input{:type=> "radio", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i]}
-          %p.entrytext
-            = test_problem.answer_entrys[i].strip.html_safe
-    %button{:type => "button", :class => "button-check btn btn-default"}
-      Check Answer
+    %div.question-entrys
+      %div.entrys{:tag => "multiple"}
+        - for i in (0..test_problem.answer_entrys.length - 1)
+          - correct = test_problem.answer_correct?[i]
+          %div.entrybox{:answer_id => "entry_#{i+1}", :correct => correct.to_s}
+            %div.entrybody
+              - if can? :see_answer, test_problem
+                %input{:type=> "radio", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i]}
+              - else
+                %input{:type=> "radio", :name => "#{test_problem.uid}", :value=> 1, :checked=>false}
+              %p.entrytext
+                = test_problem.answer_entrys[i].strip.html_safe
+            %div.entryexplain{:style => "display:none"}
+              %p.entrytext
+                = test_problem.answer_explanation[i].strip
+      %button{:type => "button", :class => "button-check btn btn-default check-answer"}
+        Check Answer
 
 - if test_problem.problem_type == "SelectMultiple"
   %div.question{:id => "#{test_problem.uid}", :class => "select_multiple_question"}
@@ -25,9 +33,13 @@
     %div.entrys{:tag => "multiple"}
       - for i in (0..test_problem.answer_entrys.length - 1)
         %div.entrybox{:answer_id => "entry_#{i+1}"}
-          %input{:type=> "checkbox", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i]}
-          %p.entrytext
-            = test_problem.answer_entrys[i].strip.html_safe
+          %div.entrybody
+            %input{:type=> "checkbox", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i]}
+            %p.entrytext
+              = test_problem.answer_entrys[i].strip.html_safe
+          %div.entryexplain
+            %p.entrytext
+              = test_problem.answer_explanation[i].strip
     %button{:type => "button", :class => "button-check btn btn-default"}
       Check Answer
 

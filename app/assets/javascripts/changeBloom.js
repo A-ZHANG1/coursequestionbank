@@ -1,3 +1,4 @@
+
 var ChangeBloom = {
   setup: function() {
     $('.bloom-buttons').each(function() {
