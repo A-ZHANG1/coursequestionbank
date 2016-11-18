@@ -9,26 +9,6 @@ class CollectionsController < ApplicationController
     end
   end
 
-  def set_filters
-    session[:filters] = session[:filters].merge params.slice(:search, :collections, :description)
-
-    session[:filters][:collections] = []
-    
-    convert_to_int(:colllections)
-    if session[:filters][:collections].include?(0)
-      session[:filters][:collections] = []
-    end
-
-    session[:filters][:description] = []
-    convert_to_int(:description)
-    if session[:filters][:description].include?(0)
-      session[:filters][:description] = []
-    end
-
-    redirect_to :back
-  end
-
-
   def new
     @collection = Collection.new
   end
@@ -51,7 +31,7 @@ class CollectionsController < ApplicationController
       @collections = @uniq_collections
     end
 
-    if @search.empty? && @collections.nil?
+    if @search.empty? || @collections.nil?
       redirect_to collections_path
     end
   end
