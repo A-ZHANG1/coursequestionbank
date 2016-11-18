@@ -140,8 +140,12 @@ class ProblemsController < ApplicationController
       privacy = params[:privacy].downcase.strip
       if privacy == 'public'
         problem.is_public = true
+        problem.access_level = 1
+      elsif privacy == 'share'
+        problem.access_level = 2
       elsif privacy == 'private'
         problem.is_public = false
+        problem.access_level = 3
       else
         return
       end
