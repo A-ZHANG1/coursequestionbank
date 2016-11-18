@@ -10,7 +10,6 @@ Feature: User can filter questions by collection
     And I am on the CourseQuestionBank home page
     And I follow "View 60"
 
-
   Scenario: filter by one collection
     When I check "1/22/15 (W1 L2)"
     And I press "Search"
