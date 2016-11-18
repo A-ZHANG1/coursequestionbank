@@ -23,7 +23,6 @@ Feature: Student's view of problem table, aka /problems, /homepage
   Scenario: I can not see the edit panel catagory and the problem if the problem is public
     Given I am signed in with uid "1234" and provider "github"
     And I am on the collection edit page
-    And I press the private button
     Given I am signed in with uid "12345" and provider "github"
     When I am on the CourseQuestionBank home page
     And I should see "Student!"

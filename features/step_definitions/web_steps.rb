@@ -31,6 +31,7 @@ module WithinHelpers
 end
 World(WithinHelpers)
 
+
 Then /^I should see the image "(.+)"$/ do |image|
     page.should have_xpath("//img[@src=\"#{image}\"]")
 end
@@ -473,4 +474,13 @@ Then(/^I should see "([^"]*)" notice$/) do |arg|
   if Collection.find_by_name(arg) ==nil and Collection.find_by_description(arg) ==nil
       "No collection matches"
   end
+end
+
+
+And(/^I should see "([^"]*)" is checked in "([^"]*)"$/) do |str, element|
+  expect(page).to have_select(element, selected: str)
+end
+
+Then(/^I select "([^"]*)" in "([^"]*)"$/) do |str, element|
+  select str, from: element
 end

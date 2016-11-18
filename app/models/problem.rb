@@ -1,7 +1,7 @@
 require 'ruql_renderer'
 
 class Problem < ActiveRecord::Base
-  attr_accessible :created_date, :is_public, :last_used, :rendered_text, :json, :text, :problem_type, :obsolete, :bloom_category, :uid
+  attr_accessible :created_date, :is_public, :last_used, :rendered_text, :json, :text, :problem_type, :obsolete, :bloom_category, :uid, :access_level
   has_and_belongs_to_many :tags
   belongs_to :instructor
   has_and_belongs_to_many :collections
@@ -137,7 +137,8 @@ class Problem < ActiveRecord::Base
     json_hash = JSON.parse(json_source)
     problem = Problem.new(text: "",
                           json: json_source,
-                          is_public: false,
+                          is_public: true,
+                          access_level: 1,
                           problem_type: json_hash["question_type"],
                           created_date: Time.now,
                           uid: json_hash["uid"].equal?(nil) ? SecureRandom.uuid : json_hash["uid"])
@@ -148,6 +149,17 @@ class Problem < ActiveRecord::Base
     end
     problem
   end
+
+  # def get_access_level
+  #   if self.access_level.nil?
+  #     if self.is_public
+  #       self.access_level = 0
+  #     else
+  #       self.access_level = 1
+  #     end
+  #   end
+  #   return self.access_level
+  # end
 
   def self.filter(user, filters, bump_problem)
       problems = Problem.search do
