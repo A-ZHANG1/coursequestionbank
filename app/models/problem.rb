@@ -150,16 +150,16 @@ class Problem < ActiveRecord::Base
     problem
   end
 
-  def get_access_level
-    if self.access_level.nil?
-      if self.is_public
-        self.access_level = 0
-      else
-        self.access_level = 1
-      end
-    end
-    return self.access_level
-  end
+  # def get_access_level
+  #   if self.access_level.nil?
+  #     if self.is_public
+  #       self.access_level = 0
+  #     else
+  #       self.access_level = 1
+  #     end
+  #   end
+  #   return self.access_level
+  # end
 
   def self.filter(user, filters, bump_problem)
       problems = Problem.search do
