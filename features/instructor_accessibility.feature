@@ -30,5 +30,14 @@ Feature: Instructor accessibility of the app
     Then I should see "Upload questions"
     And I should see "New collection"  
 
-  # Scenario: I can search for collections
+
+  Scenario: I can change privacy of a collection
+    Given I have uploaded 'bloom_test.txt'
+    And I am on the CourseQuestionBank home page
+    And I press "Private"
+    Then I should be on the CourseQuestionBank home page
+    And I press "Public"
+    Then I should be on the CourseQuestionBank home page
+    And I press "Share"
+    Then I should be on the CourseQuestionBank home page
     
