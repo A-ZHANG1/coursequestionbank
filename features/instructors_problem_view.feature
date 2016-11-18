@@ -6,7 +6,7 @@ Feature: Instructor's view of problem table, aka /problems, /homepage
   Background:
     Given I am signed in with uid "1234" and provider "github" 
     And I have uploaded 'bloom_test.txt'
-    Then I am signed in with uid "123456" and provider "developer" 
+    Then I am signed in with uid "123456" and provider "developer"
 
   Scenario: I should be identified as instructor:
     When I am on the CourseQuestionBank home page

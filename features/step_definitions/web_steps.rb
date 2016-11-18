@@ -475,3 +475,12 @@ Then(/^I should see "([^"]*)" notice$/) do |arg|
       "No collection matches"
   end
 end
+
+
+And(/^I should see "([^"]*)" is checked in "([^"]*)"$/) do |str, element|
+  expect(page).to have_select(element, selected: str)
+end
+
+Then(/^I select "([^"]*)" in "([^"]*)"$/) do |str, element|
+  select str, from: element
+end
