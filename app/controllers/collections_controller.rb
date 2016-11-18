@@ -44,7 +44,6 @@ class CollectionsController < ApplicationController
     else
       @collections = Collection.where(:access_level => 1) + Collection.where(:access_level => 2)
     end
-    # debugger
   end
 
   def search
@@ -106,13 +105,10 @@ class CollectionsController < ApplicationController
       if params[:access_level].nil? == false
         name = {"Public" => 1, "Share" => 2, "Private" => 3}
         level = name[params[:access_level]]
-        # debugger
         collection.access_level = level
       end
       collection.save
-      # if params[:is_public] != nil
-      #   collection.problems.each{ |prob| prob.is_public = collection.is_public ; prob.save }
-      # end
+
     end
     redirect_to collection_path(:id => collection.id)
   end
