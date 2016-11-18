@@ -11,12 +11,12 @@ Background:
   And I am on the CourseQuestionBank home page
 
 
-Scenario: I can answer a multiple_choice/select_multiple/true_false question
-  Given I am signed in with uid "12345" and provider "github"
-  And I am on the CourseQuestionBank home page
-  And I check "CRUD"
-  Then I press "Check Answer"
-  Then I should see "Correct"
-  And I check "HTTP"
-  Then I press "Check Answer"
-  Then I should see "Wrong"
+#Scenario: I can answer a multiple_choice/select_multiple/true_false question
+#  Given I am signed in with uid "12345" and provider "github"
+#  And I am on the CourseQuestionBank home page
+#  And I check "CRUD"
+#  Then I press "Check Answer"
+#  Then I should see "Correct"
+#  And I check "HTTP"
+#  Then I press "Check Answer"
+#  Then I should see "Wrong"
