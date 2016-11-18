@@ -19,6 +19,7 @@ module NavigationHelpers
     when /^the dashboard$/ then '/profile'
     when /^the upload page$/ then '/upload'
     when /^the admin panel$/ then '/admin'
+    when /^the login page$/ then '/auth/bypass/5'
 
     when /^the collection search page$/ then '/collections' 
     when /^the collection index page$/ then '/collections' 

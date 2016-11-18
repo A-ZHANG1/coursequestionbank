@@ -1,5 +1,6 @@
 Feature: I am able to preview the ruql format in preview quiz
   Background:
+    Given I am on the login page
     Given I am signed in with uid "1234" and provider "github"
     And I have uploaded 'bloom_test.txt'
 

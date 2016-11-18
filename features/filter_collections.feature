@@ -5,6 +5,7 @@ Feature: User can filter questions by collection
 
 
   Background:
+    Given I am on the login page
     Given I am signed in with uid "1234" and provider "github"
     And I have uploaded 'micro_quizzes.txt'
     And I am on the CourseQuestionBank home page
