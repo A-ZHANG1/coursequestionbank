@@ -1,6 +1,6 @@
 class AddAccessCollection < ActiveRecord::Migration
   def up
-    add_column :collections, :access_level, :int
+    add_column :collections, :access_level, :int, :default => 1
     Collection.all().each do |collection|
       if collection.is_public
         collection.access_level = 0

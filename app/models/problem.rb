@@ -1,7 +1,7 @@
 require 'ruql_renderer'
 
 class Problem < ActiveRecord::Base
-  attr_accessible :created_date, :is_public, :last_used, :rendered_text, :json, :text, :problem_type, :obsolete, :bloom_category, :uid
+  attr_accessible :created_date, :is_public, :last_used, :rendered_text, :json, :text, :problem_type, :obsolete, :bloom_category, :uid, :access_level
   has_and_belongs_to_many :tags
   belongs_to :instructor
   has_and_belongs_to_many :collections
@@ -137,10 +137,11 @@ class Problem < ActiveRecord::Base
     json_hash = JSON.parse(json_source)
     problem = Problem.new(text: "",
                           json: json_source,
-                          is_public: false,
+                          is_public: true,
+                          access_level: 1,
                           problem_type: json_hash["question_type"],
                           created_date: Time.now,
-                          uid: json_hash["uid"].equal?(nil) ? SecureRandom.uuid : json_hash["uid"])
+                          uid: json_hash["uid"].equal?(-1) ? SecureRandom.uuid : json_hash["uid"])
     problem.instructor = instructor
     json_hash["question_tags"].each do |tag_name|
       tag = Tag.find_by_name(tag_name) || Tag.create(name: tag_name)

@@ -1,5 +1,5 @@
 class Collection < ActiveRecord::Base
-  attr_accessible :last_used, :name, :description, :is_public, :color
+  attr_accessible :last_used, :name, :description, :is_public, :color, :access_level
   validates :name, presence: true #, uniqueness: true for now this is bad
   has_and_belongs_to_many :problems
   belongs_to :instructor
@@ -19,6 +19,7 @@ class Collection < ActiveRecord::Base
 
 
   def set_attributes(params)
+    # debugger
     self.name = params[:name] if params[:name]
     self.description = params[:description] if params[:description]
     self.is_public = params[:is_public] if params[:is_public]
@@ -72,4 +73,10 @@ class Collection < ActiveRecord::Base
   def public?
     self.is_public
   end
+
+  def self.access_levels
+    %w{Public Share Private}
+  end
 end
+
+

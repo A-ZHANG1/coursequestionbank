@@ -14,15 +14,15 @@
         = form_tag problem_path(:id => problem.id), :method => :put, :class => 'prob_privacy' do
           - name = ["Public", "Share", "Private"]
           - level = problem.access_level
-          - if level = 1
-            = hidden_field_tag :privacy, name[2], :id => nil
-            = submit_tag (name[1]), :class => 'btn btn-default privacy-button'
+          - if level == 1
+            = hidden_field_tag :privacy, name[0], :id => nil
+            = submit_tag (name[0]), :class => 'btn btn-default privacy-button'
           - elsif level == 2
-            = hidden_field_tag :privacy, name[3], :id => nil
-            = submit_tag (name[2]), :class => 'btn btn-default privacy-button'
-          - else
             = hidden_field_tag :privacy, name[1], :id => nil
-            = submit_tag (name[3]), :class => 'btn btn-default privacy-button'
+            = submit_tag (name[1]), :class => 'btn btn-default privacy-button'
+          - else
+            = hidden_field_tag :privacy, name[2], :id => nil
+            = submit_tag (name[2]), :class => 'btn btn-default privacy-button'
 
       = form_tag problem_path(:id => problem.id), :method => :put, :class => 'prob_obsolete' do
         = hidden_field_tag :obsolete, problem.obsolete ? '0' : '1', :id => nil

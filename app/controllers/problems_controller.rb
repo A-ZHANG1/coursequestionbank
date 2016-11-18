@@ -136,20 +136,22 @@ class ProblemsController < ApplicationController
     problem = Problem.find(params[:id])
 
     if !params[:privacy].nil?
+
       authorize! :set_privacy, problem
       privacy = params[:privacy].downcase.strip
       if privacy == 'public'
         problem.is_public = true
-        problem.access_level = 1
-      elsif privacy == 'share'
         problem.access_level = 2
+      elsif privacy == 'share'
+        problem.access_level = 3
       elsif privacy == 'private'
         problem.is_public = false
-        problem.access_level = 3
+        problem.access_level = 1
       else
         return
       end
       problem.save
+
       flash[:notice] = "Problem changed to #{privacy}" if !request.xhr?
     end
 

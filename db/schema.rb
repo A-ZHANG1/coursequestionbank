@@ -17,12 +17,12 @@ ActiveRecord::Schema.define(:version => 20161118004429) do
     t.integer  "instructor_id"
     t.string   "name"
     t.datetime "last_used"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.text     "description"
     t.boolean  "is_public"
     t.string   "color"
-    t.integer  "access_level"
+    t.integer  "access_level",  :default => 1
   end
 
   create_table "collections_problems", :id => false, :force => true do |t|
@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(:version => 20161118004429) do
     t.string   "created_by"
     t.boolean  "is_public"
     t.datetime "last_used"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.text     "rendered_text"
     t.string   "problem_type"
     t.text     "json"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(:version => 20161118004429) do
     t.string   "bloom_category"
     t.boolean  "obsolete"
     t.string   "uid"
-    t.integer  "access_level"
+    t.integer  "access_level",        :default => 1
   end
 
   create_table "problems_tags", :id => false, :force => true do |t|

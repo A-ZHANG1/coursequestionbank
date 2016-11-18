@@ -176,7 +176,7 @@ var ChangePrivacy = {
   setup: function() {
     $('.prob_privacy').submit(function() {
       var button = $(this).find('input[type="submit"]');
-        debugger;
+
       var newValue = button.attr('value');
         if (newValue === "Public") {
             newValue = "Share"
@@ -185,8 +185,10 @@ var ChangePrivacy = {
         } else {
             newValue = "Public"
         }
+        // debugger;
       button.attr('value', newValue);
-      $(this).find('input[name="privacy"]').attr('value', button.attr('value'));
+      // $(this).find('input[name="privacy"]').attr('value', button.attr('value'));
+      debugger
       $.ajax({
         url: $(this).attr('action'),
         type: 'PUT',
