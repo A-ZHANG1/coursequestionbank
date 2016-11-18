@@ -102,14 +102,18 @@ class Problem < ActiveRecord::Base
   end
 
   def answer_explanation
-    return JSON.parse(json)["answers"].collect do |entry|
-      if entry["explanation"].to_s != ""
-        entry["explanation"]
-      else
-        if entry["correct"]
-          "Correct!"
+    if problem_type == "FillIn"
+      return JSON.parse(json)["global_explanation"].to_s
+    else
+      return JSON.parse(json)["answers"].collect do |entry|
+        if entry["explanation"].to_s != ""
+          entry["explanation"]
         else
-          JSON.parse(json)["global_explanation"].to_s
+          if entry["correct"]
+            "Correct!"
+          else
+            "Wrong"
+          end
         end
       end
     end
