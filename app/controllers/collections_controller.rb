@@ -1,14 +1,6 @@
 class CollectionsController < ApplicationController
   load_and_authorize_resource
 
-  def convert_to_int(arg = params[:description] )
-    if params[arg]
-      params[parg].each do |key, value|
-        session[:filters][arg] << Integer(key) if value == "1"
-      end
-    end
-  end
-
   def new
     @collection = Collection.new
   end
@@ -97,8 +89,8 @@ class CollectionsController < ApplicationController
   end
 
   def preview
-    html_code = Collection.find(params[:id]).export('Html5')
-    render :text => html_code
+    ruql_code = Collection.find(params[:id]).export('ruql')
+    render :text => ruql_code
   end
 
   def finalize_upload
