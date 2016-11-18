@@ -1,9 +1,18 @@
 class AddAccessProblem < ActiveRecord::Migration
   def up
     add_column :problems, :access_level, :int
+    Problem.all().each do |problem|
+      if problem.is_public
+        problem.access_level = 0
+        problem.save!
+      else
+        problem.access_level = 1
+        problem.save!
+      end
+    end
   end
 
   def down
-    add_column :problems, :access_level, :int
+    remove_column :problems, :access_level, :int
   end
 end
