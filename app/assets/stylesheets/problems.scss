@@ -189,7 +189,7 @@ div.edit-collections {
 }
 
 .entryexplain{
-  border-top: 2px solid grey;
+  // border-top: 2px solid grey;
   margin: 2px;
 }
 //
@@ -227,4 +227,8 @@ p.entrytext{
   border: 2px double grey;
   font-size: 120%;
   background-color: antiquewhite;
+}
+
+br.sep{
+  font-size: 24%;
 }

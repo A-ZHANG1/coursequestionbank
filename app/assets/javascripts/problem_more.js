@@ -33,18 +33,33 @@ var Question = {
                     return false;
                 }
 
-                var checkCorrect = function(entrysDiv) {
-                    var keys = [false, false, false, true];
-                    $(entrysDiv).find(".entrybox").each(function() {
-                        var entryNum = problem.attr('id').split(/-/);
-                        console.log(entryNum);
-                    });
+                var checkCorrect = function(checkButton) {
+                  // debugger
 
+                    $(this).parent().find(".entrybox").each(function() {
+                        // debugger
+                        // debugger
+
+                        if ($(this).find('input[type="checkbox"]').is(':checked')){
+                            $(this).find('.entryexplain').show();
+                            if ($(this).attr('correct') == 'true')
+                                $(this).css('border', '2px solid green');
+                            else
+                                $(this).css('border', '2px solid red');
+                        }else{
+                            $(this).find('.entryexplain').hide();
+                            $(this).on("mouseover", hoverOnEntry);
+                            $(this).on("mouseleave", hoverOffEntry);
+                        }
+                        // $(this).toggle()
+                    });
                 }
+
 
                 question.find(".entrybox").mouseover(hoverOnEntry);
                 question.find(".entrybox").mouseleave(hoverOffEntry);
                 question.find(".entrybox").click(clickOnEntry);
+                question.find(".check-answer").click(checkCorrect)
             });
 
         });
@@ -110,6 +125,36 @@ var Question = {
 
         });
 
+        $('.fillin_question').each(function() {
+            var question = $(this);
+            question.ready(function() {
+
+                var hoverOnEntry = function() {
+                    $(this).css('border', '2px solid dodgerblue');
+                }
+
+                var checkCorrect = function(checkButton) {
+                    if ($(this).parent().find(".students-answer").val() == $(this).parent().find("p.answer").text().trim()){
+                       $(this).parent().find(".entrybox").css('border', '2px solid green');
+                       $(this).parent().find(".fillin-correct").show()
+                       $(this).parent().find(".fillin-wrong").hide()
+                    }else{
+                        $(this).parent().find(".entrybox").css('border', '2px solid red');
+                        $(this).parent().find(".fillin-correct").hide()
+                        $(this).parent().find(".fillin-wrong").show()
+                    }
+
+                }
+
+                // question.find(".entrybox").mouseover(hoverOnEntry);
+                // question.find(".entrybox").mouseleave(hoverOffEntry);
+                // question.find(".entrybox").click(clickOnEntry);
+                question.find(".entrybox").css('border', "None")
+                question.find(".check-answer").click(checkCorrect)
+            });
+
+        });
+
     }
 };
 $(Question.setup);
@@ -151,5 +196,3 @@ var ChangeCollectionsByCheckbox = {
 
 };
 $(ChangeCollectionsByCheckbox.setup);
-
-
