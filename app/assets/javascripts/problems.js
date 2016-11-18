@@ -81,16 +81,6 @@ var AdditionalHidden = {
         // });
 
 
-
-      problem.find('.hide_checkbox').click(function() {
-        // problem.find('.edit-Collections').show()
-        // problem.find('.show_checkbox').show()
-        show_behavior('.edit-Collections');
-        show_behavior('.show_checkbox');
-        $(this).hide();
-        return false;
-      });
-
       problem.find('.show_checkbox').click(function() {
         // problem.find('.edit-Collections').hide()
         // problem.find('.hide_checkbox').show()
@@ -100,16 +90,7 @@ var AdditionalHidden = {
         return false;
       });
 
-
-      problem.find('button.collections-more-toggle').click(function(){
-        problem.find('.collection-button').each(function(){
-          $(this).show();
-        })
-        $(this).hide();
-        //problem.find('.collections-less-toggle').show()
-        show_behavior('.collections-less-toggle');
-        return false;
-      })
+      
 
       problem.find('button.collections-less-toggle').click(function(){
         problem.find('.collection-button.btn-default').each(function(){
@@ -156,86 +137,6 @@ var AddTags = {
 $(AddTags.setup);
 
 
-var RemoveTags = {
-  setup: function() {
-    $('.remove_tag').submit(function() {
-      $(this).parent().remove();
-      $.ajax({
-        url: $(this).attr('action'),
-        type: 'POST',
-        data: $(this).serialize()
-      });
-      return false;
-    });
-  }
-};
-$(RemoveTags.setup);
-
-
-var ChangePrivacy = {
-  setup: function() {
-    $('.prob_privacy').submit(function() {
-      var button = $(this).find('input[type="submit"]');
-      var newValue = button.attr('value') === 'Public' ? 'Private' : 'Public';
-      button.attr('value', newValue);
-      $(this).find('input[name="privacy"]').attr('value', button.attr('value'));
-      $.ajax({
-        url: $(this).attr('action'),
-        type: 'PUT',
-        data: $(this).serialize()
-      });
-      return false;
-    });
-  }
-};
-$(ChangePrivacy.setup);
-
-
-
-
-var ChangeBloom = {
-  setup: function() {
-    $('.bloom-buttons').each(function() {
-      var container = $(this);
-      container.find('form').submit(function() {
-        $.ajax({
-          url: $(this).attr('action'),
-          type: 'PUT',
-          data: $(this).serialize()
-        });
-
-        var button = $(this).find('input[type="submit"]');
-        var category = $(this).find('input[name="category"]').attr('value');
-
-        // Reset all buttons to default action
-        container.find('form').each(function() {
-          var my_button = $(this).find('input[type="submit"]');
-          var my_category_field = $(this).find('input[name="category"]');
-          my_category_field.attr('value', my_button.attr('value'));
-        });
-
-        // Set 'none' action for current button if appropriate
-        var category_field = $(this).find('input[name="category"]');
-        if (category !== 'none')
-          category_field.attr('value', 'none');
-
-        // Stylize buttons based on action
-        container.find('form').each(function() {
-          var button = $(this).find('input[type="submit"]');
-          var category = $(this).find('input[name="category"]').attr('value');
-          button.removeClass('btn-default btn-info');
-          if (category === 'none')
-            button.addClass('btn-info');
-          else
-            button.addClass('btn-default');
-        });
-
-        return false;
-      });
-    });
-  }
-};
-$(ChangeBloom.setup);
 
 
 var ChangeCollections = {
