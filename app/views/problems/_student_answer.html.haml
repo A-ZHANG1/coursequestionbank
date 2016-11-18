@@ -1,6 +1,6 @@
 - if test_problem.problem_type == "MultipleChoice" or test_problem.problem_type == "TrueFalse"
   %div.question{:id => "#{test_problem.uid}", :class => "multiple_choice_question"}
-    %p
+    %p.questiontext
       = test_problem.question_text.html_safe
     - if !test_problem.question_image.nil?
       %br
@@ -26,7 +26,7 @@
 
 - if test_problem.problem_type == "SelectMultiple"
   %div.question{:id => "#{test_problem.uid}", :class => "select_multiple_question"}
-    %p
+    %p.questiontext
       = test_problem.question_text.html_safe
     - if !test_problem.question_image.nil?
       %br
@@ -52,7 +52,7 @@
 
 - if test_problem.problem_type == "FillIn"
   %div.question{:id => "#{test_problem.uid}", :class => "fillin_question"}
-    %p
+    %p.questiontext
       = test_problem.question_text.html_safe
     - if !test_problem.question_image.nil?
       %br
@@ -73,7 +73,7 @@
 
 - if test_problem.problem_type == "Group"
   %div.question{:id => "#{test_problem.uid}", :class => "question"}
-    %p
+    %p.questiontext
       = test_problem.question_text.html_safe
     - if !test_problem.question_image.nil?
       %br

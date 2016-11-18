@@ -1,57 +1,41 @@
 class CollectionsController < ApplicationController
   load_and_authorize_resource
 
-  def convert_to_int(arg = params[:description] )
-    if params[arg]
-      params[parg].each do |key, value|
-        session[:filters][arg] << Integer(key) if value == "1"
-      end
-    end
-  end
-
-  def set_filters
-    session[:filters] = session[:filters].merge params.slice(:search, :collections, :description)
-
-    session[:filters][:collections] = []
-    
-    convert_to_int(:colllections)
-    if session[:filters][:collections].include?(0)
-      session[:filters][:collections] = []
-    end
-
-    session[:filters][:description] = []
-    convert_to_int(:description)
-    if session[:filters][:description].include?(0)
-      session[:filters][:description] = []
-    end
-
-    redirect_to :back
-  end
-
-
   def new
     @collection = Collection.new
   end
 
   def index
     # Show all public collections
+
     @heading = 'Public collections'
     @instructor = Instructor.find_by_id(@current_user)
-    @collections = Collection.public
+    if @current_user.get_privilege == "Student"
+      @collections = Collection.where(:access_level => 1)
+    else
+      @collections = Collection.where(:access_level => 1) + Collection.where(:access_level => 2)
+    end
   end
 
   def search
     @search = params[:search]
     # if (@search.nil? or search.empty?)
-    @collection_by_name = Collection.where(:name => @search, :is_public => true) + @current_user.collections.where(:name => @search)
-    @collection_by_description = Collection.where(:description => @search, :is_public => true) + @current_user.collections.where(:description => @search)
+
+    @collection_by_name = Collection.where(:name => @search, :access_level => 1) + @current_user.collections.where(:name => @search)
+    @collection_by_description = Collection.where(:description => @search,  :access_level => 1) + @current_user.collections.where(:description => @search)
+
     @collections = @collection_by_name + @collection_by_description
+
+    if @current_user.get_privilege != "Student"
+      @collections = @collections + Collection.where(:name => @search, :access_level => 2) + Collection.where(:description => @search, :access_level => 2)
+    end
+
     @uniq_collections = @collections.uniq!
     if @uniq_collections != nil
       @collections = @uniq_collections
     end
 
-    if @search.empty? && @collections.nil?
+    if @search.empty? || @collections.nil?
       redirect_to collections_path
     end
   end
@@ -81,6 +65,7 @@ class CollectionsController < ApplicationController
   end
 
   def update
+
     collection = Collection.find(params[:id])
     collection.set_attributes(params)
 
@@ -88,10 +73,13 @@ class CollectionsController < ApplicationController
       collection_errors(collection)
       redirect_to :back and return
     else
+      if params[:access_level].nil? == false
+        name = {"Public" => 1, "Share" => 2, "Private" => 3}
+        level = name[params[:access_level]]
+        collection.access_level = level
+      end
       collection.save
-      # if params[:is_public] != nil
-      #   collection.problems.each{ |prob| prob.is_public = collection.is_public ; prob.save }
-      # end
+
     end
     redirect_to collection_path(:id => collection.id)
   end
@@ -117,8 +105,8 @@ class CollectionsController < ApplicationController
   end
 
   def preview
-    html_code = Collection.find(params[:id]).export('Html5')
-    render :text => html_code
+    ruql_code = Collection.find(params[:id]).export('ruql')
+    render :text => ruql_code
   end
 
   def finalize_upload

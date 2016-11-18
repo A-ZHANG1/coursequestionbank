@@ -19,12 +19,16 @@ module NavigationHelpers
     when /^the dashboard$/ then '/profile'
     when /^the upload page$/ then '/upload'
     when /^the admin panel$/ then '/admin'
+    when /^the login page$/ then '/auth/bypass/5'
 
     when /^the collection search page$/ then '/collections' 
+    when /^the collection index page$/ then '/collections' 
     when /^the collection search page of "(.*?)" $/ then '/collections' 
 
     when /^the finalize upload page$/ then '/finalize_upload'
     when /^the collection edit page$/ then  '/collections/1/edit'
+
+    when(/^the export page$/) then '/collections/1/export'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
