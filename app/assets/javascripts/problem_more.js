@@ -46,6 +46,8 @@ var Question = {
 
                         if ($(this).find('input[type="checkbox"]').is(':checked')){
                             $(this).find('.entryexplain').show();
+                            $(this).off("mouseover");
+                            $(this).off("mouseleave");
                             if ($(this).attr('correct') === 'true')
                                 $(this).css('border', '2px solid green');
                             else
@@ -110,6 +112,8 @@ var Question = {
                         // debugger
                         if ($(this).find('input[type="radio"]').is(':checked')){
                             $(this).find('.entryexplain').show();
+                            $(this).off("mouseover");
+                            $(this).off("mouseleave");
                             if ($(this).attr('correct') === 'true')
                                 $(this).css('border', '2px solid green');
                             else

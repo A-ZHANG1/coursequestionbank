@@ -48,7 +48,10 @@
           %div.entryexplain{:style => "display:none"}
             %p.entrytext
               %br
-                = test_problem.answer_explanation[i].strip.html_safe
+                - if test_problem.answer_explanation[i].strip.length == 0
+                  = "Wrong"
+                - else
+                  = test_problem.answer_explanation[i].strip.html_safe
     %button{:type => "button", :class => "button-check btn btn-default check-answer"}
       Check Answer
 
