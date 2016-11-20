@@ -19,7 +19,8 @@ var Question = {
                 }
                 var clickOnEntry = function(event) {
                     target = $(event.target);
-                    checked = $(this).find(":checkbox").prop('checked');
+                    choice = $(this).find(":checkbox")
+                    checked = choice.prop('checked');
                     if (target.is(':checkbox')) {
                         checked = !checked;
                     }
