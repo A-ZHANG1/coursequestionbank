@@ -44,7 +44,7 @@
           = text_field_tag :previous, nil, :id => nil, :class => 'form-control', :placeholder => 'Enter problem UID',
               :value => (problem.previous_version.uid if problem.previous_version)
 
-    - if @current_user.respond_to?(:collections) and (@current_user.privilege == "Admin" or @current_user.privilege == "Instructor")
+    - if can? :add_to_collection, problem
       = render :partial => 'problems/collection_text', :locals => {:problem => problem}
 
     - if can? :add_to_collection, problem
