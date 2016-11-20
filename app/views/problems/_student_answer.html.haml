@@ -20,7 +20,10 @@
             %div.entryexplain{:style => "display:none"}
               %p.entrytext
                 %br
-                  = test_problem.answer_explanation[i].strip
+                  - if test_problem.answer_explanation[i].strip.length == 0
+                    = "Wrong"
+                  - else
+                    = test_problem.answer_explanation[i].strip
       %button{:type => "button", :class => "button-check btn btn-default check-answer"}
         Check Answer
 
@@ -57,8 +60,12 @@
     - if !test_problem.question_image.nil?
       %br
         = image_tag test_problem.question_image, :style => "max-height: 400px;"
+    %br
     = "Your Answer:"
-    %input{:type => "text", :class => "students-answer", :id => "#{test_problem.uid}-fill-in", :name => "fill-in"}
+    - if can? :see_answer, test_problem
+      %input{:type => "text", :class => "students-answer", :id => "#{test_problem.uid}-fill-in", :name => "fill-in", :value => test_problem.answer_entrys[0]}
+    - else
+      %input{:type => "text", :class => "students-answer", :id => "#{test_problem.uid}-fill-in", :name => "fill-in"}
     %button{:type => "button", :class => "button-check btn btn-default check-answer"}
       Check Answer
     %div.entrybox
