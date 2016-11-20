@@ -23,7 +23,7 @@
                   - if test_problem.answer_explanation[i].strip.length == 0
                     = "Wrong"
                   - else
-                    = test_problem.answer_explanation[i].strip
+                    = test_problem.answer_explanation[i].strip.html_safe
       %button{:type => "button", :class => "button-check btn btn-default check-answer"}
         Check Answer
 
@@ -48,7 +48,7 @@
           %div.entryexplain{:style => "display:none"}
             %p.entrytext
               %br
-                = test_problem.answer_explanation[i].strip
+                = test_problem.answer_explanation[i].strip.html_safe
     %button{:type => "button", :class => "button-check btn btn-default check-answer"}
       Check Answer
 
@@ -73,10 +73,10 @@
         = test_problem.answer_entrys[0]
       %div.entryexplain.fillin-correct{:style => "display: none"}
         %p.entrytext
-          = "Correct.\n" + test_problem.global_explanation.to_s
+          = "Correct.\n" + test_problem.global_explanation.to_s.html_safe
       %div.entryexplain.fillin-wrong{:style => "display: none"}
         %p.entrytext
-          = "Wrong.\n" + test_problem.global_explanation.to_s
+          = "Wrong.\n" + test_problem.global_explanation.to_s.html_safe
 
 - if test_problem.problem_type == "Group"
   %div.question{:id => "#{test_problem.uid}", :class => "question"}
