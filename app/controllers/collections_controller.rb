@@ -7,7 +7,7 @@ class CollectionsController < ApplicationController
 
   def index
     # Show all public collections
-
+    session[:filters] = nil
     @heading = 'Public collections'
     @instructor = Instructor.find_by_id(@current_user)
     if @current_user.get_privilege == "Student"
