@@ -12,7 +12,6 @@ class ProblemsController < ApplicationController
    'per_page' => 60, 'page' => 1 })
 
   def set_filter_options
-    # debugger
     session[:filters] ||= HashWithIndifferentAccess.new(@@defaults)
 
     @@defaults.each do |key, value|
