@@ -1,15 +1,21 @@
 class CollectionsController < ApplicationController
   load_and_authorize_resource
 
+  @@defaults = HashWithIndifferentAccess.new({'search' => ""})
+
+
+
   def new
     @collection = Collection.new
   end
 
   def index
     # Show all public collections
+    # debugger
     session[:filters] = nil
     @heading = 'Public collections'
     @instructor = Instructor.find_by_id(@current_user)
+
     if @current_user.get_privilege == "Student"
       @collections = Collection.where(:access_level => 1)
     else
@@ -18,26 +24,35 @@ class CollectionsController < ApplicationController
   end
 
   def search
-    @search = params[:search]
-    # if (@search.nil? or search.empty?)
 
-    @collection_by_name = Collection.where(:name => @search, :access_level => 1) + @current_user.collections.where(:name => @search)
-    @collection_by_description = Collection.where(:description => @search,  :access_level => 1) + @current_user.collections.where(:description => @search)
 
-    @collections = @collection_by_name + @collection_by_description
+    session[:filters] ||= HashWithIndifferentAccess.new(@@defaults)
 
-    if @current_user.get_privilege != "Student"
-      @collections = @collections + Collection.where(:name => @search, :access_level => 2) + Collection.where(:description => @search, :access_level => 2)
-    end
+    session[:filters][:search] = params[:search]
+    # debugger
+    @search = session[:filters][:search]
+    # # if (@search.nil? or search.empty?)
+    #
+    # @collection_by_name = Collection.where(:name => @search, :access_level => 1) + @current_user.collections.where(:name => @search)
+    # @collection_by_description = Collection.where(:description => @search,  :access_level => 1) + @current_user.collections.where(:description => @search)
+    #
+    # @collections = @collection_by_name + @collection_by_description
+    #
+    # if @current_user.get_privilege != "Student"
+    #   @collections = @collections + Collection.where(:name => @search, :access_level => 2) + Collection.where(:description => @search, :access_level => 2)
+    # end
+    #
+    # @uniq_collections = @collections.uniq!
+    # if @uniq_collections != nil
+    #   @collections = @uniq_collections
+    # end
 
-    @uniq_collections = @collections.uniq!
-    if @uniq_collections != nil
-      @collections = @uniq_collections
-    end
 
     if @search.empty? || @collections.nil?
       redirect_to collections_path
     end
+    # session[:filters][:search] = [params[:search]]
+    @collections = Collection.filter(@current_user, session[:filters].clone)
   end
 
   def edit

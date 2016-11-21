@@ -8,13 +8,34 @@ class Collection < ActiveRecord::Base
   scope :public, where(:is_public => true)
   
   searchable do
-    text :name, :more_like_this => true
-    text :description, :more_like_this => true
+    text :name
+    text :description
+    integer :access_level
+    integer :instructor_id
   end
 
-  searchable do
-    text :name, :more_like_this => true
-    text :description, :more_like_this => true
+  def self.filter(user, searchers)
+
+
+    collections = Collection.search do
+
+      any_of do
+
+        with(:access_level, 1)
+        with(:instructor_id, user.uid)
+        if user.privilege != "Student"
+
+          with(:access_level, 2)
+        end
+      end
+
+      fulltext searchers[:search] + "~"
+    end
+
+    if !collections.nil?
+      results = collections.results
+    end
+    return results
   end
 
 

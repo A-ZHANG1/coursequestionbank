@@ -5,6 +5,7 @@ Feature: User can search for a collection
 
 Background:
   Given I am signed in with uid "1234" and provider "github"
+
   
 Scenario: I search a collection with empty string
   When I am on the dashboard
@@ -25,6 +26,8 @@ Scenario: I search a collection that does not exist
 
 
 Scenario: I search by collection name that User uploaded
+  When I have uploaded 'bloom_test.txt'
+  When I am on the dashboard
   When I fill in "Search" with "A few example questions"
   And I press "Search"
   Then I should see "A few example questions"

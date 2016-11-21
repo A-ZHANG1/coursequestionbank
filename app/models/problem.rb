@@ -179,7 +179,9 @@ class Problem < ActiveRecord::Base
 
         if !filters[:collections].empty?
           any_of do
+
             filters[:collections].each do |col|
+              # debugger
               with(:collection_ids, col)
             end
           end
@@ -201,6 +203,7 @@ class Problem < ActiveRecord::Base
 
         paginate :page => filters['page'], :per_page => filters['per_page']
       end
+      # debugger
     if !problems.nil?
       results = problems.results
       if !bump_problem.nil?
