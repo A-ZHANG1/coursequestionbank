@@ -26,11 +26,11 @@ class CollectionsController < ApplicationController
   def search
 
 
-    session[:filters] ||= HashWithIndifferentAccess.new(@@defaults)
+    session[:filter] ||= HashWithIndifferentAccess.new(@@defaults)
 
-    session[:filters][:search] = params[:search]
+    session[:filter][:search] = params[:search]
     # debugger
-    @search = session[:filters][:search]
+    @search = session[:filter][:search]
     # # if (@search.nil? or search.empty?)
     #
     # @collection_by_name = Collection.where(:name => @search, :access_level => 1) + @current_user.collections.where(:name => @search)
@@ -52,7 +52,7 @@ class CollectionsController < ApplicationController
       redirect_to collections_path
     end
     # session[:filters][:search] = [params[:search]]
-    @collections = Collection.filter(@current_user, session[:filters].clone)
+    @collections = Collection.filter(@current_user, session[:filter].clone)
   end
 
   def edit
