@@ -75,7 +75,7 @@
       %p
         = problem.bloom_category
 
-    - if can? :manage, problem
+    - if can? :supersede, problem
       %div
         Edit question:
         %textarea{:id => "source_#{problem.id}", :value => "current_ruql", :style => "display: none"}= #{problem.ruql_source}
@@ -98,7 +98,7 @@
       %div.minor_form.hidden-additional{:style => 'display: none'}
         = render :partial => 'problems/minor_form', :locals => {:previous => problem}
 
-- if can? :manage, problem
+- if can? :add_tags, problem
   - if column == :tags
     %div{:id => "all_tags_#{problem.id}", :class => 'tag_list'}
       = render :partial => 'problems/tags', locals: { problem: problem }
