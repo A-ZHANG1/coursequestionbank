@@ -157,7 +157,7 @@ class Problem < ActiveRecord::Base
         any_of do
           with(:instructor_id, user.id)
           with(:access_level, 1)
-          if current_user.privilege != "Student"
+          if user.privilege != "Student"
             with(:access_level, 2)
           end
         end
