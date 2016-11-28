@@ -11,10 +11,10 @@ Feature: Student's view of problem table, aka /problems, /homepage
     When I am on the CourseQuestionBank home page
     Then I should see "Student!"
 
-  Scenario: I can not see the edit panel catagory and the problem if the problem is private by default
+  Scenario: I can not see the edit panel catagory and the problem if the problem is private by default, but visible public
     When I am on the CourseQuestionBank home page
     And I should see "Student!"
-    And I should not see "Which of the following best identifies the four basic operations supported by RDBMS?"
+    And I should see "Which of the following best identifies the four basic operations supported by RDBMS?"
     And I should not see "Previous version:"
     And I should not see "Your Collections:"
     And I should not see "Bloom Category:"

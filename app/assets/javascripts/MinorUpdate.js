@@ -2,8 +2,8 @@ var MinorUpdate = {
     setup: function() {
         $('.minor_form form').submit(function(e) {
             $.ajax({
-                context: this,
                 url: $(this).attr('action'),
+                context: this,
                 type: 'POST',
                 data: $(this).serialize(),
                 success: function(data, textStatus, jqXHR) {

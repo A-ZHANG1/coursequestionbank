@@ -484,3 +484,12 @@ end
 And (/^I should see a correct message$/) do
   page.should have_css('.fillin-correct', :visible => true)
 end
+
+
+When(/^I checked "([^"]*)"$/) do |arg|
+  page.check(arg)
+end
+
+When(/^I unchecked "([^"]*)"$/) do |arg|
+  page.uncheck(arg)
+end
