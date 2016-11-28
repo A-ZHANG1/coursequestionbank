@@ -5,6 +5,7 @@ class Problem < ActiveRecord::Base
   has_and_belongs_to_many :tags
   belongs_to :instructor
   has_and_belongs_to_many :collections
+  has_many :student_answers
   belongs_to :previous_version, class_name: 'Problem'
   validates :uid, uniqueness: true
 
@@ -118,6 +119,7 @@ class Problem < ActiveRecord::Base
   end
 
   def global_explanation
+    # debugger
     return JSON.parse(json)["global_explanation"]
   end
 
