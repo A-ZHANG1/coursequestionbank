@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161118004429) do
+ActiveRecord::Schema.define(:version => 20161128030817) do
 
   create_table "collections", :force => true do |t|
     t.integer  "instructor_id"
@@ -87,6 +87,16 @@ ActiveRecord::Schema.define(:version => 20161118004429) do
   end
 
   add_index "settings", ["thing_type", "thing_id", "var"], :name => "index_settings_on_thing_type_and_thing_id_and_var", :unique => true
+
+  create_table "student_answer", :force => true do |t|
+    t.string   "attempt"
+    t.boolean  "correctness"
+    t.string   "problem_uid"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "instructor_id"
+    t.integer  "problem_id"
+  end
 
   create_table "tags", :force => true do |t|
     t.string   "name"
