@@ -23,6 +23,7 @@ class ProblemsController < ApplicationController
   end
 
   def set_filters
+
     session[:filters] = session[:filters].merge params.slice(:search, :tags, :sort_by)
 
     if session[:filters][:tags].is_a? String
@@ -63,6 +64,7 @@ class ProblemsController < ApplicationController
   end
 
   def index
+    # debugger
     if can? :manage, Collection and @current_user.collections
       @collections = @current_user.collections + Collection.where(:access_level => 2) + Collection.where(:access_level => 3)
     else

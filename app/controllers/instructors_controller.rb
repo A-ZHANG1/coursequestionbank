@@ -1,6 +1,7 @@
 class InstructorsController < ApplicationController
 
   def show
+    session[:filters] = nil
     authorize! :manage, Collection
     @heading = 'Your collections'
     @instructor = Instructor.find_by_id(@current_user)

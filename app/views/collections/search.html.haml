@@ -39,4 +39,6 @@
               %td= collection.problems.length
               %td= collection.description
               %td= collection.last_used
-              %td= collection.is_public ? 'Public' : 'Private'
+              - name = ["", "Public", "Share", "Private"]
+              - level = collection.access_level
+              %td= name[level]

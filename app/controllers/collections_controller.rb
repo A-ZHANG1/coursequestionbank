@@ -1,43 +1,38 @@
 class CollectionsController < ApplicationController
   load_and_authorize_resource
 
+  @@defaults = HashWithIndifferentAccess.new({'search' => ""})
+
+
+
   def new
     @collection = Collection.new
   end
 
   def index
-    # Show all public collections
-
+    session[:filters] = nil
     @heading = 'Public collections'
     @instructor = Instructor.find_by_id(@current_user)
+
     if @current_user.get_privilege == "Student"
       @collections = Collection.where(:access_level => 1)
     else
       @collections = Collection.where(:access_level => 1) + Collection.where(:access_level => 2)
     end
+    # debugger
   end
 
   def search
-    @search = params[:search]
-    # if (@search.nil? or search.empty?)
+    session[:filter] ||= HashWithIndifferentAccess.new(@@defaults)
+    session[:filter][:search] = params[:search]
 
-    @collection_by_name = Collection.where(:name => @search, :access_level => 1) + @current_user.collections.where(:name => @search)
-    @collection_by_description = Collection.where(:description => @search,  :access_level => 1) + @current_user.collections.where(:description => @search)
-
-    @collections = @collection_by_name + @collection_by_description
-
-    if @current_user.get_privilege != "Student"
-      @collections = @collections + Collection.where(:name => @search, :access_level => 2) + Collection.where(:description => @search, :access_level => 2)
-    end
-
-    @uniq_collections = @collections.uniq!
-    if @uniq_collections != nil
-      @collections = @uniq_collections
-    end
+    @search = session[:filter][:search]
 
     if @search.empty? || @collections.nil?
       redirect_to collections_path
     end
+
+    @collections = Collection.filter(@current_user, session[:filter].clone)
   end
 
   def edit

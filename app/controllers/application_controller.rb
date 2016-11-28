@@ -21,9 +21,13 @@ class ApplicationController < ActionController::Base
     # 	session.delete(:user_id)
     #   redirect_to login_path
     # else
+    @col = Collection.find_by_id(params[:id])
+    if @col.access_level == 2 and @current_user.privilege != "Student"
+      redirect_to problems_path
+    else
       flash[:notice] = "You don't have permission to access this page."
       redirect_to request.referer.present? ? :back : problems_path
-    # end
+    end
   end
 
 

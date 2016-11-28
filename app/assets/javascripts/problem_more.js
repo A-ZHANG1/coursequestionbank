@@ -17,20 +17,24 @@ var Question = {
                         $(this).mouseleave();
                     });
                 }
-                var clickOnEntry = function() {
+                var clickOnEntry = function(event) {
+                    target = $(event.target);
                     choice = $(this).find(":checkbox")
-                    if (choice.is(':checked')) {
-                        choice.prop('checked', false);
+                    checked = choice.prop('checked');
+                    if (target.is(':checkbox')) {
+                        checked = !checked;
+                    }
+                    if (checked) {
                         $(this).on("mouseover", hoverOnEntry);
                         $(this).on("mouseleave", hoverOffEntry);
                     } else {
                         // unCheckAll($(this).parent());
                         $(this).mouseover();
-                        choice.prop('checked', true);
                         $(this).off("mouseover");
                         $(this).off("mouseleave");
                     }
-                    return false;
+                    choice.prop('checked', !checked);
+                    return;
                 }
 
                 var checkCorrect = function(checkButton) {
@@ -42,6 +46,8 @@ var Question = {
 
                         if ($(this).find('input[type="checkbox"]').is(':checked')){
                             $(this).find('.entryexplain').show();
+                            $(this).off("mouseover");
+                            $(this).off("mouseleave");
                             if ($(this).attr('correct') === 'true')
                                 $(this).css('border', '2px solid green');
                             else
@@ -59,7 +65,7 @@ var Question = {
                 question.find(".entrybox").mouseover(hoverOnEntry);
                 question.find(".entrybox").mouseleave(hoverOffEntry);
                 question.find(".entrybox").click(clickOnEntry);
-                question.find(".check-answer").click(checkCorrect)
+                question.find(".check-answer").click(checkCorrect);
             });
 
         });
@@ -80,29 +86,34 @@ var Question = {
                         $(this).mouseleave();
                     });
                 }
-                var clickOnEntry = function() {
+                var clickOnEntry = function(event) {
+                    target = $(event.target);
                     choice = $(this).find(":radio");
-                    if (choice.is(':checked')) {
-                        choice.prop('checked', false);
+                    checked = $(this).find(":radio").prop('checked');
+                    if (target.is(':radio')) {
+                        checked = !checked;
+                    }
+                    if (checked) {
                         $(this).on("mouseover", hoverOnEntry);
                         $(this).on("mouseleave", hoverOffEntry);
                     } else {
                         unCheckAll($(this).parent());
                         $(this).mouseover();
-                        choice.prop('checked', true);
                         $(this).off("mouseover");
                         $(this).off("mouseleave");
                     }
+                    choice.prop('checked', !checked);
                     return true;
                 }
 
                 var checkCorrect = function(checkButton) {
-
                     $(this).parent().find(".entrybox").each(function() {
                         // debugger
                         // debugger
                         if ($(this).find('input[type="radio"]').is(':checked')){
                             $(this).find('.entryexplain').show();
+                            $(this).off("mouseover");
+                            $(this).off("mouseleave");
                             if ($(this).attr('correct') === 'true')
                                 $(this).css('border', '2px solid green');
                             else
