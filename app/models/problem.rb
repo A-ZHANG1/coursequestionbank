@@ -8,7 +8,8 @@ class Problem < ActiveRecord::Base
   belongs_to :previous_version, class_name: 'Problem'
   validates :uid, uniqueness: true
 
-  scope :is_public, -> { where(is_public:  true) }
+  scope :is_public, -> { where(access_level:  3) }
+  scope :is_share, -> { where(access_level:  2) }
   scope :last_used, ->(t) { where(last_used: t) }
   scope :instructor_id, ->(id) { where(instructor_id: id) }
 
@@ -19,6 +20,7 @@ class Problem < ActiveRecord::Base
     text      :json, :more_like_this => true
     integer   :instructor_id
     boolean   :is_public
+    integer   :access_level
     time      :last_used
     time      :updated_at
     string    :problem_type
@@ -154,7 +156,10 @@ class Problem < ActiveRecord::Base
       problems = Problem.search do
         any_of do
           with(:instructor_id, user.id)
-          with(:is_public, true)
+          with(:access_level, 1)
+          if current_user.privilege != "Student"
+            with(:access_level, 2)
+          end
         end
 
         filters[:tags].each do |tag|
@@ -262,8 +267,13 @@ class Problem < ActiveRecord::Base
     target_json = JSON.parse(target.json)
 
     from_you = current_user.problems
-    from_others = Problem.where(is_public: true)
-    search_set = (from_you + from_others).uniq
+    from_others = Problem.where(access_level: 1)
+    if current_user.privilege != "Student"
+      from_instructors = Problem.where(access_level: 2)
+    else
+      from_instructors = []
+    end
+    search_set = (from_you + from_others + from_instructors).uniq
     results = []
     search_set.each do |other|
       other_json = JSON.parse(other.json)
@@ -281,7 +291,10 @@ class Problem < ActiveRecord::Base
       fields :json # Also limited by stopwords.txt
       any_of do
         with(:instructor_id, user_id)
-        with(:is_public, true)
+        with(:access_level, 1)
+        if current_user.privilege != "Student"
+          with(:access_level, 2)
+        end
       end
       minimum_term_frequency 1
       minimum_document_frequency 1

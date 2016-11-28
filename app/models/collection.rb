@@ -4,9 +4,9 @@ class Collection < ActiveRecord::Base
   has_and_belongs_to_many :problems
   belongs_to :instructor
   # scope :collection, ->(collection_name) { where(name: collection_name) }
-  scope :mine_or_public, ->(user) {where('instructor_id=? OR is_public=?', "#{user.id}", 'true')}
-  scope :public, where(:is_public => true)
-  
+  scope :mine_or_public, ->(user) {where('instructor_id=? OR access_level<?', "#{user.id}", '3')}
+  scope :public, where("access_level < 3")
+
   searchable do
     text :name
     text :description
@@ -44,8 +44,10 @@ class Collection < ActiveRecord::Base
     self.name = params[:name] if params[:name]
     self.description = params[:description] if params[:description]
     self.is_public = params[:is_public] if params[:is_public]
-    if ['Public', 'Private'].include? params[:privacy]
+    self.access_level = params[:access_level] if params[:access_level]
+    if ['Public', 'Share', 'Private'].include? params[:privacy]
       self.is_public = params[:privacy] == 'Public'
+      self.access_level = ["Public", "Share", "Private"].index(params[:privacy])
     end
   end
 
@@ -70,7 +72,7 @@ class Collection < ActiveRecord::Base
   #   end
   #   return self.access_level
   # end
-  
+
   def export(format)
     if problems.empty?
       return nil
@@ -98,5 +100,3 @@ class Collection < ActiveRecord::Base
     %w{Public Share Private}
   end
 end
-
-
