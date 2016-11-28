@@ -13,5 +13,5 @@ Feature: User can add problem to collection that using checkbox
     And I check "A few example questions" checkbox
     Then the "A few example questions" checkbox should be checked
     Then I should see "A few example questions"
-    And the plain text "A few example questions" is shown
+#    And the plain text "A few example questions" is shown
     

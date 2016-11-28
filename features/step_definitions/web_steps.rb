@@ -56,12 +56,36 @@ Then /^(?:|I )should see (.*) '(.*)' in the database$/ do |datatype, name_value|
 end
 
 When /^(?:|I )update '(.*)' to '(.*)'$/ do |former, new|
-  collection_id = Collection.find_by_name(former)
-  visit edit_collection_path(:id => collection_id)
+
+
+  collection = Collection.find_by_name(former)
+  collection.access_level = 1
+  collection.save
+
+  visit edit_collection_path(:id => collection.id)
   steps %Q{
-    And I fill in "name" with "#{new}"
-    And I press "Update"
-  }
+      And I fill in "name" with "#{new}"
+      And I press "Update"
+    }
+
+
+  # visit edit_collection_path(:id => collection_id)
+  # if new != ""
+  #   collection_id.name = new
+  #   collection_id.save
+  #
+  # #   steps %Q{
+  # #   And I fill in "name" with "#{new}"
+  # #   And I press "Update"
+  # # }
+  # else
+  #
+  #     visit edit_collection_path(:id => collection_id)
+  #     steps %Q{
+  #     And I fill in "name" with "#{new}"
+  #     And I press "Update"
+  #   }
+  # end
 end
 
 Given /^(?:|I )have uploaded '(.*)'$/ do |file|
