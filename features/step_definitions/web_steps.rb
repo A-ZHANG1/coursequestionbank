@@ -458,7 +458,7 @@ Then(/^the plain text "([^"]*)" is hidden$/) do |id|
 end
 
 And(/^the plain text "([^"]*)" is shown$/) do |id|
-  find_field(id).should be_visible
+  find_field([".fillin-correct"], {:name => id}).should be_visible
 end
 
 
@@ -481,6 +481,10 @@ Then(/^I select "([^"]*)" in "([^"]*)"$/) do |str, element|
   select str, from: element
 end
 
+And (/^I should see a correct message$/) do
+  page.should have_css('.fillin-correct', :visible => true)
+end
+
 
 When(/^I checked "([^"]*)"$/) do |arg|
   page.check(arg)
@@ -488,8 +492,4 @@ end
 
 When(/^I unchecked "([^"]*)"$/) do |arg|
   page.uncheck(arg)
-end
-
-And(/^I should see a "([^"]*)" message$/) do |arg|
-  arg != nil
 end

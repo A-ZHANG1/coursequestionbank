@@ -103,6 +103,7 @@ class ProblemsController < ApplicationController
       problem = RuqlReader.read_problem(@current_user, params[:ruql_source])
       problem.previous_version = previous_version
       problem.is_public = privacy == 'public'
+      problem.access_level = 1
       problem.bloom_category = category
       problem.save
       problem.add_tags(self.class.parse_list params[:tag_names])
