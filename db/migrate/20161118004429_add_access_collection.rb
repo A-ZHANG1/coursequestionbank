@@ -3,10 +3,10 @@ class AddAccessCollection < ActiveRecord::Migration
     add_column :collections, :access_level, :int, :default => 1
     Collection.all().each do |collection|
       if collection.is_public
-        collection.access_level = 0
+        collection.access_level = 1
         collection.save!
       else
-        collection.access_level = 1
+        collection.access_level = 3
         collection.save!
       end
     end
