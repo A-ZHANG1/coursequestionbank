@@ -8,7 +8,7 @@ var Question = {
                     $(this).css('border', '2px solid dodgerblue');
                 }
                 var hoverOffEntry = function() {
-                    $(this).css('border', '1px solid grey');
+                    $(this).css('border', '1px solid lightgrey');
                 }
                 var unCheckAll = function(entrysDiv) {
                     $(entrysDiv).find(".entrybox").each(function() {
@@ -37,35 +37,73 @@ var Question = {
                     return;
                 }
 
+                // checkCorrect is called when a student clicks check answer
                 var checkCorrect = function(checkButton) {
-                  // debugger
+
+                    // check if studnet is correct
+                    var correct = true
+                    $(this).parent().find(".entrybox").each(function () {
+                        // debugger
+                        choice_correct = ($(this).attr('correct') == 'true') == $(this).find('input[type="checkbox"]').is(':checked')
+                        correct = correct && choice_correct
+                    })
+
+                    // TO DO: add a ajax call
 
                     $(this).parent().find(".entrybox").each(function() {
-                        // debugger
-                        // debugger
 
                         if ($(this).find('input[type="checkbox"]').is(':checked')){
                             $(this).find('.entryexplain').show();
                             $(this).off("mouseover");
                             $(this).off("mouseleave");
-                            if ($(this).attr('correct') === 'true')
-                                $(this).css('border', '2px solid green');
-                            else
-                                $(this).css('border', '2px solid red');
                         }else{
                             $(this).find('.entryexplain').hide();
                             $(this).on("mouseover", hoverOnEntry);
                             $(this).on("mouseleave", hoverOffEntry);
                         }
-                        // $(this).toggle()
+
                     });
+                    // debugger
+                    if (correct){
+                        $(this).parent().find(".multiple-correct").css('border', '2px solid green');
+                        $(this).parent().find(".multiple-correct").show();
+                        $(this).parent().find(".multiple-wrong").hide();
+                    }else{
+                        $(this).parent().find(".multiple-wrong").css('border', '2px solid red');
+                        $(this).parent().find(".multiple-correct").hide();
+                        $(this).parent().find(".multiple-wrong").show();
+                    }
+
                 }
 
+                var showCorrect = function (showButton) {
+                    $(this).parent().find(".entrybox").each(function () {
+                        if ($(this).attr('correct') == 'true'){
+                            $(this).find('.entryexplain').show();
+                            $(this).find('input[type = "checkbox"]').prop("checked", true);
+                            $(this).css('border', '2px solid green');
+                            $(this).off("mouseover");
+                            $(this).off("mouseleave");
+                        }else{
+                            $(this).find('.entryexplain').hide();
+                            $(this).find('input[type = "checkbox"]').prop("checked", false);
+                            $(this).css('border', '1px solid grey');
+                            $(this).on("mouseover");
+                            $(this).on("mouseleave");
+                        }
 
+
+                    })
+                }
+
+                question.find(".show-answer").click(showCorrect);
                 question.find(".entrybox").mouseover(hoverOnEntry);
                 question.find(".entrybox").mouseleave(hoverOffEntry);
+                // question.find(".entrybox.correctness").off("mouseover")
+                // question.find(".entrybox.correctness").off("mouseleave")
                 question.find(".entrybox").click(clickOnEntry);
                 question.find(".check-answer").click(checkCorrect);
+
             });
 
         });
@@ -77,7 +115,7 @@ var Question = {
                     $(this).css('border', '2px solid dodgerblue');
                 }
                 var hoverOffEntry = function() {
-                    $(this).css('border', '1px solid grey');
+                    $(this).css('border', '1px solid lightgrey');
                 }
                 var unCheckAll = function(entrysDiv) {
                     $(entrysDiv).find(".entrybox").each(function() {
@@ -108,8 +146,6 @@ var Question = {
 
                 var checkCorrect = function(checkButton) {
                     $(this).parent().find(".entrybox").each(function() {
-                        // debugger
-                        // debugger
                         if ($(this).find('input[type="radio"]').is(':checked')){
                             $(this).find('.entryexplain').show();
                             $(this).off("mouseover");
@@ -126,8 +162,27 @@ var Question = {
                         // $(this).toggle()
                     });
                 }
+                var showCorrect = function (showButton) {
+                    $(this).parent().find(".entrybox").each(function () {
+                        if ($(this).attr('correct') == 'true'){
+                            $(this).find('.entryexplain').show();
+                            $(this).find('input[type = "radio"]').prop("checked", true);
+                            $(this).css('border', '2px solid green');
+                            $(this).off("mouseover");
+                            $(this).off("mouseleave");
+                        }else{
+                            $(this).find('.entryexplain').hide();
+                            $(this).find('input[type = "radio"]').prop("checked", false);
+                            $(this).css('border', '1px solid grey');
+                            $(this).on("mouseover");
+                            $(this).on("mouseleave");
+                        }
 
 
+                    })
+                }
+
+                question.find(".show-answer").click(showCorrect);
                 question.find(".entrybox").mouseover(hoverOnEntry);
                 question.find(".entrybox").mouseleave(hoverOffEntry);
                 question.find(".entrybox").click(clickOnEntry);
@@ -157,6 +212,14 @@ var Question = {
 
                 }
 
+                var showCorrect = function (showButton) {
+                    $(this).parent().find(".students-answer").val($(this).parent().find("p.answer").text().trim());
+                    $(this).parent().find(".entrybox").css('border', '2px solid green');
+                    $(this).parent().find(".fillin-correct").show();
+                    $(this).parent().find(".fillin-wrong").hide()
+                }
+
+                question.find(".show-answer").click(showCorrect);
                 // question.find(".entrybox").mouseover(hoverOnEntry);
                 // question.find(".entrybox").mouseleave(hoverOffEntry);
                 // question.find(".entrybox").click(clickOnEntry);

@@ -179,7 +179,16 @@ div.edit-collections {
   margin-left: 5px;
 }
 
-.entrybox {
+.entrybox{
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  width: 800px;
+  //display: inline;
+}
+
+.correctness{
   padding: 5px;
   margin: 5px;
   border-radius: 5px;
