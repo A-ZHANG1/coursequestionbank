@@ -1,4 +1,10 @@
 GIT
+  remote: https://github.com/mattetti/googlecharts.git
+  revision: d316458ad177369d5deda5d16513bd3d2e06478d
+  specs:
+    googlecharts (1.6.12)
+
+GIT
   remote: https://github.com/stevenwuyinze/ruql
   revision: 12024e0c708528ea1c03ffcdaab76e1d8706b52f
   specs:
@@ -250,6 +256,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   figaro
+  googlecharts!
   haml
   jquery-rails
   json
