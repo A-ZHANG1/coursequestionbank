@@ -41,10 +41,14 @@ var Question = {
 
                     // check if studnet is correct
                     var correct = true
+                    var attemptRecord = ""
                     $(this).parent().find(".entrybox").each(function () {
                         // debugger
                         choice_correct = ($(this).attr('correct') == 'true') == $(this).find('input[type="checkbox"]').is(':checked')
-                        correct = correct && choice_correct
+                        correct = correct && choice_correct;
+                        if ($(this).find('input[type="checkbox"]').is(':checked')){
+                            attemptRecord =  attemptRecord + $(this).attr("answer_id");
+                        }
                     })
 
                     // TO DO: add a ajax call
@@ -73,7 +77,19 @@ var Question = {
                         $(this).parent().find(".multiple-wrong").show();
                     }
 
+                    // debugger
+                    problemName = $(this).parent().find("input").attr("name")
+
+                    debugger
+                    $.ajax({
+                        url: "studentanswers",
+                        type: 'POST',
+                        data: {attempt: attemptRecord, problem_uid:problemName, correctness:correct}
+                    });
+                    return false;
+
                 }
+
 
                 var showCorrect = function (showButton) {
                     $(this).parent().find(".entrybox").each(function () {
@@ -90,9 +106,8 @@ var Question = {
                             $(this).on("mouseover");
                             $(this).on("mouseleave");
                         }
-
-
                     })
+
                 }
 
                 question.find(".show-answer").click(showCorrect);
@@ -194,9 +209,6 @@ var Question = {
 
         });
 
-
-
-
         $('.fillin_question').each(function() {
             var question = $(this);
             question.ready(function() {
@@ -207,23 +219,27 @@ var Question = {
 
                 var checkCorrect = function(checkButton) {
 
-
-                    correct = false;
-
-                    if ($(this).parent().find(".students-answer").val() === $(this).parent().find("p.answer").text().trim()){
+                    if ($(this).parent().find(".students-answer").val().toUpperCase() === $(this).parent().find("p.answer").text().trim().toUpperCase()){
                         $(this).parent().find(".entrybox").css('border', '2px solid green');
                         $(this).parent().find(".fillin-correct").show()
                         $(this).parent().find(".fillin-wrong").hide()
-                        correct = true;
+                        result = true;
+                        attemptRecord = $(this).parent().find("p.answer").text()
                     }else{
                         $(this).parent().find(".entrybox").css('border', '2px solid red');
                         $(this).parent().find(".fillin-correct").hide()
                         $(this).parent().find(".fillin-wrong").show()
+                        result = false;
+                        attemptRecord = "wrong wrong wrong"
                     }
+                    problemName = $(this).parent().find("input").attr("id")
 
-
-
-
+                    $.ajax({
+                        url: "studentanswers",
+                        type: 'POST',
+                        data: {attempt: attemptRecord, problem_uid:problemName, correctness:result}
+                    });
+                    return false;
 
                 }
 
@@ -240,22 +256,6 @@ var Question = {
 };
 $(Question.setup);
 
-//
-// var studentAnswerTesting = {
-//     setup: function() {
-//         $('.student-answer').on('click', function() {
-//             debugger
-//             // $(this).parent().remove();
-//             $.ajax({
-//                 url: "student_answers",
-//                 type: 'POST',
-//                 data: $(this).serialize()
-//             });
-//             return false;
-//         });
-//     }
-// };
-// $(studentAnswerTesting.setup);
 
 var ChangeCollectionsByCheckbox = {
     setup: function() {
