@@ -38,43 +38,86 @@ var Question = {
                 }
 
                 var checkCorrect = function(checkButton) {
-                    // debugger
+
+                    // check if studnet is correct
+                    var correct = true
+                    var attemptRecord = ""
+                    $(this).parent().find(".entrybox").each(function () {
+                        // debugger
+                        choice_correct = ($(this).attr('correct') == 'true') == $(this).find('input[type="checkbox"]').is(':checked')
+                        correct = correct && choice_correct;
+                        if ($(this).find('input[type="checkbox"]').is(':checked')){
+                            attemptRecord =  attemptRecord + $(this).attr("answer_id");
+                        }
+                    })
+
+                    // TO DO: add a ajax call
 
                     $(this).parent().find(".entrybox").each(function() {
-                        // debugger
-                        // debugger
 
                         if ($(this).find('input[type="checkbox"]').is(':checked')){
                             $(this).find('.entryexplain').show();
                             $(this).off("mouseover");
                             $(this).off("mouseleave");
-                            if ($(this).attr('correct') === 'true')
-                                $(this).css('border', '2px solid green');
-                            else
-                                $(this).css('border', '2px solid red');
                         }else{
                             $(this).find('.entryexplain').hide();
                             $(this).on("mouseover", hoverOnEntry);
                             $(this).on("mouseleave", hoverOffEntry);
                         }
-                        // $(this).toggle()
-                    });
 
+                    });
+                    // debugger
+                    if (correct){
+                        $(this).parent().find(".multiple-correct").css('border', '2px solid green');
+                        $(this).parent().find(".multiple-correct").show();
+                        $(this).parent().find(".multiple-wrong").hide();
+                    }else{
+                        $(this).parent().find(".multiple-wrong").css('border', '2px solid red');
+                        $(this).parent().find(".multiple-correct").hide();
+                        $(this).parent().find(".multiple-wrong").show();
+                    }
+
+                    // debugger
                     problemName = $(this).parent().find("input").attr("name")
 
+                    debugger
                     $.ajax({
                         url: "studentanswers",
                         type: 'POST',
-                        data: {attempt: attemptRecord, problem_uid:problemName, correctness:result}
+                        data: {attempt: attemptRecord, problem_uid:problemName, correctness:correct}
                     });
                     return false;
+
                 }
 
 
+                var showCorrect = function (showButton) {
+                    $(this).parent().find(".entrybox").each(function () {
+                        if ($(this).attr('correct') == 'true'){
+                            $(this).find('.entryexplain').show();
+                            $(this).find('input[type = "checkbox"]').prop("checked", true);
+                            $(this).css('border', '2px solid green');
+                            $(this).off("mouseover");
+                            $(this).off("mouseleave");
+                        }else{
+                            $(this).find('.entryexplain').hide();
+                            $(this).find('input[type = "checkbox"]').prop("checked", false);
+                            $(this).css('border', '1px solid grey');
+                            $(this).on("mouseover");
+                            $(this).on("mouseleave");
+                        }
+                    })
+
+                }
+
+                question.find(".show-answer").click(showCorrect);
                 question.find(".entrybox").mouseover(hoverOnEntry);
                 question.find(".entrybox").mouseleave(hoverOffEntry);
+                // question.find(".entrybox.correctness").off("mouseover")
+                // question.find(".entrybox.correctness").off("mouseleave")
                 question.find(".entrybox").click(clickOnEntry);
                 question.find(".check-answer").click(checkCorrect);
+
             });
 
         });
@@ -166,9 +209,6 @@ var Question = {
 
         });
 
-
-
-
         $('.fillin_question').each(function() {
             var question = $(this);
             question.ready(function() {
@@ -179,23 +219,27 @@ var Question = {
 
                 var checkCorrect = function(checkButton) {
 
-
-                    correct = false;
-
-                    if ($(this).parent().find(".students-answer").val() === $(this).parent().find("p.answer").text().trim()){
+                    if ($(this).parent().find(".students-answer").val().toUpperCase() === $(this).parent().find("p.answer").text().trim().toUpperCase()){
                         $(this).parent().find(".entrybox").css('border', '2px solid green');
                         $(this).parent().find(".fillin-correct").show()
                         $(this).parent().find(".fillin-wrong").hide()
-                        correct = true;
+                        result = true;
+                        attemptRecord = $(this).parent().find("p.answer").text()
                     }else{
                         $(this).parent().find(".entrybox").css('border', '2px solid red');
                         $(this).parent().find(".fillin-correct").hide()
                         $(this).parent().find(".fillin-wrong").show()
+                        result = false;
+                        attemptRecord = "wrong wrong wrong"
                     }
+                    problemName = $(this).parent().find("input").attr("id")
 
-
-
-
+                    $.ajax({
+                        url: "studentanswers",
+                        type: 'POST',
+                        data: {attempt: attemptRecord, problem_uid:problemName, correctness:result}
+                    });
+                    return false;
 
                 }
 
@@ -212,22 +256,6 @@ var Question = {
 };
 $(Question.setup);
 
-//
-// var studentAnswerTesting = {
-//     setup: function() {
-//         $('.student-answer').on('click', function() {
-//             debugger
-//             // $(this).parent().remove();
-//             $.ajax({
-//                 url: "student_answers",
-//                 type: 'POST',
-//                 data: $(this).serialize()
-//             });
-//             return false;
-//         });
-//     }
-// };
-// $(studentAnswerTesting.setup);
 
 var ChangeCollectionsByCheckbox = {
     setup: function() {

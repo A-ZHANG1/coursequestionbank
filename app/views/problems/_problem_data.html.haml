@@ -30,7 +30,7 @@
           = submit_tag (problem.obsolete ? 'Obsolete' : 'Mark obsolete'), :class => 'btn btn-default obsolete-button'
         - elsif problem.obsolete
           = submit_tag 'Obsolete', :class => 'btn btn-default obsolete-button', :disabled => true
-    = image_tag @picturePie
+
     %div Created #{problem.created_date} by #{problem.instructor.name}
 
     - if can? :manage, problem

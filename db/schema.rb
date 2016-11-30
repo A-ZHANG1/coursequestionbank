@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161130002752) do
+ActiveRecord::Schema.define(:version => 20161130023227) do
 
   create_table "collections", :force => true do |t|
     t.integer  "instructor_id"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20161130002752) do
     t.datetime "updated_at",    :null => false
     t.integer  "instructor_id"
     t.integer  "problem_id"
+    t.boolean  "first"
   end
 
   create_table "tags", :force => true do |t|
