@@ -16,7 +16,7 @@ Feature: Instructor's view of problem table, aka /problems, /homepage
     When I am on the CourseQuestionBank home page
     And I should see "Belongs to collections:"
     And I should see "Bloom category:"
-    And I should not see "Edit question:"
+    And I should see "Edit question:"
 
   Scenario: I can see the edit panel of the problems belong to me
     Given I am signed in with uid "1234" and provider "github" 
@@ -25,5 +25,7 @@ Feature: Instructor's view of problem table, aka /problems, /homepage
     And I should see "Belongs to collections:"
     And I should see "Bloom category:"
     And I should see "Edit question:"
+
+
 
 
