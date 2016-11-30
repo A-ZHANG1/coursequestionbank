@@ -59,6 +59,15 @@ var Question = {
                         }
                         // $(this).toggle()
                     });
+
+                    problemName = $(this).parent().find("input").attr("name")
+
+                    $.ajax({
+                        url: "studentanswers",
+                        type: 'POST',
+                        data: {attempt: attemptRecord, problem_uid:problemName, correctness:result}
+                    });
+                    return false;
                 }
 
 
@@ -135,7 +144,6 @@ var Question = {
 
 
                     });
-                    debugger
                     problemName = $(this).parent().find("input").attr("name")
 
                     $.ajax({
