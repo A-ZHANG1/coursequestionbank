@@ -21,7 +21,7 @@
                 %br
                   - tried = test_problem.studentanswers.where(:first=>true).where(:attempt=>"entry_#{i+1}").length
                   - result = tried * 100.0 / total_attmep
-                  Precentage #{number_to_percentage(result)} , students answered #{tried} times out of total  #{total_attmep}
+                  Precentage #{number_to_percentage(result)} , #{tried} attempts out of #{total_attmep} total attempts
                   - data = [tried]
                   - yulaoban = Gchart.bar(:data => data, :max_value => total_attmep, :size=> '33x50', :bar_colors => '00BFFF', :cht=> 'bhs',:bg=> 'transparent')
                   = image_tag yulaoban
@@ -75,7 +75,7 @@
                   - if str.include? "#{i+1}"
                     - tried = tried + 1
                 - result = tried * 100.0 / total_attmep
-                Precentage #{number_to_percentage(result)} , students answered #{tried} times out of total  #{total_attmep}
+                Precentage #{number_to_percentage(result)} , #{tried} attempts out of #{total_attmep} total attempts
                 - data = [tried]
                 - yulaoban = Gchart.bar(:data => data, :max_value => total_attmep, :size=> '33x50', :bar_colors => '00BFFF', :cht=> 'bhs',:bg=> 'transparent')
                 = image_tag yulaoban
@@ -120,7 +120,7 @@
         - tried = test_problem.studentanswers.where(:first=>true).where(:correctness=> true).length
         - total_attmep =  test_problem.studentanswers.where(:first=>true).length
         - result = tried * 100.0 / total_attmep
-        Precentage #{number_to_percentage(result)} , students answered #{tried} times out of total  #{total_attmep}
+        Precentage #{number_to_percentage(result)} , #{tried} attempts out of #{total_attmep} total attempts
         - data = [tried]
         - yulaoban = Gchart.bar(:data => data, :max_value => total_attmep, :size=> '33x50', :bar_colors => '00BFFF', :cht=> 'bhs',:bg=> 'transparent')
         = image_tag yulaoban
