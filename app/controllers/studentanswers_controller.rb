@@ -1,16 +1,25 @@
-class StudentAnswerController < ApplicationController
+class StudentanswersController < ApplicationController
   # :attempt, :correctness, :problem_uid, :last_used, :updated_at, :created_date
   def create
 
-    debugger
     # new answer
-    answer = StudentAnswer.new(:attempt => params[:attempt],
-                               :correctness => params[:correctness],
-                               :problem_uid => params[:problem_uid],
-                               :instructor_id => params[:instructor_id],
-                               :created_at => DateTime.current
-    )
+
+    # debugger
+    answer = Studentanswer.new()
+    answer.attempt =  params[:attempt]
+    answer.correctness = params[:correctness]
+    answer.problem_uid = params[:problem_uid]
+    answer.instructor_id =  @current_user.id
+    answer.created_at = DateTime.current
+
+
     answer.save
+
+    if request.xhr?
+      render :json => {'error' => nil}
+    else
+      redirect_to problems_path
+    end
 
     # add answer to problem
     # problem = Problem.find(params[:problem_id])

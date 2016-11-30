@@ -35,7 +35,7 @@ Coursequestionbank::Application.routes.draw do
   # delete 'admin/instructor/:id' => 'instructors#delete_whitelist_entry', :as => 'whitelist_entry'
   # post 'admin/whitelist/toggle' => 'instructors#toggle_whitelist', :as => 'toggle_whitelist'
 
-  resources :student_answers
+  resources :studentanswers
 
   resources :collections
   # post 'collections/:id/problems/add' => 'collections#add_problems'

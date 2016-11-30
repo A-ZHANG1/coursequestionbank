@@ -86,6 +86,8 @@ var Question = {
                         $(this).mouseleave();
                     });
                 }
+                // var attempt;
+
                 var clickOnEntry = function(event) {
                     target = $(event.target);
                     choice = $(this).find(":radio");
@@ -94,6 +96,7 @@ var Question = {
                         checked = !checked;
                     }
                     if (checked) {
+
                         $(this).on("mouseover", hoverOnEntry);
                         $(this).on("mouseleave", hoverOffEntry);
                     } else {
@@ -102,14 +105,18 @@ var Question = {
                         $(this).off("mouseover");
                         $(this).off("mouseleave");
                     }
+
                     choice.prop('checked', !checked);
+                    result = $(this).attr('correct') === 'true'
+                    attemptRecord = $(this).attr("answer_id")
                     return true;
                 }
 
                 var checkCorrect = function(checkButton) {
+
+
                     $(this).parent().find(".entrybox").each(function() {
-                        // debugger
-                        // debugger
+
                         if ($(this).find('input[type="radio"]').is(':checked')){
                             $(this).find('.entryexplain').show();
                             $(this).off("mouseover");
@@ -124,17 +131,35 @@ var Question = {
                             $(this).on("mouseleave", hoverOffEntry);
                         }
                         // $(this).toggle()
+
+
+
                     });
+                    debugger
+                    problemName = $(this).parent().find("input").attr("name")
+
+                    $.ajax({
+                        url: "studentanswers",
+                        type: 'POST',
+                        data: {attempt: attemptRecord, problem_uid:problemName, correctness:result}
+                    });
+                    return false;
                 }
+
+
 
 
                 question.find(".entrybox").mouseover(hoverOnEntry);
                 question.find(".entrybox").mouseleave(hoverOffEntry);
                 question.find(".entrybox").click(clickOnEntry);
                 question.find(".check-answer").click(checkCorrect)
+
             });
 
         });
+
+
+
 
         $('.fillin_question').each(function() {
             var question = $(this);
@@ -145,15 +170,24 @@ var Question = {
                 }
 
                 var checkCorrect = function(checkButton) {
+
+
+                    correct = false;
+
                     if ($(this).parent().find(".students-answer").val() === $(this).parent().find("p.answer").text().trim()){
                         $(this).parent().find(".entrybox").css('border', '2px solid green');
                         $(this).parent().find(".fillin-correct").show()
                         $(this).parent().find(".fillin-wrong").hide()
+                        correct = true;
                     }else{
                         $(this).parent().find(".entrybox").css('border', '2px solid red');
                         $(this).parent().find(".fillin-correct").hide()
                         $(this).parent().find(".fillin-wrong").show()
                     }
+
+
+
+
 
                 }
 
@@ -170,7 +204,22 @@ var Question = {
 };
 $(Question.setup);
 
-
+//
+// var studentAnswerTesting = {
+//     setup: function() {
+//         $('.student-answer').on('click', function() {
+//             debugger
+//             // $(this).parent().remove();
+//             $.ajax({
+//                 url: "student_answers",
+//                 type: 'POST',
+//                 data: $(this).serialize()
+//             });
+//             return false;
+//         });
+//     }
+// };
+// $(studentAnswerTesting.setup);
 
 var ChangeCollectionsByCheckbox = {
     setup: function() {

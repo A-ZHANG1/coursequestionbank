@@ -12,9 +12,9 @@
           %div.entrybox{:answer_id => "entry_#{i+1}", :correct => correct.to_s}
             %div.entrybody
               - if can? :see_answer, test_problem
-                %input{:type=> "radio", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i]}
+                %input{:type=> "radio", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i], :id=>"#{test_problem.uid}"}
               - else
-                %input{:type=> "radio", :name => "#{test_problem.uid}", :value=> 1, :checked=>false}
+                %input{:type=> "radio", :name => "#{test_problem.uid}", :value=> 1, :checked=>false, :id=>"#{test_problem.uid}"}
               %p.entrytext
                 = test_problem.answer_entrys[i].strip.html_safe
             %div.entryexplain{:style => "display:none"}
@@ -28,6 +28,8 @@
         Check Answer
       %button{:type => "button", :class => "button-check btn btn-default show-answer"}
         Show Answer
+      %button{:type => "button", :class => "button-check btn btn-default student-answer", :id=> "yulaobandiaoa"}
+        Student Answer
       %div.multiple-correct.correctness{:style => "display: none"}
         %p.entrytext
           = "Correct.\n"
@@ -48,9 +50,9 @@
         %div.entrybox{:answer_id => "entry_#{i+1}", :correct => correct.to_s}
           %div.entrybody
             - if can? :see_answer, test_problem
-              %input{:type=> "checkbox", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i]}
+              %input{:type=> "checkbox", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i], :id=>"#{test_problem.uid}"}
             - else
-              %input{:type=> "checkbox", :name => "#{test_problem.uid}", :value=> 1, :checked=>false}
+              %input{:type=> "checkbox", :name => "#{test_problem.uid}", :value=> 1, :checked=>false, :id=>"#{test_problem.uid}"}
             %p.entrytext
               = test_problem.answer_entrys[i].strip.html_safe
           %div.entryexplain{:style => "display:none"}
