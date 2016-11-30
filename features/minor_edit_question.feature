@@ -9,7 +9,7 @@ Scenario: I edit the question slightly
   Then I should see "Update"
   And I follow "Update"
   And I press "Confirm Update"
-  Then I should see "Which of the following best identifies the four basic operations supported by RDBMS? HTTP Get, Put, Post, Delete CRUD REST"
+  Then I should see "Which of the following best identifies the four basic operations supported by RDBMS?"
 
 Scenario: I edit the question, then I regreted that I was editing too much on this question
   Given I am signed in with uid "1234" and provider "github"
@@ -19,4 +19,4 @@ Scenario: I edit the question, then I regreted that I was editing too much on th
   Then I should see "Update"
   And I follow "Update"
   And I press "Confirm Update"
-  Then I should see "An HTTP request must consist of both a(n) ----- and a(n) ----- CRUD action, database header, cookie URL, wildcard URI, HTTP request method"
+  Then I should see "An HTTP request must consist of both"
