@@ -38,43 +38,71 @@ var Question = {
                 }
 
                 var checkCorrect = function(checkButton) {
-                    // debugger
+
+                    // check if studnet is correct
+                    var correct = true
+                    $(this).parent().find(".entrybox").each(function () {
+                        // debugger
+                        choice_correct = ($(this).attr('correct') == 'true') == $(this).find('input[type="checkbox"]').is(':checked')
+                        correct = correct && choice_correct
+                    })
+
+                    // TO DO: add a ajax call
 
                     $(this).parent().find(".entrybox").each(function() {
-                        // debugger
-                        // debugger
 
                         if ($(this).find('input[type="checkbox"]').is(':checked')){
                             $(this).find('.entryexplain').show();
                             $(this).off("mouseover");
                             $(this).off("mouseleave");
-                            if ($(this).attr('correct') === 'true')
-                                $(this).css('border', '2px solid green');
-                            else
-                                $(this).css('border', '2px solid red');
                         }else{
                             $(this).find('.entryexplain').hide();
                             $(this).on("mouseover", hoverOnEntry);
                             $(this).on("mouseleave", hoverOffEntry);
                         }
-                        // $(this).toggle()
-                    });
 
-                    problemName = $(this).parent().find("input").attr("name")
-
-                    $.ajax({
-                        url: "studentanswers",
-                        type: 'POST',
-                        data: {attempt: attemptRecord, problem_uid:problemName, correctness:result}
                     });
-                    return false;
+                    // debugger
+                    if (correct){
+                        $(this).parent().find(".multiple-correct").css('border', '2px solid green');
+                        $(this).parent().find(".multiple-correct").show();
+                        $(this).parent().find(".multiple-wrong").hide();
+                    }else{
+                        $(this).parent().find(".multiple-wrong").css('border', '2px solid red');
+                        $(this).parent().find(".multiple-correct").hide();
+                        $(this).parent().find(".multiple-wrong").show();
+                    }
+
                 }
 
+                var showCorrect = function (showButton) {
+                    $(this).parent().find(".entrybox").each(function () {
+                        if ($(this).attr('correct') == 'true'){
+                            $(this).find('.entryexplain').show();
+                            $(this).find('input[type = "checkbox"]').prop("checked", true);
+                            $(this).css('border', '2px solid green');
+                            $(this).off("mouseover");
+                            $(this).off("mouseleave");
+                        }else{
+                            $(this).find('.entryexplain').hide();
+                            $(this).find('input[type = "checkbox"]').prop("checked", false);
+                            $(this).css('border', '1px solid grey');
+                            $(this).on("mouseover");
+                            $(this).on("mouseleave");
+                        }
 
+
+                    })
+                }
+
+                question.find(".show-answer").click(showCorrect);
                 question.find(".entrybox").mouseover(hoverOnEntry);
                 question.find(".entrybox").mouseleave(hoverOffEntry);
+                // question.find(".entrybox.correctness").off("mouseover")
+                // question.find(".entrybox.correctness").off("mouseleave")
                 question.find(".entrybox").click(clickOnEntry);
                 question.find(".check-answer").click(checkCorrect);
+
             });
 
         });
