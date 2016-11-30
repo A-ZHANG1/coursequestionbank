@@ -7,6 +7,7 @@
         = image_tag test_problem.question_image, :style => "max-width: 600px;"
     %div.question-entrys
       %div.entrys{:tag => "multiple"}
+        - total_attmep = test_problem.studentanswers.where(:first=>true).length
         - for i in (0..test_problem.answer_entrys.length - 1)
           - correct = test_problem.answer_correct?[i]
           %div.entrybox{:answer_id => "entry_#{i+1}", :correct => correct.to_s}
@@ -15,6 +16,13 @@
                 %input{:type=> "radio", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i], :id=>"#{test_problem.uid}"}
               - else
                 %input{:type=> "radio", :name => "#{test_problem.uid}", :value=> 1, :checked=>false, :id=>"#{test_problem.uid}"}
+
+              - if can? :set_privacy,test_problem
+                %br
+                  - tyied = test_problem.studentanswers.where(:first=>true).where(:attempt=>"entry_#{i+1}").length
+                  - result = tyied * 100.0 / total_attmep
+                  Precentage #{number_to_percentage(result)} , students answered #{tyied} times out of total  #{total_attmep}
+
               %p.entrytext
                 = test_problem.answer_entrys[i].strip.html_safe
             %div.entryexplain{:style => "display:none"}
@@ -24,12 +32,12 @@
                     = "Wrong"
                   - else
                     = test_problem.answer_explanation[i].strip.html_safe
+
       %button{:type => "button", :class => "button-check btn btn-default check-answer"}
         Check Answer
       %button{:type => "button", :class => "button-check btn btn-default show-answer"}
         Show Answer
-      %button{:type => "button", :class => "button-check btn btn-default student-answer", :id=> "yulaobandiaoa"}
-        Student Answer
+
       %div.multiple-correct.correctness{:style => "display: none"}
         %p.entrytext
           = "Correct.\n"

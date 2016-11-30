@@ -71,9 +71,9 @@ class ProblemsController < ApplicationController
       @collections = Collection.where(:access_level => 3)
     end
     # @is_student = cannot? :manage Collections
-    # debugger
-    @problems = Problem.filter(@current_user, session[:filters].clone, Problem.find_by_id(flash[:bump_problem]))
 
+    @problems = Problem.filter(@current_user, session[:filters].clone, Problem.find_by_id(flash[:bump_problem]))
+    # debugger
   end
 
   def new

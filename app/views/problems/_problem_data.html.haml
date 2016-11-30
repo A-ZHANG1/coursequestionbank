@@ -31,6 +31,7 @@
         - elsif problem.obsolete
           = submit_tag 'Obsolete', :class => 'btn btn-default obsolete-button', :disabled => true
 
+
     %div Created #{problem.created_date} by #{problem.instructor.name}
 
     - if can? :manage, problem

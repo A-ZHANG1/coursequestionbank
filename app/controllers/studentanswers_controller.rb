@@ -13,7 +13,8 @@ class StudentanswersController < ApplicationController
       answer.problem_uid = params[:problem_uid]
       answer.instructor_id =  @current_user.id
       answer.created_at = DateTime.current
-
+      # debugger
+      answer.problem_id = Problem.find_by_uid(params[:problem_uid]).id
 
       problem = Studentanswer.where(:problem_uid => params[:problem_uid]).where(:instructor_id =>  @current_user.id)
 
