@@ -73,6 +73,8 @@ class ProblemsController < ApplicationController
     # @is_student = cannot? :manage Collections
     # debugger
     @problems = Problem.filter(@current_user, session[:filters].clone, Problem.find_by_id(flash[:bump_problem]))
+
+    @picturePie = Gchart.pie(:data => [20,10,15,5], :size => '200x100', :labels => ['A 20', 'B 10', 'C 15', 'D 5'])
   end
 
   def new

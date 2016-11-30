@@ -30,7 +30,7 @@
           = submit_tag (problem.obsolete ? 'Obsolete' : 'Mark obsolete'), :class => 'btn btn-default obsolete-button'
         - elsif problem.obsolete
           = submit_tag 'Obsolete', :class => 'btn btn-default obsolete-button', :disabled => true
-
+    = image_tag @picturePie
     %div Created #{problem.created_date} by #{problem.instructor.name}
 
     - if can? :manage, problem
@@ -59,6 +59,7 @@
             =collection.name
         %div.show_checkbox
           = submit_tag "Hide Collections", :id => "show_checkbox_block", :class => "show_checkbox btn btn-default", :title => "hide", :style => 'display: none'
+
 
     - if can?  :bloom_categorize, problem
       %div.bloom-buttons
