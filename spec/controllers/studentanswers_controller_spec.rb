@@ -11,9 +11,9 @@ describe StudentanswersController do
 			expect(answer.instructor_id).to eq(2)
 
 			#@answerList = Studentanswer.where(:problem_uid => 1).where(:instructor_id => 2)
-			expect(answer.first).to eq(false)
+			expect(answer.first).to eq(nil)
 			answer2 = Studentanswer.new(:attempt => "2", :correctness => false, :problem_uid => 1, :instructor_id => 2, :id => 2)
-			expect(answer2.first).to eq(true)
+			expect(answer2.first).to eq(nil)
 		end
 end
 
