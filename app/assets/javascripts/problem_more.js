@@ -12,9 +12,11 @@ var Question = {
                 }
                 var unCheckAll = function(entrysDiv) {
                     $(entrysDiv).find(".entrybox").each(function() {
-                        $(this).on("mouseover", hoverOnEntry);
+
                         $(this).on("mouseleave", hoverOffEntry);
+
                         $(this).mouseleave();
+                        $(this).on("mouseover", hoverOnEntry);
                     });
                 }
                 var clickOnEntry = function(event) {
@@ -63,8 +65,8 @@ var Question = {
 
                     });
                     if (correct){
-                        $(this).parent().find(".multiple-correct").css('border', '2px solid green');
                         $(this).parent().find(".multiple-correct").show();
+                        $(this).parent().find(".multiple-correct").css('border', '2px solid green');
                         $(this).parent().find(".multiple-wrong").hide();
                     }else{
                         $(this).parent().find(".multiple-wrong").css('border', '2px solid red');
