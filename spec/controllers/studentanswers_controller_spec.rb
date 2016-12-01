@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe StudentanswersController do
 
-		describe 'initiate student answer model' do
+		it 'initiate student answer model' do
 			#problem = Problem.create(:is_public => true).id
 			answer = Studentanswer.new(:attempt => "1", :correctness => true, :problem_uid => 1, :instructor_id => 2, :id => 1)
 			expect(answer.attempt).to eq("1")
