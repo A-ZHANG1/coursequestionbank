@@ -38,20 +38,16 @@ var Question = {
                 }
 
                 var checkCorrect = function(checkButton) {
-
-                    // check if studnet is correct
                     var correct = true
                     var attemptRecord = ""
                     $(this).parent().find(".entrybox").each(function () {
                         // debugger
-                        choice_correct = ($(this).attr('correct') == 'true') == $(this).find('input[type="checkbox"]').is(':checked')
+                        choice_correct = ($(this).attr('correct') === 'true') === $(this).find('input[type="checkbox"]').is(':checked')
                         correct = correct && choice_correct;
                         if ($(this).find('input[type="checkbox"]').is(':checked')){
                             attemptRecord =  attemptRecord + $(this).attr("answer_id");
                         }
                     })
-
-                    // TO DO: add a ajax call
 
                     $(this).parent().find(".entrybox").each(function() {
 
@@ -66,7 +62,6 @@ var Question = {
                         }
 
                     });
-                    // debugger
                     if (correct){
                         $(this).parent().find(".multiple-correct").css('border', '2px solid green');
                         $(this).parent().find(".multiple-correct").show();
@@ -77,23 +72,19 @@ var Question = {
                         $(this).parent().find(".multiple-wrong").show();
                     }
 
-                    // debugger
                     problemName = $(this).parent().find("input").attr("name")
 
-                    debugger
                     $.ajax({
                         url: "studentanswers",
                         type: 'POST',
                         data: {attempt: attemptRecord, problem_uid:problemName, correctness:correct}
                     });
                     return false;
-
                 }
-
 
                 var showCorrect = function (showButton) {
                     $(this).parent().find(".entrybox").each(function () {
-                        if ($(this).attr('correct') == 'true'){
+                        if ($(this).attr('correct') === 'true'){
                             $(this).find('.entryexplain').show();
                             $(this).find('input[type = "checkbox"]').prop("checked", true);
                             $(this).css('border', '2px solid green');
@@ -113,8 +104,6 @@ var Question = {
                 question.find(".show-answer").click(showCorrect);
                 question.find(".entrybox").mouseover(hoverOnEntry);
                 question.find(".entrybox").mouseleave(hoverOffEntry);
-                // question.find(".entrybox.correctness").off("mouseover")
-                // question.find(".entrybox.correctness").off("mouseleave")
                 question.find(".entrybox").click(clickOnEntry);
                 question.find(".check-answer").click(checkCorrect);
 
@@ -138,8 +127,6 @@ var Question = {
                         $(this).mouseleave();
                     });
                 }
-                // var attempt;
-
                 var clickOnEntry = function(event) {
                     target = $(event.target);
                     choice = $(this).find(":radio");
@@ -182,9 +169,6 @@ var Question = {
                             $(this).on("mouseover", hoverOnEntry);
                             $(this).on("mouseleave", hoverOffEntry);
                         }
-                        // $(this).toggle()
-
-
 
                     });
                     problemName = $(this).parent().find("input").attr("name")
@@ -242,10 +226,6 @@ var Question = {
                     return false;
 
                 }
-
-                // question.find(".entrybox").mouseover(hoverOnEntry);
-                // question.find(".entrybox").mouseleave(hoverOffEntry);
-                // question.find(".entrybox").click(clickOnEntry);
                 question.find(".entrybox").css('border', "None")
                 question.find(".check-answer").click(checkCorrect)
             });
