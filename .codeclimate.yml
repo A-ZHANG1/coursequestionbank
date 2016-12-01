@@ -46,3 +46,4 @@ exclude_paths:
 - Gemfile.lock
 - Gemfile
 - app/controllers/problems_controller.rb
+- app/models/problem.rb
