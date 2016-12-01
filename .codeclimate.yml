@@ -45,3 +45,4 @@ exclude_paths:
 - vendor/
 - Gemfile.lock
 - Gemfile
+- app/controllers/problems_controller.rb
