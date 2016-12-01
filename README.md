@@ -5,7 +5,7 @@
 <span style="background-color: blue; text-decoration:none; font: Verdana 7px bold; color:white; padding: 2px; margin: 2px;" ><a style="background-color: blue; text-decoration:none; font: Verdana 7px bold; color:white; padding: 2px; margin: 2px;" href="https://www.pivotaltracker.com/n/projects/1544183">PivotalTracker</a></span>
 
 # Status
-Currently, our six-students team (from UC Berkeley CS169) will be working on the development until December 2016.
+Our six-students team (from UC Berkeley CS169) will be working on the development until December 2016.
 
 # User Guide
 See the [Wiki](https://github.com/saasbook/coursequestionbank/wiki).
@@ -16,6 +16,7 @@ See the [Wiki](https://github.com/saasbook/coursequestionbank/wiki).
 `rake db:migrate`
 `rake db:seed`
 `rake db:test:prepare`
+`rake run`
 
 # Deployment
 For Heroku deployment:
