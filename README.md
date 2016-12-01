@@ -6,14 +6,21 @@
 
 # Current Status
 Currently, our six-students team (from Cal CS169) is working on the development.
-## It's now Iteration 3-2.
+## It's now Iteration 4-2.
 Please see ./iterations/README.md for more details.
 
 ## User Guide
 See the [Wiki](https://github.com/saasbook/coursequestionbank/wiki).
 
 ## Running or Testing Locally
-use `rake run` after bundle install and `db:migration`, `db:seed` 
+For local testing:
+`bundle install --without production`
+`rake db:migrate`
+`rake db:seed`
+`rake db:test:prepare`
+
+Forr heroku deployment:
+install ProsgreSQL and Websolr after deployment, otherwise it simply won't work.
 
 ## Deployment
 Currently set up to deploy to Heroku, you need Websolr addon to be installed on Heroku. Websolr worker supposed to periodically re-indexes the questions so that keyword search will work; you can run it manually with `heroku run rake sunspot:solr:reindex`. [Course Question Bank on Heroku](https://coursequestionbank.herokuapp.com/)
