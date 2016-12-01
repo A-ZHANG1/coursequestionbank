@@ -14,7 +14,6 @@ describe StudentanswersController do
 			expect(answer.first).to eq(nil)
 			answer2 = Studentanswer.new(:attempt => "2", :correctness => false, :problem_uid => 1, :instructor_id => 2, :id => 2)
 			expect(answer2.first).to eq(nil)
-<<<<<<< HEAD
     end
 
 
@@ -26,8 +25,5 @@ describe StudentanswersController do
       expect(Studentanswer.all).to eq([])
     end
 
-=======
-		end
->>>>>>> 08b7971bd98ee7e2eaea2aa31e90c368eb65ab12
 end
 
