@@ -168,31 +168,45 @@ class Problem < ActiveRecord::Base
           with(:tag_names, tag)
         end
 
-        if !filters[:problem_type].empty?
-          any_of do
-            filters[:problem_type].each do |sort_param|
-              with(:problem_type, sort_param)
+
+        ["problem_type", "bloom_category"].each do |sub|
+          if !filters["#{sub}"].empty?
+            any_of do
+              filters["#{sub}"].each do |sort_param|
+                with("#{sub}", sort_param)
+              end
             end
           end
         end
 
-        if !filters[:bloom_category].empty?
-          any_of do
-            filters[:bloom_category].each do |category|
-              with(:bloom_category, category)
-            end
-          end
-        end
+        # if !filters[:problem_type].empty?
+        #   any_of do
+        #     filters[:problem_type].each do |sort_param|
+        #       with(:problem_type, sort_param)
+        #     end
+        #   end
+        # end
+        #
+        # if !filters[:bloom_category].empty?
+        #   any_of do
+        #     filters[:bloom_category].each do |category|
+        #       with(:bloom_category, category)
+        #     end
+        #   end
+        # end
 
         if !filters[:collections].empty?
           any_of do
-
             filters[:collections].each do |col|
-              # debugger
               with(:collection_ids, col)
             end
           end
         end
+
+
+
+
+
 
         if !filters[:show_obsolete]
           without(:obsolete, true)

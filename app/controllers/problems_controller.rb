@@ -30,19 +30,28 @@ class ProblemsController < ApplicationController
       session[:filters][:tags] = self.class.parse_list session[:filters][:tags]
     end
 
-    session[:filters][:problem_type] = []
-    if params[:problem_type]
-      params[:problem_type].each do |key, value|
-          session[:filters][:problem_type] << key if value == "1"
-      end
+    ["problem_type", "bloom_category"].each do |sub|
+      session[:filters]["#{sub}"] = []
+      if params["#{sub}"]
+          params["#{sub}"].each do |key, value|
+              session[:filters]["#{sub}"] << key if value == "1"
+          end
+        end
     end
 
-    session[:filters][:bloom_category] = []
-    if params[:bloom_category]
-      params[:bloom_category].each do |key, value|
-          session[:filters][:bloom_category] << key if value == "1"
-      end
-    end
+    # session[:filters][:problem_type] = []
+    # if params[:problem_type]
+    #   params[:problem_type].each do |key, value|
+    #       session[:filters][:problem_type] << key if value == "1"
+    #   end
+    # end
+    #
+    # session[:filters][:bloom_category] = []
+    # if params[:bloom_category]
+    #   params[:bloom_category].each do |key, value|
+    #       session[:filters][:bloom_category] << key if value == "1"
+    #   end
+    # end
 
     session[:filters][:collections] = []
     if params[:collections]
@@ -50,6 +59,7 @@ class ProblemsController < ApplicationController
           session[:filters][:collections] << Integer(key) if value == "1"
       end
     end
+
     if session[:filters][:collections].include?(0)
       session[:filters][:collections] = []
     end
