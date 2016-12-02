@@ -19,10 +19,11 @@ describe StudentanswersController do
 
 		it 'should add to student answer model' do
       # Studentanswer_id = Studentanswer.create()
+			sendRequestData('/studentanswers#create', {:attempt => "entry_1", :correctness => false, :problem_uid => 1, :instructor_id => 2, :id => 2,:first=> true});
 
-			request.env["HTTP_REFERER"] = '/studentanswers'
-			post :create, :attempt => "entry_1", :correctness => false, :problem_uid => 1, :instructor_id => 2, :id => 2,:first=> true
-      expect(Studentanswer.all).to eq([])
+      # request.env["HTTP_REFERER"] = '/studentanswers#create'
+      # post :create, {:attempt => "entry_1", :correctness => false, :problem_uid => 1, :instructor_id => 2, :id => 2,:first=> true}
+      expect(Studentanswer.all.length).to eq(1)
     end
 
 end
