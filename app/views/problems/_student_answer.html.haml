@@ -102,7 +102,10 @@
           = "Correct.\n"
       %div.entryexplain.fillin-wrong{:style => "display: none"}
         %p.entrytext
-          = "Wrong.\n"
+          = "Wrong.\n" + test_problem.answer_entrys[0]
+      %div.entryexplain.fillin-showAnswer{:style => "display: none"}
+        %p.entrytext
+          = "answer is : .\n" + test_problem.answer_entrys[0]
 
 - if test_problem.problem_type == "Group"
   %div.question{:id => "#{test_problem.uid}", :class => "question"}
