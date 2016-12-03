@@ -7,7 +7,7 @@ $(document).ready(function() {
        wrong_cnt = parseInt($(this).find(".allAttemptsWrongAmount").text().trim());
        data_array_str = $(this).find(".entrys_array").text().trim();
        data_array = data_array_str.substring(1, data_array_str.length - 1).split(",");
-       first_success = parseFloat($(this).find(".first_success_rate").text().trim());
+       first_success = parseInt($(this).find(".first_success_rate").text().trim());
        firstGraph("first_graph_" + id, first_success);
        totalGraph("total_graph_" + id, overallAttempts, wrong_cnt);
        entrysGraph("entrys_graph_" + id, data_array);
