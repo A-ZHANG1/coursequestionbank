@@ -1,13 +1,13 @@
 $(document).ready(function() {
 
    $(".stats").each(function() {
-       debugger
+       // debugger
        id = $(this).attr('id').split("_")[1];
-       correct_cnt = parseInt($(this).find(".correct_first_attempts").text().trim());
-       wrong_cnt = parseInt($(this).find(".wrong_first_attempts").text().trim());
+       overallAttempts = parseInt($(this).find(".overallAttempts").text().trim());
+       wrong_cnt = parseInt($(this).find(".allAttemptsWrongAmount").text().trim());
        data_array_str = $(this).find(".entrys_array").text().trim();
        data_array = data_array_str.substring(1, data_array_str.length - 1).split(",");
-       totalGraph("total_graph_" + id, correct_cnt, wrong_cnt);
+       totalGraph("total_graph_" + id, overallAttempts, wrong_cnt);
        entrysGraph("entrys_graph_" + id, data_array);
        $(this).find(".plain_text").hide();
    })
@@ -26,13 +26,17 @@ var entrysGraph = function(divId, entryChoice) {
             text: 'First Attempt Choices'
         },
         yAxis: {
-            type: 'category'
+            type: 'category',
+            title: {
+                text: 'Attempts'
+            }
+
         },
         xAxis: {
             allowDecimals: false,
             min: 0,
             title: {
-                text: 'Attempts'
+                text: ''
             }
         },
 
@@ -53,7 +57,7 @@ var entrysGraph = function(divId, entryChoice) {
     });
 }
 
-var totalGraph = function(divId, correct_cnt, wrong_cnt) {
+var totalGraph = function(divId, overallAttempts, wrong_cnt) {
     Highcharts.chart(divId, {
         chart: {
             type: 'bar'
@@ -67,7 +71,7 @@ var totalGraph = function(divId, correct_cnt, wrong_cnt) {
         yAxis: {
             allowDecimals: false,
             min: 0,
-            max: correct_cnt + wrong_cnt,
+            max: overallAttempts,
             title: {
                 text: 'Attempts'
             }
@@ -82,7 +86,7 @@ var totalGraph = function(divId, correct_cnt, wrong_cnt) {
         },
         series: [{
             name: 'Correct',
-            data: [correct_cnt]
+            data: [overallAttempts - wrong_cnt]
         }, {
             name: 'Wrong',
             data: [wrong_cnt]

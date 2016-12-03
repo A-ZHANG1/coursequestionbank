@@ -140,7 +140,11 @@ class Problem < ActiveRecord::Base
       end
     end
     entrys_array = entrys_attempt.sort.to_h.values
-    return {"first_attempts" => attempts.length, "first_correct" => correct_cnt, "entry_attempts" => entrys_array}
+    overallAttempts = studentanswers.length
+    allAttemptsWrongAmount = studentanswers.where(:correctness => false).length
+
+    return {"first_attempts" => attempts.length, "first_correct" => correct_cnt, "entry_attempts" => entrys_array,
+            "overallAttempts" => overallAttempts, "allAttemptsWrongAmount" => allAttemptsWrongAmount}
   end
 
   def sub_questions

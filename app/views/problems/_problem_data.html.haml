@@ -8,6 +8,13 @@
     - stats = problem.attempt_stats
     %div.stats{:id => "stats_#{problem.id}"}
       %div.plain_text
+        = "overallAttempts:"
+        %p.overallAttempts
+          = stats["overallAttempts"]
+        = "Wrong of All Attempts:"
+        %p.allAttemptsWrongAmount
+          = stats["allAttemptsWrongAmount"]
+
         = "Total First Attempts:"
         %p.total_first_attempts
           = stats["first_attempts"]
