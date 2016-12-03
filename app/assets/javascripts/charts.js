@@ -63,7 +63,7 @@ var totalGraph = function(divId, overallAttempts, wrong_cnt) {
             type: 'bar'
         },
         title: {
-            text: 'First Attempt'
+            text: 'All Attempts'
         },
         xAxis: {
             categories: ['']
