@@ -115,7 +115,7 @@ var totalGraph = function(divId, overallAttempts, wrong_cnt) {
             min: 0,
             max: overallAttempts,
             title: {
-                text: 'First Attempts Count'
+                text: 'Overall Attempts Count'
             }
         },
         legend: {
