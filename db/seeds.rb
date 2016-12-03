@@ -21,15 +21,27 @@ Whitelist.create!(username: @user02.username, provider: "developer", privilege: 
 @user03 = Instructor.create!(username: "stevenwuyinze", uid: "stevenwu", name: "Steven (Yinze) Wu",
                            provider: "developer")
 Whitelist.create!(username: @user03.username, provider: "developer", privilege: "Student")
-# =======
-# Whitelist.create!(username: "hrzlvn", privilege: "admin")
-#
-# # <<<<<<< HEAD
-# # @user04 = Instructor.create!(username: "student_one", uid: "student_one", name: "student_one", provider: "developer")
-# # # Whitelist.create!(username: @user04.username, provider: "developer", privilege: "student")
-# # =======
-# @user05 = Instructor.create!(username: "student", uid: "student", name: "student", provider: "developer")
-# # >>>>>>> 97dbe64914fad6110a01d8b9eb5bd76f4c092473
-# >>>>>>> origin/migration-2
 
-# @user01 = Admin.create!(username)
+@user04 = Instructor.create!(username: "zisudong", uid: "zisudong", name: "Zisu Dong",
+                           provider: "developer")
+Whitelist.create!(username: @user04.username, provider: "developer", privilege: "Student")
+
+@user05 = Instructor.create!(username: "Joseph", uid: "Joseph", name: "Joseph",
+                           provider: "developer")
+Whitelist.create!(username: @user05.username, provider: "developer", privilege: "Student")
+
+@user06 = Instructor.create!(username: "Harry", uid: "Harry", name: "Harry",
+                           provider: "developer")
+Whitelist.create!(username: @user06.username, provider: "developer", privilege: "Student")
+
+@user07 = Instructor.create!(username: "yika", uid: "yika", name: "yika",
+                           provider: "developer")
+Whitelist.create!(username: @user07.username, provider: "developer", privilege: "Student")
+
+@user08 = Instructor.create!(username: "clark", uid: "clark", name: "clark",
+                           provider: "developer")
+Whitelist.create!(username: @user08.username, provider: "developer", privilege: "Student")
+
+@user09 = Instructor.create!(username: "Levin", uid: "Levin", name: "Levin",
+                           provider: "developer")
+Whitelist.create!(username: @user09.username, provider: "developer", privilege: "Admin")
