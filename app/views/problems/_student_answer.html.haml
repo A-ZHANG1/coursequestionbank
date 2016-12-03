@@ -7,7 +7,7 @@
         = image_tag test_problem.question_image, :style => "max-width: 600px;"
     %div.question-entrys
       %div.entrys{:tag => "multiple"}
-        - total_attmep = test_problem.studentanswers.where(:first=>true).length
+
         - for i in (0..test_problem.answer_entrys.length - 1)
           - correct = test_problem.answer_correct?[i]
           %div.entrybox{:answer_id => "entry_#{i+1}", :correct => correct.to_s}
@@ -16,15 +16,6 @@
                 %input{:type=> "radio", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i], :id=>"#{test_problem.uid}"}
               - else
                 %input{:type=> "radio", :name => "#{test_problem.uid}", :value=> 1, :checked=>false, :id=>"#{test_problem.uid}"}
-
-              - if can? :set_privacy,test_problem
-                %br
-                  - tried = test_problem.studentanswers.where(:first=>true).where(:attempt=>"entry_#{i+1}").length
-                  - result = tried * 100.0 / total_attmep
-                  #{number_to_percentage(result)} , #{tried} attempts out of #{total_attmep} total attempts
-                  - data = [tried]
-                  - yulaoban = Gchart.bar(:data => data, :max_value => total_attmep, :size=> '33x50', :bar_colors => '00BFFF', :cht=> 'bhs',:bg=> 'transparent')
-                  = image_tag yulaoban
 
               %p.entrytext
                 = test_problem.answer_entrys[i].strip.html_safe
@@ -56,7 +47,6 @@
       %br
         = image_tag test_problem.question_image, :style => "max-height: 400px;"
     %div.entrys{:tag => "multiple"}
-      - total_attmep = test_problem.studentanswers.where(:first=>true).length
       - for i in (0..test_problem.answer_entrys.length - 1)
         - correct = test_problem.answer_correct?[i]
         %div.entrybox{:answer_id => "entry_#{i+1}", :correct => correct.to_s}
@@ -65,21 +55,6 @@
               %input{:type=> "checkbox", :name => "#{test_problem.uid}", :value=> 1, :checked=>test_problem.answer_correct?[i], :id=>"#{test_problem.uid}"}
             - else
               %input{:type=> "checkbox", :name => "#{test_problem.uid}", :value=> 1, :checked=>false, :id=>"#{test_problem.uid}"}
-
-            - if can? :set_privacy,test_problem
-              %br
-                - tried_ary = test_problem.studentanswers.where(:first=>true)
-                - tried = 0
-                - tried_ary.each do |tryyyy|
-                  - str = tryyyy.attempt.to_s
-                  - if str.include? "#{i+1}"
-                    - tried = tried + 1
-                - result = tried * 100.0 / total_attmep
-                #{number_to_percentage(result)} , #{tried} attempts out of #{total_attmep} total attempts
-                - data = [tried]
-                - yulaoban = Gchart.bar(:data => data, :max_value => total_attmep, :size=> '33x50', :bar_colors => '00BFFF', :cht=> 'bhs',:bg=> 'transparent')
-                = image_tag yulaoban
-
             %p.entrytext
               = test_problem.answer_entrys[i].strip.html_safe
           %div.entryexplain{:style => "display:none"}
@@ -115,16 +90,6 @@
     - else
       %input{:type => "text", :class => "students-answer", :id => "#{test_problem.uid}", :name => "fill-in"}
 
-    - if can? :set_privacy,test_problem
-      %br
-        - tried = test_problem.studentanswers.where(:first=>true).where(:correctness=> true).length
-        - total_attmep =  test_problem.studentanswers.where(:first=>true).length
-        - result = tried * 100.0 / total_attmep
-        #{number_to_percentage(result)} , #{tried} attempts out of #{total_attmep} total attempts
-        - data = [tried]
-        - yulaoban = Gchart.bar(:data => data, :max_value => total_attmep, :size=> '33x50', :bar_colors => '00BFFF', :cht=> 'bhs',:bg=> 'transparent')
-        = image_tag yulaoban
-
     %button{:type => "button", :class => "button-check btn btn-default check-answer"}
       Check Answer
     %button{:type => "button", :class => "button-check btn btn-default show-answer"}
@@ -137,7 +102,10 @@
           = "Correct.\n"
       %div.entryexplain.fillin-wrong{:style => "display: none"}
         %p.entrytext
-          = "Wrong.\n"
+          = "Wrong.\n" + test_problem.answer_entrys[0]
+      %div.entryexplain.fillin-showAnswer{:style => "display: none"}
+        %p.entrytext
+          = "answer is : .\n" + test_problem.answer_entrys[0]
 
 - if test_problem.problem_type == "Group"
   %div.question{:id => "#{test_problem.uid}", :class => "question"}

@@ -14,7 +14,11 @@
 //= require jquery_ujs
 //= require_tree .
 //= require bootstrap-sprockets
+//= require highcharts
+//= require highcharts/highcharts-more
+//= require highcharts/modules/solid-gauge
 //= require zeroclipboard
+//= require highcharts/adapters/standalone-framework
 
 jQuery(document).ready(function() {
 	// $('.maintable').find('.answers').hide(); //Hide/close all containers

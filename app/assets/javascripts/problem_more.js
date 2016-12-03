@@ -150,12 +150,11 @@ var Question = {
                     choice.prop('checked', !checked);
                     result = $(this).attr('correct') === 'true'
                     attemptRecord = $(this).attr("answer_id")
-                    return true;
+
+
                 }
 
                 var checkCorrect = function(checkButton) {
-
-
                     $(this).parent().find(".entrybox").each(function() {
 
                         if ($(this).find('input[type="radio"]').is(':checked')){
@@ -184,12 +183,36 @@ var Question = {
                 }
 
 
+                var showCorrect = function (showButton) {
+                    $(this).parent().find(".entrybox").each(function () {
+                        if ($(this).attr('correct') === 'true'){
+                            $(this).find('.entryexplain').show();
+                            $(this).find('input[type = "checkbox"]').prop("checked", true);
+                            $(this).css('border', '2px solid green');
+                            $(this).off("mouseover");
+                            $(this).off("mouseleave");
+                        }else{
+                            $(this).find('.entryexplain').hide();
+                            $(this).find('input[type = "checkbox"]').prop("checked", false);
+                            $(this).css('border', '1px solid grey');
+                            $(this).on("mouseover");
+                            $(this).on("mouseleave");
+                        }
+                    })
+
+                }
 
 
+                question.find(".show-answer").click(showCorrect);
                 question.find(".entrybox").mouseover(hoverOnEntry);
                 question.find(".entrybox").mouseleave(hoverOffEntry);
                 question.find(".entrybox").click(clickOnEntry);
-                question.find(".check-answer").click(checkCorrect)
+                question.find(".check-answer").click(checkCorrect);
+
+                // question.find(".entrybox").mouseover(hoverOnEntry);
+                // question.find(".entrybox").mouseleave(hoverOffEntry);
+                // question.find(".entrybox").click(clickOnEntry);
+                // question.find(".check-answer").click(checkCorrect)
 
             });
 
@@ -209,14 +232,16 @@ var Question = {
                         $(this).parent().find(".entrybox").css('border', '2px solid green');
                         $(this).parent().find(".fillin-correct").show()
                         $(this).parent().find(".fillin-wrong").hide()
+                        $(this).parent().find(".fillin-showAnswer").hide()
                         result = true;
-                        attemptRecord = $(this).parent().find("p.answer").text()
+                        attemptRecord = "entry_1"
                     }else{
                         $(this).parent().find(".entrybox").css('border', '2px solid red');
                         $(this).parent().find(".fillin-correct").hide()
                         $(this).parent().find(".fillin-wrong").show()
+                        $(this).parent().find(".fillin-showAnswer").hide()
                         result = false;
-                        attemptRecord = "wrong wrong wrong"
+                        attemptRecord = "entry_2"
                     }
                     problemName = $(this).parent().find("input").attr("id")
 
@@ -228,6 +253,16 @@ var Question = {
                     return false;
 
                 }
+
+                var showCorrect = function (showButton) {
+                    $(this).parent().find(".entrybox").css('border', '2px solid green');
+                    $(this).parent().find(".fillin-showAnswer").show()
+                    $(this).parent().find(".fillin-correct").hide()
+                    $(this).parent().find(".fillin-wrong").hide()
+                }
+
+
+                question.find(".show-answer").click(showCorrect);
                 question.find(".entrybox").css('border', "None")
                 question.find(".check-answer").click(checkCorrect)
             });
@@ -269,6 +304,8 @@ var ChangeCollectionsByCheckbox = {
                 return true;
             });
 
+            // question.find(".entrybox").css('border', "None")
+            // question.find(".check-answer").click(checkCorrect)
         });
     }
 

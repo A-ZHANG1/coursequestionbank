@@ -5,7 +5,7 @@ class StudentanswersController < ApplicationController
     # new answer
 
     # debugger
-    if (params[:attempt] != "" )
+    if (params[:attempt] != "" && @current_user.get_privilege == "Student")
 
       answer = Studentanswer.new()
       answer.attempt =  params[:attempt]
