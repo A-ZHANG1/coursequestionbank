@@ -8,6 +8,9 @@
     - stats = problem.attempt_stats
     %div.stats{:id => "stats_#{problem.id}"}
       %div.plain_text
+        = "Successful First Attempt Percentage:"
+        %p.first_success_rate
+          = (1.0 * stats["first_correct"]) / stats["first_attempts"] * 100
         = "overallAttempts:"
         %p.overallAttempts
           = stats["overallAttempts"]
@@ -27,6 +30,8 @@
         = "Entrys Distribution:"
         %p.entrys_array
           = stats["entry_attempts"].to_s
+      %div.first_graph{:id => "first_graph_#{problem.id}"}
+        = "PlaceHolder"
       %div.total_graph{:id => "total_graph_#{problem.id}"}
         = "PlaceHolder"
       %div.entrys_graph{:id => "entrys_graph_#{problem.id}"}
