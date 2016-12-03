@@ -172,9 +172,25 @@ div.edit-collections {
 }
 
 .question {
+  width: 600px;
   font-size: 100%;
   margin-left: 5px;
 }
+
+.stats {
+  width: 280px;
+}
+
+.total_graph {
+  height: 150px;
+  font-size: 80%;
+}
+
+.entrys_graph {
+  height: 350px;
+  font-size: 80%;
+}
+
 .entrys {
   margin-left: 5px;
 }
@@ -184,7 +200,7 @@ div.edit-collections {
   margin: 5px;
   border-radius: 5px;
   border: 1px solid lightgrey;
-  width: 800px;
+  width: 600px;
   //display: inline;
 }
 
@@ -193,7 +209,7 @@ div.edit-collections {
   margin: 5px;
   border-radius: 5px;
   border: 1px solid lightgrey;
-  width: 800px;
+  width: 600px;
   //display: inline;
 }
 
@@ -203,7 +219,7 @@ div.edit-collections {
 }
 //
 p.entrytext{
-  width: 800px;
+  width: 600px;
   margin-left: 5px;
   display: inline;
   //white-space: pre-wrap;
@@ -212,7 +228,7 @@ p.entrytext{
 }
 
 p.questiontext{
-  width: 800px;
+  width: 600px;
   display: inline;
   //white-space: pre-wrap;
   word-wrap: break-word;
@@ -220,7 +236,7 @@ p.questiontext{
 }
 
 pre {
-    width: 790px;
+    width: 595px;
     font-family: Arial, sans-erif;
     font-size: 14px;
     margin-top: 5px;

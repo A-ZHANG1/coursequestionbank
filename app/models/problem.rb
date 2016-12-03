@@ -123,6 +123,26 @@ class Problem < ActiveRecord::Base
     return JSON.parse(json)["global_explanation"]
   end
 
+  def attempt_stats
+    attempts = studentanswers.where(:first=>true)
+    correct_cnt = 0
+    entrys_attempt = {}
+    entrys = answer_entrys
+    entrys_attempt[1] = 0
+    entrys_attempt[2] = 0
+    for i in (3..entrys.length) do
+        entrys_attempt[i] = 0
+    end
+    attempts.each do |answer|
+      correct_cnt += 1 if answer.correctness
+      answer.attempt.split("entry_").each do |entry|
+          entrys_attempt[entry.to_i] += 1 if entry.to_s != ""
+      end
+    end
+    entrys_array = entrys_attempt.sort.to_h.values
+    return {"first_attempts" => attempts.length, "first_correct" => correct_cnt, "entry_attempts" => entrys_array}
+  end
+
   def sub_questions
     # To do: figure out why exactly the question
     if problem_type == "Group"

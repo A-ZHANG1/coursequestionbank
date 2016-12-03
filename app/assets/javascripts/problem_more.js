@@ -210,13 +210,13 @@ var Question = {
                         $(this).parent().find(".fillin-correct").show()
                         $(this).parent().find(".fillin-wrong").hide()
                         result = true;
-                        attemptRecord = $(this).parent().find("p.answer").text()
+                        attemptRecord = "entry_1"
                     }else{
                         $(this).parent().find(".entrybox").css('border', '2px solid red');
                         $(this).parent().find(".fillin-correct").hide()
                         $(this).parent().find(".fillin-wrong").show()
                         result = false;
-                        attemptRecord = "wrong wrong wrong"
+                        attemptRecord = "entry_2"
                     }
                     problemName = $(this).parent().find("input").attr("id")
 

@@ -1,9 +1,12 @@
+%div#graph
+  = "TEST"
+
 %div#filter-sidebar
   = render :partial => 'filter'
 
 %div#filter-content.container-fluid
 
-  = render :partial => 'problem_table', :locals => {:problems => @problems, :columns => [:checkbox, :problem, :tags],
+  = render :partial => 'problem_table', :locals => {:problems => @problems, :columns => [:checkbox, :problem, :stats, :tags],
                                                     :empty_msg => 'No questions matched your search criteria'}
 
 
@@ -14,3 +17,4 @@
           = link_to "View #{n}", problems_path(:per_page => n)
       %div.col-xs-6
         = will_paginate @problems
+

@@ -10,6 +10,7 @@ gem 'googlecharts', :git => 'https://github.com/mattetti/googlecharts.git'
 
 gem 'ruql', :git =>'https://github.com/stevenwuyinze/ruql'
 gem 'omniauth'
+gem "highcharts-rails"
 gem 'cancan'
 gem 'omniauth-github'
 gem 'bootstrap-sass', '~> 3.3.3'
