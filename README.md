@@ -12,6 +12,7 @@ See the [Wiki](https://github.com/saasbook/coursequestionbank/wiki).
 
 # Running or Testing Locally
 ##For local testing:
+`gem install nokogiri`
 `bundle install --without production`
 `rake db:migrate`
 `rake db:seed`
